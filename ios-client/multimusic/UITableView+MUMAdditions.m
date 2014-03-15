@@ -15,7 +15,7 @@
     return [NSString stringWithFormat:@"%@-ReuseIdentifier",[class description]];
 }
 
-- (void)registerClassAndReuseIdentifier:(Class)cellClass {
+- (void)registerClass:(Class)cellClass {
     [self registerClass:cellClass forCellReuseIdentifier:[UITableView classToReuseId:cellClass]];
 }
 

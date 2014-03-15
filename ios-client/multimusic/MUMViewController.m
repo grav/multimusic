@@ -31,7 +31,7 @@
 - (void)loadView {
     [super loadView];
     UITableView *tableView = [UITableView new];
-    [tableView registerClassAndReuseIdentifier:[MUMTrackCell class]];
+    [tableView registerClass:[MUMTrackCell class]];
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];

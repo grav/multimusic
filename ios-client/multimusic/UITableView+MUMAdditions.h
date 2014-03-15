@@ -8,7 +8,7 @@
 @interface UITableView (MUMAdditions)
 
 
-- (void)registerClassAndReuseIdentifier:(Class)cellClass;
+- (void)registerClass:(Class)cellClass;
 
 - (id)dequeueReusableCellWithClass:(Class)class;
 
