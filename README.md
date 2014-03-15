@@ -11,7 +11,7 @@ Components
 Mumu consists of the following components:
 
 - iOS mobile app that supports the various audio sources
-- mumu server, a simple python scripts that reads metadata from all media files in a directory and exposes the metadata and the media files via HTTP
+- mumu server, a simple python scripts that reads metadata from all media files in a directory and exposes the metadata and the media files via HTTP. Transcoding might also be a good idea along the road.
 
 Roadmap
 -------
