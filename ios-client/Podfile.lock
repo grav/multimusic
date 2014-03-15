@@ -1,0 +1,35 @@
+PODS:
+  - DCIntrospect-ARC (0.0.6)
+  - Mantle (1.4.1):
+    - Mantle/extobjc
+  - Mantle/extobjc (1.4.1)
+  - Masonry (0.4.0)
+  - NSArray+Functional (1.0.0)
+  - ReactiveCocoa (2.2.4):
+    - ReactiveCocoa/Core
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/Core (2.2.4):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.2.4)
+  - Reveal-iOS-SDK (1.0.3)
+  - uicontrol-blocks (1.1.0)
+
+DEPENDENCIES:
+  - DCIntrospect-ARC
+  - Mantle
+  - Masonry
+  - NSArray+Functional
+  - ReactiveCocoa
+  - Reveal-iOS-SDK
+  - uicontrol-blocks
+
+SPEC CHECKSUMS:
+  DCIntrospect-ARC: 41cae8dbe48748e77a4466963896df13889df041
+  Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
+  Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
+  NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
+  ReactiveCocoa: 953a45dda30674fe704d1d9c77cc874141742f47
+  Reveal-iOS-SDK: f2525cb560a564fdc086316e89ec45ced6977fd3
+  uicontrol-blocks: b0b8484c05319edda2d07b84c13eb8b66977e2ed
+
+COCOAPODS: 0.29.0

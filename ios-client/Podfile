@@ -1,0 +1,9 @@
+platform :ios, "7.0"
+
+pod 'NSArray+Functional'
+pod 'Mantle'
+pod 'Masonry'
+pod 'ReactiveCocoa'
+pod 'uicontrol-blocks'
+pod 'DCIntrospect-ARC'
+pod 'Reveal-iOS-SDK'
