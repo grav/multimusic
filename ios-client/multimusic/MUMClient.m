@@ -27,7 +27,7 @@
         return tuple.second;
     }] map:^id(NSData *data) {
         NSError *error;
-        return [NSJSONSerialization JSONObjectWithData:data options:nil error:&error];
+        return [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     }] map:^id(NSDictionary *library) {
         NSArray *tracks = library[@"tracks"];
         return [tracks mapUsingBlock:^id(NSDictionary *jsonDictionary) {
