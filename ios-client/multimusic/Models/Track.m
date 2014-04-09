@@ -19,10 +19,11 @@
 
 + (NSDictionary *)directMappings{
     NSArray *keyvals = @[@"filename", @"artist", @"album", @"title"];
-    return [NSMutableDictionary dictionaryWithObject:keyvals forKey:keyvals];
+    return [NSDictionary dictionaryWithObject:keyvals forKey:keyvals];
 }
 
 - (NSString *)asString {
+    if(!self.title) return [self.filename lastPathComponent];
     return [NSString stringWithFormat:@"%@ - %@",self.artist,self.title];
 }
 
