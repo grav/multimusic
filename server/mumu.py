@@ -19,6 +19,7 @@ def serve():
 
 def metadata(path):
     filenames = [path+'/'+filename for filename in os.listdir(path)]
+    filenames = filter(lambda x: x.endswith('mp3'),filenames)
     metas = [kaa.metadata.parse(filename) for filename in filenames]
     metas_filtered = [{k : meta[k] for k in ['artist', 'title','album']} for meta in metas]
     filenames_dict = [{"filename" : filename} for filename in filenames]
