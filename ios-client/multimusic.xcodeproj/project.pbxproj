@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		308A6298FA29AD2FD8E550F2 /* MUMSCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6D624EDE0A8DFD647818 /* MUMSCClient.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
 		308A63FEB7D1E4ADD5F5ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
 		308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A61028EF3CAC69E48D875 /* CoreGraphics.framework */; };
@@ -56,6 +57,7 @@
 		308A66E3CD94B1863C279137 /* multimusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = multimusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A66E61C6A93C96AFED82E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		308A68A4355D044638A0B55E /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
+		308A6948291471F4448FAFE8 /* MUMSCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSCClient.h; sourceTree = "<group>"; };
 		308A69CB887B3924E74CAD24 /* MUMViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMViewModel.m; sourceTree = "<group>"; };
 		308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUMAppDelegate.m; sourceTree = "<group>"; };
 		308A6AF1C93C992122A0F7F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -65,6 +67,7 @@
 		308A6BF38BBDE764F6B5E567 /* MUMClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMClient.h; sourceTree = "<group>"; };
 		308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTrackCell.m; sourceTree = "<group>"; };
 		308A6D1851181E4C29091F41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		308A6D624EDE0A8DFD647818 /* MUMSCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSCClient.m; sourceTree = "<group>"; };
 		308A6D64766DCE1A77B983C5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		308A6F38412041354378C6C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		308A6FA4A329509AA5241706 /* MUMClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMClient.m; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				308A644E81ADA1A4720B086E /* MUMConstants.h */,
 				308A6FA4A329509AA5241706 /* MUMClient.m */,
 				308A6BF38BBDE764F6B5E567 /* MUMClient.h */,
+				308A6D624EDE0A8DFD647818 /* MUMSCClient.m */,
+				308A6948291471F4448FAFE8 /* MUMSCClient.h */,
 			);
 			path = multimusic;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 				308A699D3D62E21B6EB50231 /* MUMTrackCell.m in Sources */,
 				308A6CA0D369645F51E8A615 /* UITableView+MUMAdditions.m in Sources */,
 				308A652104682A75FD91D5C6 /* MUMClient.m in Sources */,
+				308A6298FA29AD2FD8E550F2 /* MUMSCClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

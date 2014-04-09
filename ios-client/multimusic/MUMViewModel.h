@@ -5,11 +5,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class MUMSCClient;
+
 
 @interface MUMViewModel : NSObject
 @property(nonatomic, readonly) NSArray *tracks;
-
-
-
-
+@property (nonatomic, weak) UIViewController *presentingViewController;
 @end

@@ -9,11 +9,17 @@
 #import "MUMAppDelegate.h"
 #import "MUMViewController.h"
 #import "DCIntrospect.h"
+#import "SCSoundCloud.h"
 
 @implementation MUMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    [SCSoundCloud  setClientID:@"7cc559f59cdc1b30f4b2eca5f17513dc"
+                        secret:@"4c37a785c05debd2caf185559f0d22ce"
+                   redirectURL:[NSURL URLWithString:@"multimusic://soundcloud/callback"]];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

@@ -8,10 +8,8 @@
 #import "UITableView+MUMAdditions.h"
 #import "MUMTrackCell.h"
 #import "Track.h"
-#import "Masonry.h"
 #import <AVFoundation/AVFoundation.h>
-#import "ReactiveCocoa.h"
-#import "MUMConstants.h"
+#import "MUMSCClient.h"
 
 @interface MUMViewController ()
 @property (nonatomic, strong) MUMViewModel *viewModel;
@@ -25,7 +23,19 @@
 - (instancetype)init {
     if (!(self = [super init])) return nil;
     self.viewModel = [MUMViewModel new];
+    RAC(self.viewModel,presentingViewController) = [[[self rac_signalForSelector:@selector(viewDidAppear:)]
+            mapReplace:self]
+            distinctUntilChanged];
     return self;
+}
+
+- (void)updateOnClassInjection {
+    @try{
+        [self loadView];
+        [self viewDidAppear:YES];
+    } @catch(NSException *e)  {
+        NSLog(@"EXCEPTION ---- %@",e);
+    }
 }
 
 - (void)loadView {
@@ -42,7 +52,6 @@
 
     RACSignal *dataSignal = RACObserve(self.viewModel,tracks);
     [tableView rac_liftSelector:@selector(reloadWithBang:) withSignalsFromArray:@[dataSignal]];
-
 }
 
 
