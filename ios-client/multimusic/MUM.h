@@ -12,7 +12,7 @@
 @end
 
 @protocol MUMTrack <NSObject>
-@property(nonatomic, copy, readonly) NSString *artist,*title,*trackDescription;
+@property(nonatomic, copy, readonly) NSString *trackDescription;
 - (void)play;
 - (void)stop;
 @end
