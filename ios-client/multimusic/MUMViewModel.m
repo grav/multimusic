@@ -4,14 +4,13 @@
 //
 
 #import "MUMViewModel.h"
-#import "Track.h"
-#import "ReactiveCocoa.h"
-#import "MUMClient.h"
+#import "MUMLocalClient.h"
 #import "MUMSCClient.h"
 
 @interface MUMViewModel ()
 @property(nonatomic, strong, readwrite) NSArray *tracks;
 @property(nonatomic, strong) MUMSCClient *scClient;
+@property(nonatomic, strong) MUMLocalClient *localClient;
 @end
 
 @implementation MUMViewModel {
@@ -21,23 +20,21 @@
 - (instancetype)init {
     if (!(self = [super init])) return nil;
 
-    self.scClient = [MUMSCClient new];
+    self.localClient = [MUMLocalClient new];
 
-    RAC(self,tracks) = [[MUMClient new] getTracks];
-
-    RACSignal *vcSignal = [RACObserve(self, presentingViewController) ignore:nil];
-
-    RACSignal *racSignal = [self.scClient rac_liftSelector:@selector(loginWithPresentingViewController:) withSignalsFromArray:@[vcSignal]];
-
-//    [racSignal takeUntil:<#(RACSignal *)signalTrigger#>]
-
-    [racSignal subscribeNext:^(id x) {
-        NSLog(@"next: %@", x);
-    }                  error:^(NSError *error) {
-        NSLog(@"error: %@", error);
-    }              completed:^{
-        NSLog(@"completed");
+    RACSignal *localTracks = [[self.localClient getTracks] catch:^RACSignal *(NSError *error) {
+        NSLog(@"Error while getting tracks: %@",error);
+        return [RACSignal return:@[]];
     }];
+
+    self.scClient = [MUMSCClient new];
+    RAC(self.scClient,presentingViewController) = RACObserve(self,presentingViewController);
+    RACSignal *scLikes = [self.scClient getTracks];
+
+
+    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes]] map:^id(RACTuple *tuple) {
+       return [tuple.first arrayByAddingObjectsFromArray:tuple.second];
+   }];
 
     return self;
 }

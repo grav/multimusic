@@ -3,28 +3,24 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "Track.h"
+#import "LocalTrack.h"
+#import "MUMLocalClient.h"
 
-@interface Track ()
+@interface LocalTrack ()
 @property (nonatomic, copy, readwrite) NSString *artist, *title, *filename;
 @end
 
-@implementation Track {
+@implementation LocalTrack {
 
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [Track directMappings];
+    return [LocalTrack directMappings];
 }
 
 + (NSDictionary *)directMappings{
     NSArray *keyvals = @[@"filename", @"artist", @"album", @"title"];
     return [NSDictionary dictionaryWithObject:keyvals forKey:keyvals];
-}
-
-- (NSString *)asString {
-    if(!self.title) return [self.filename lastPathComponent];
-    return [NSString stringWithFormat:@"%@ - %@",self.artist,self.title];
 }
 
 - (NSURL *)playbackUrl
@@ -34,12 +30,27 @@
     return [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding : NSUTF8StringEncoding]];
 }
 
+- (void)play {
+    [self.client playTrack:self];
+}
+
+- (void)stop {
+    [self.client stop];
+}
+
+
+- (NSString *)trackDescription
+{
+    if(!self.title) return [self.filename lastPathComponent];
+    return [NSString stringWithFormat:@"%@ - %@",self.artist,self.title];
+}
+
 
 @end
 
-@implementation Track (Stub)
+@implementation LocalTrack (Stub)
 + (instancetype)trackWithArtist:(NSString *)artist title:(NSString *)title {
-    Track *track = [Track new];
+    LocalTrack *track = [LocalTrack new];
     track.artist = artist;
     track.title = title;
     track.filename = @"media/sunshine-riff.mp3";

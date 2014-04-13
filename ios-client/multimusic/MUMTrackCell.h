@@ -5,11 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class Track;
+@class LocalTrack;
 
 
 @interface MUMTrackCell : UITableViewCell
-
-- (void)configure:(Track*)track;
 
 @end

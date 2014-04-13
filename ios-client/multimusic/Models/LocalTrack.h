@@ -6,15 +6,18 @@
 #import <Foundation/Foundation.h>
 #import "Mantle.h"
 #import "MUMConstants.h"
+#import "MUM.h"
 
-@interface Track : MTLModel  <MTLJSONSerializing>
+@class MUMLocalClient;
+
+@interface LocalTrack : MTLModel  <MTLJSONSerializing,MUMTrack>
 @property (nonatomic, copy, readonly) NSString *filename, *artist, *album, *title;
+@property (nonatomic, weak) MUMLocalClient *client;
 
-- (NSString *)asString;
 - (NSURL *)playbackUrl;
 @end
 
-@interface Track (Stub)
+@interface LocalTrack (Stub)
 + (instancetype)trackWithArtist:(NSString *)artist title:(NSString *)title;
 
 

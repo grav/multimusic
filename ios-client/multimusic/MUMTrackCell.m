@@ -4,16 +4,11 @@
 //
 
 #import "MUMTrackCell.h"
-#import "Track.h"
+#import "LocalTrack.h"
 
 
 @implementation MUMTrackCell {
 
 }
-
-- (void)configure:(Track *)track {
-    self.textLabel.text = [track asString];
-}
-
 
 @end

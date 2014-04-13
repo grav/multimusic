@@ -3,18 +3,27 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "MUMClient.h"
-#import "RACSignal.h"
-#import "NSURLConnection+RACSupport.h"
+#import "MUMLocalClient.h"
 #import "MUMConstants.h"
-#import "ReactiveCocoa.h"
 #import "NSArray+Functional.h"
 #import "Mantle.h"
-#import "Track.h"
+#import "LocalTrack.h"
+#import <AVFoundation/AVFoundation.h>
 
-@implementation MUMClient {
+@interface MUMLocalClient ()
+@property(nonatomic, strong) AVPlayer* player;
+@end
+
+@implementation MUMLocalClient {
 
 }
+
+- (void)playTrack:(LocalTrack *)track {
+    self.player = [[AVPlayer alloc] initWithURL:[track playbackUrl]];
+    [self.player play];
+    
+}
+
 
 + (NSURL *)libraryUrl
 {
@@ -22,7 +31,7 @@
 }
 
 - (RACSignal *)getTracks {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[MUMClient libraryUrl]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[MUMLocalClient libraryUrl]];
     RACSignal *tracksSignal = [[[[NSURLConnection rac_sendAsynchronousRequest:request] map:^id(RACTuple *tuple) {
         return tuple.second;
     }] map:^id(NSData *data) {
@@ -32,14 +41,20 @@
         NSArray *tracks = library[@"tracks"];
         return [tracks mapUsingBlock:^id(NSDictionary *jsonDictionary) {
             NSError *error;
-            return [MTLJSONAdapter modelOfClass:[Track class] fromJSONDictionary:jsonDictionary error:&error];
+            LocalTrack * track = [MTLJSONAdapter modelOfClass:[LocalTrack class]
+                                           fromJSONDictionary:jsonDictionary
+                                                        error:&error];
+            track.client = self;
+            return track;
         }];
     }];
-
-
 
     return tracksSignal;
 }
 
 
+- (void)stop {
+    [self.player pause];
+
+}
 @end

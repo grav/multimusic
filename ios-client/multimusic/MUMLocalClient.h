@@ -4,10 +4,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MUM.h"
 
 @class RACSignal;
+@class LocalTrack;
 
 
-@interface MUMClient : NSObject
+@interface MUMLocalClient : NSObject<MUMClient>
+- (void)playTrack:(LocalTrack *)track;
+
 - (RACSignal *)getTracks;
+
+- (void)stop;
 @end

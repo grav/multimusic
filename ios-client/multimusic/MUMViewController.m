@@ -7,13 +7,11 @@
 #import "MUMViewModel.h"
 #import "UITableView+MUMAdditions.h"
 #import "MUMTrackCell.h"
-#import "Track.h"
-#import <AVFoundation/AVFoundation.h>
-#import "MUMSCClient.h"
+#import "LocalTrack.h"
 
 @interface MUMViewController ()
 @property (nonatomic, strong) MUMViewModel *viewModel;
-@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) id<MUMTrack> currentTrack;
 @end
 
 @implementation MUMViewController {
@@ -22,15 +20,20 @@
 
 - (instancetype)init {
     if (!(self = [super init])) return nil;
+    [self setup];
+    return self;
+}
+
+- (void)setup {
     self.viewModel = [MUMViewModel new];
     RAC(self.viewModel,presentingViewController) = [[[self rac_signalForSelector:@selector(viewDidAppear:)]
-            mapReplace:self]
+            mapReplace:self]       //mapReplace -> distinct - will never change
             distinctUntilChanged];
-    return self;
 }
 
 - (void)updateOnClassInjection {
     @try{
+        [self setup];
         [self loadView];
         [self viewDidAppear:YES];
     } @catch(NSException *e)  {
@@ -50,8 +53,19 @@
         make.edges.equalTo(self.view);
     }];
 
-    RACSignal *dataSignal = RACObserve(self.viewModel,tracks);
-    [tableView rac_liftSelector:@selector(reloadWithBang:) withSignalsFromArray:@[dataSignal]];
+    RACSignal *tracks = [RACObserve(self.viewModel,tracks) ignore:nil];
+
+    @weakify(tableview)
+    [tracks subscribeNext:^(id x) {
+        @strongify(tableView)
+        [tableView reloadData];
+    } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    } completed:^{
+        NSLog(@"completed");
+    }];
+
+
 }
 
 
@@ -63,21 +77,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Track *track = self.viewModel.tracks[(NSUInteger) indexPath.row];
+    id<MUMTrack> track = self.viewModel.tracks[(NSUInteger) indexPath.row];
     MUMTrackCell *cell = [tableView dequeueReusableCellWithClass:[MUMTrackCell class]];
-    cell.textLabel.text = [track asString];
+    cell.textLabel.text = track.trackDescription;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Track *track = self.viewModel.tracks[(NSUInteger) indexPath.row];
-    [self play:track];
-}
 
-- (void)play:(Track*)track
-{
-    self.player = [[AVPlayer alloc] initWithURL:[track playbackUrl]];
-    [self.player play];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    id<MUMTrack> track = self.viewModel.tracks[(NSUInteger) indexPath.row];
+    [self.currentTrack stop];
+    self.currentTrack = track;
+    [track play];
 }
 
 @end

@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @class MUMSCClient;
+@class MUMLocalClient;
 
 
 @interface MUMViewModel : NSObject

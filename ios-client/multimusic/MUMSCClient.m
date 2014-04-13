@@ -9,27 +9,54 @@
 #import "SCSoundCloud.h"
 #import "SCUIErrors.h"
 #import "SCLoginViewController.h"
-#import "MUMConstants.h"
+#import "NSArray+Functional.h"
+#import "MTLJSONAdapter.h"
+#import "SCTrack.h"
+#import <AVFoundation/AVFoundation.h>
 
-static const NSString *kSCBaseUrl = @"http://api.soundcloud.com/";
+static NSString *const kDefaultUser = @"betafunk";
+static NSString *const kErrorDomain = @"mydomain";
+static const int kCannotAuthorize = -1;
+static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 @interface MUMSCClient ()
+@property(nonatomic, strong) AVAudioPlayer* player;
 @end
 
 @implementation MUMSCClient {
 
 }
+- (void)playTrack:(SCTrack *)track {
+    @weakify(self)
+    [[self getStreamData:[track streamUrl]] subscribeNext:^(NSData *data) {
+        @strongify(self)
+        NSError *error;
+        self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+        [self.player play];
+    }];
+}
 
 - (RACSignal *)loginWithPresentingViewController:(UIViewController *)viewController {
-    RACSignal *loginSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-        [SCSoundCloud requestAccessWithPreparedAuthorizationURLHandler:^(NSURL *preparedURL){
-            RACSignal *s = [self loginSignalFromViewControllerWithPreparedURL:preparedURL presentingViewController:viewController];
-            [s subscribe:subscriber];
+    if(!viewController) {
+        NSError *error = [NSError errorWithDomain:kErrorDomain
+                                                 code:kCannotAuthorize
+                                             userInfo:@{
+                                                     NSLocalizedDescriptionKey:@"Not authorized, and can't show login-view!"
+                                             }];
+        return [RACSignal error:error];
+    } else {
+        RACSignal *loginSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+            [SCSoundCloud requestAccessWithPreparedAuthorizationURLHandler:^(NSURL *preparedURL){
+                RACSignal *s = [self loginSignalFromViewControllerWithPreparedURL:preparedURL presentingViewController:viewController];
+                [s subscribe:subscriber];
+            }];
+            return nil;
         }];
-        return nil;
-    }];
 
-    return loginSignal;
+        return loginSignal;
+
+    }
+
 }
 
 - (RACSignal *)loginSignalFromViewControllerWithPreparedURL:(NSURL *)preparedURL
@@ -47,39 +74,90 @@ static const NSString *kSCBaseUrl = @"http://api.soundcloud.com/";
                 [subscriber sendError:error];
                 NSLog(@"Ooops, something went wrong: %@", [error localizedDescription]);
             } else {
+                [subscriber sendNext:@YES];
                 [subscriber sendCompleted];
-                NSLog(@"Done!");
+                NSLog(@"Logged in!");
             }
         }];
         [presentingViewController presentViewController:vc animated:YES completion:nil];
         return nil;
     }];
-    return [loginSignal replayLazily];
+    return loginSignal;
 
 }
 
 
-- (RACSignal *)scGet:(NSString*)path
+- (RACSignal *)getStreamData:(NSString*)streamUrl
 {
-    NSString *fullPath = [NSString stringWithFormat:@"%@%@",kSCBaseUrl,path];
+    return [self get:streamUrl completion:^(id <RACSubscriber> subscriber, NSURLResponse *response, NSData *data) {
+        [subscriber sendNext:data];
+        [subscriber sendCompleted];
+    }];
+}
+
+- (RACSignal *)getJSON:(NSString*)path
+{
+    NSString *fullPath = [NSString stringWithFormat:@"%@%@.json",kSCBaseUrl,path];
+    return [self get:fullPath completion:^void(id <RACSubscriber> subscriber, NSURLResponse *response, NSData *data) {
+        NSError *jsonError;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        if (jsonError) {
+            [subscriber sendError:jsonError];
+        } else {
+            RACTuple *result = [RACTuple tupleWithObjectsFromArray:@[response, dict]];
+            [subscriber sendNext:result];
+            [subscriber sendCompleted];
+        }
+    }];
+}
+
+- (RACSignal *)get:(NSString *)fullPath completion:(void (^)(id <RACSubscriber> subscriber, NSURLResponse *, NSData *))completion {
+    
+    SCAccount *account = [SCSoundCloud account];
+
     NSURL *url = [NSURL URLWithString:fullPath];
-    return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+    RACSignal *responseSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         [SCRequest performMethod:SCRequestMethodGET
-                               onResource:url
-                          usingParameters:nil
-                              withAccount:[SCSoundCloud account]
-                   sendingProgressHandler:nil
-                          responseHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-                                // Handle the response
-                                if (error) {
-                                    [subscriber sendError:error];
-                                } else {
-                                    RACTuple *result = [RACTuple tupleWithObjectsFromArray:@[response,data]];
-                                    [subscriber sendNext:result];
-                                    [subscriber sendCompleted];
-                                }
-      }];
+                      onResource:url
+                 usingParameters:nil
+                     withAccount:account
+          sendingProgressHandler:nil
+                 responseHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                     if (error) {
+                         [subscriber sendError:error];
+                     } else {
+                         completion(subscriber, response, data);
+                     }
+
+                 }];
       return nil;
     }];
+    if(!account){
+        return [[[self loginWithPresentingViewController:self.presentingViewController] map:^id(id value) {
+            return responseSignal;
+        }] flatten];
+    } else {
+        return responseSignal;
+    }
+}
+
+- (RACSignal *)getTracks {
+    
+    NSString *path = [NSString stringWithFormat:@"/users/%@/favorites", kDefaultUser];
+    return [[[self getJSON:path] map:^id(RACTuple *tuple) {
+        return tuple.second;
+    }] map:^id(NSArray *likes) {
+        return [likes mapUsingBlock:^id(NSDictionary *d) {
+            NSError *error;
+            SCTrack *track = [MTLJSONAdapter modelOfClass:[SCTrack class] fromJSONDictionary:d error:&error];
+            track.client = self;
+            return track;
+        }];
+    }];
+}
+
+
+- (void)stop {
+    [self.player pause];
 }
 @end

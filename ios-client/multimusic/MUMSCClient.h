@@ -4,7 +4,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MUM.h"
 
-@interface MUMSCClient : NSObject
+@class SCTrack;
+
+@interface MUMSCClient : NSObject<MUMClient>
+@property (nonatomic, weak) UIViewController *presentingViewController;
+
+- (void)playTrack:(SCTrack *)track;
+
 - (RACSignal *)loginWithPresentingViewController:(UIViewController *)viewController;
+
+- (RACSignal *)getStreamData:(NSString *)streamUrl;
+
+- (RACSignal *)getJSON:(NSString *)path;
+
+- (RACSignal *)getTracks;
+
+- (void)stop;
 @end
