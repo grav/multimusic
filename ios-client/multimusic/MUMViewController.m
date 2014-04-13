@@ -55,7 +55,7 @@
 
     RACSignal *tracks = [RACObserve(self.viewModel,tracks) ignore:nil];
 
-    @weakify(tableview)
+    @weakify(tableView)
     [tracks subscribeNext:^(id x) {
         @strongify(tableView)
         [tableView reloadData];
