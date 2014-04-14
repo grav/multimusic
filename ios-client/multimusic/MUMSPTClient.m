@@ -27,9 +27,9 @@ static NSString *const kPlaylistName = @"My likes";
 
 - (instancetype)init {
     if (!(self = [super init])) return nil;
-//    RAC(self,playbackManager) = [self.session map:^id(SPSession *session) {
-//        return [[SPPlaybackManager alloc] initWithPlaybackSession:session];
-//    }];
+    RAC(self,playbackManager) = [self.session map:^id(SPSession *session) {
+        return [[SPPlaybackManager alloc] initWithPlaybackSession:session];
+    }];
     return self;
 }
 
@@ -73,7 +73,7 @@ static NSString *const kPlaylistName = @"My likes";
         return playlist.items;
     }] map:^id(NSArray *items) {
         return [items mapUsingBlock:^id(SPPlaylistItem *playlistItem) {
-            return [SPTTrack trackWithSPTrack:(SPTrack *) playlistItem.item];
+            return [SPTTrack trackWithSPTrack:(SPTrack *) playlistItem.item client:self ];
         }];
     }];
 }
@@ -117,6 +117,19 @@ static NSString *const kPlaylistName = @"My likes";
                                    }];
         return nil;
     }];
+}
+
+
+- (void)playTrack:(SPTTrack *)track{
+    [[self load:track.spTrack] subscribeNext:^(SPTrack *loadedTrack) {
+        [self.playbackManager playTrack:loadedTrack callback:^(NSError *error) {
+            NSLog(@"error playing back %@: %@",track,error);
+        }];
+    }];
+}
+
+- (void)stop{
+    self.playbackManager.isPlaying = NO;
 }
 
 @end

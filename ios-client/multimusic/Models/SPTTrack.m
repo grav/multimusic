@@ -5,18 +5,21 @@
 
 #import "SPTTrack.h"
 #import "SPTrack.h"
+#import "MUMSPTClient.h"
 
 @interface SPTTrack ()
 @property (nonatomic, strong) SPTrack *spTrack;
+@property (nonatomic, weak) MUMSPTClient *client;
 @end
 
 @implementation SPTTrack {
 
 }
 
-+ (instancetype)trackWithSPTrack:(SPTrack *)spTrack {
++ (instancetype)trackWithSPTrack:(SPTrack *)spTrack client:(MUMSPTClient *)client {
     SPTTrack *track = [SPTTrack new];
     track.spTrack = spTrack;
+    track.client = client;
     return track;
 }
 
@@ -26,25 +29,11 @@
 }
 
 - (void)play {
-//    [SPAsyncLoading waitUntilLoaded:self.spTrack timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
-//        [self.playbackManager playTrack:track callback:^(NSError *error) {
-//            [self.activityView stopAnimating];
-//            if (error) {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Play Track"
-//                                                                message:[error localizedDescription]
-//                                                               delegate:nil
-//                                                      cancelButtonTitle:@"OK"
-//                                                      otherButtonTitles:nil];
-//                [alert show];
-//            }
-//
-//        }];
-//    }];
-    NSLog(@"TO BE IMPLEMENTED");
+    [self.client playTrack:self];
 }
 
 - (void)stop {
-    NSLog(@"TO BE IMPLEMENTED");
+    [self.client stop];
 }
 
 

@@ -7,6 +7,7 @@
 #import "MUM.h"
 
 @class SPPlaybackManager;
+@class SPTTrack;
 
 
 @interface MUMSPTClient : NSObject<MUMClient>
@@ -14,4 +15,8 @@
 
 - (RACSignal *)loginSignal;
 - (RACSignal *)playlistWithName:(NSString *)name;
+
+- (void)playTrack:(SPTTrack *)track;
+
+- (void)stop;
 @end

@@ -7,11 +7,12 @@
 #import "MUM.h"
 
 @class SPTrack;
+@class MUMSPTClient;
 
 
 @interface SPTTrack : NSObject<MUMTrack>
 @property (nonatomic, readonly) SPTrack *spTrack;
 
-+ (instancetype)trackWithSPTrack:(SPTrack *)track;
++ (instancetype)trackWithSPTrack:(SPTrack *)track client:(MUMSPTClient *)client;
 
 @end
