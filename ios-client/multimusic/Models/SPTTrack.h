@@ -6,10 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "MUM.h"
 
+@class SPTrack;
+
 
 @interface SPTTrack : NSObject<MUMTrack>
+@property (nonatomic, readonly) SPTrack *spTrack;
 
-
-
++ (instancetype)trackWithSPTrack:(SPTrack *)track;
 
 @end

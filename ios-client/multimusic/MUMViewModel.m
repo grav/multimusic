@@ -34,15 +34,27 @@
     RACSignal *scLikes = [self.scClient getTracks];
 
     self.sptClient = [MUMSPTClient new];
-    RACSignal *sptTracks = [self.sptClient getTracks];
+//    [[self.sptClient playlistWithName:@"My likes"] subscribeNext:^(id x) {
+//        NSLog(@"%@",x);
+//    }
+//                                                           error:^(NSError *error) {
+//                                                               NSLog(@"%@",error);
+//                                                           }
+//                                                       completed:^{
+//                                                           NSLog(@"completed");
+//                                                       }];
 
-    [sptTracks subscribeNext:^(id x) {
-        NSLog(@"%@",x);
-    } error:^(NSError *error) {
-        NSLog(@"%@",error);
-    } completed:^{
-        NSLog(@"completed");
-    }];
+    RAC(self,tracks) = [self.sptClient getTracks];
+
+//    RACSignal *sptTracks = [self.sptClient getTracks];
+//
+//    [sptTracks subscribeNext:^(id x) {
+//        NSLog(@"%@",x);
+//    } error:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    } completed:^{
+//        NSLog(@"completed");
+//    }];
 
 //    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes, sptTracks]] map:^id(RACTuple *tuple) {
 //       return [tuple.first arrayByAddingObjectsFromArray:tuple.second];

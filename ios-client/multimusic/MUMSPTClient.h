@@ -6,6 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "MUM.h"
 
+@class SPPlaybackManager;
+
 
 @interface MUMSPTClient : NSObject<MUMClient>
+@property (nonatomic, readonly) SPPlaybackManager *playbackManager;
+
+- (RACSignal *)loginSignal;
+- (RACSignal *)playlistWithName:(NSString *)name;
 @end
