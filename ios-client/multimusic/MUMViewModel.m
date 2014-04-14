@@ -6,11 +6,13 @@
 #import "MUMViewModel.h"
 #import "MUMLocalClient.h"
 #import "MUMSCClient.h"
+#import "MUMSPTClient.h"
 
 @interface MUMViewModel ()
 @property(nonatomic, strong, readwrite) NSArray *tracks;
 @property(nonatomic, strong) MUMSCClient *scClient;
 @property(nonatomic, strong) MUMLocalClient *localClient;
+@property(nonatomic, strong) MUMSPTClient *sptClient;
 @end
 
 @implementation MUMViewModel {
@@ -31,10 +33,20 @@
     RAC(self.scClient,presentingViewController) = RACObserve(self,presentingViewController);
     RACSignal *scLikes = [self.scClient getTracks];
 
+    self.sptClient = [MUMSPTClient new];
+    RACSignal *sptTracks = [self.sptClient getTracks];
 
-    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes]] map:^id(RACTuple *tuple) {
-       return [tuple.first arrayByAddingObjectsFromArray:tuple.second];
-   }];
+    [sptTracks subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    } error:^(NSError *error) {
+        NSLog(@"%@",error);
+    } completed:^{
+        NSLog(@"completed");
+    }];
+
+//    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes, sptTracks]] map:^id(RACTuple *tuple) {
+//       return [tuple.first arrayByAddingObjectsFromArray:tuple.second];
+//   }];
 
     return self;
 }

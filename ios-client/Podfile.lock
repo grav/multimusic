@@ -1,4 +1,6 @@
 PODS:
+  - CocoaLibSpotify (2.4.5):
+    - libspotify (= 12.1.64)
   - CocoaSoundCloudAPI (1.0.2):
     - NXOAuth2Client (= 1.2.2)
   - CocoaSoundCloudUI (1.0.9):
@@ -49,6 +51,7 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
+  - libspotify (12.1.64)
   - Mantle (1.4.1):
     - Mantle/extobjc
   - Mantle/extobjc (1.4.1)
@@ -66,6 +69,7 @@ PODS:
   - uicontrol-blocks (1.1.0)
 
 DEPENDENCIES:
+  - CocoaLibSpotify
   - CocoaSoundCloudAPI
   - CocoaSoundCloudUI
   - DCIntrospect-ARC
@@ -83,11 +87,13 @@ EXTERNAL SOURCES:
     :git: https://github.com/DyCI/dyci-main.git
 
 SPEC CHECKSUMS:
+  CocoaLibSpotify: 1719f45abb505d14ef84cfe64500b7e4924714b9
   CocoaSoundCloudAPI: 76323652e2e49e15609932ec4bf349f2249d039e
   CocoaSoundCloudUI: 0ba59a3bf331b7de5eca73bb5698cc046dc7d2e4
   DCIntrospect-ARC: 41cae8dbe48748e77a4466963896df13889df041
   dyci: a547f35263983aad987afa301ba0a10d2d160c51
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
+  libspotify: 83337b28ad17bd27a7e7d4ac353e89f72f87bd29
   Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
   NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
