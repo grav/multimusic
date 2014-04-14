@@ -21,11 +21,26 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 @interface MUMSCClient ()
 @property(nonatomic, strong) AVAudioPlayer* player;
+@property (nonatomic, strong) RACSignal *loginSignal;
 @end
 
 @implementation MUMSCClient {
 
 }
+
+- (instancetype)init {
+    if (!(self = [super init])) return nil;
+
+    self.loginSignal = [[[[self rac_signalForSelector:@selector(setPresentingViewController:)] map:^id(RACTuple *tuple) {
+        return tuple.first;
+    }] flattenMap:^RACStream *(UIViewController *viewController) {
+        return [self loginWithPresentingViewController:viewController];
+    }] replayLazily];
+
+    return self;
+}
+
+
 - (void)playTrack:(SCTrack *)track {
     @weakify(self)
     [[self getStreamData:[track streamUrl]] subscribeNext:^(NSData *data) {
@@ -132,19 +147,16 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
                  }];
       return nil;
     }];
-    if(!account){
-        return [[[self loginWithPresentingViewController:self.presentingViewController] map:^id(id value) {
-            return responseSignal;
-        }] flatten];
-    } else {
+
+    return [self.loginSignal flattenMap:^RACStream*(id value) {
         return responseSignal;
-    }
+    }];
 }
 
 - (RACSignal *)getTracks {
     
     NSString *path = [NSString stringWithFormat:@"/users/%@/favorites", kDefaultUser];
-    return [[[self getJSON:path] map:^id(RACTuple *tuple) {
+    return [[[[self getJSON:path] map:^id(RACTuple *tuple) {
         return tuple.second;
     }] map:^id(NSArray *likes) {
         return [likes mapUsingBlock:^id(NSDictionary *d) {
@@ -153,6 +165,9 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
             track.client = self;
             return track;
         }];
+    }] catch:^RACSignal *(NSError *error) {
+        NSLog(@"%@",error);
+        return [RACSignal return:@[]];
     }];
 }
 

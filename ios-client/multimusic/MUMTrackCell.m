@@ -5,9 +5,16 @@
 
 #import "MUMTrackCell.h"
 #import "LocalTrack.h"
+#import "MUM.h"
 
 
 @implementation MUMTrackCell {
+
+}
+
+- (void)configure:(id <MUMTrack>)track {
+    self.imageView.image = [[track class] sourceImage];
+    self.textLabel.text = track.trackDescription;
 
 }
 

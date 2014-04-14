@@ -36,5 +36,9 @@
     [self.client stop];
 }
 
++ (UIImage *)sourceImage {
+    return [UIImage imageNamed:@"spotify"];
+}
+
 
 @end

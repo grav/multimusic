@@ -6,8 +6,11 @@
 #import <Foundation/Foundation.h>
 
 @class LocalTrack;
+@protocol MUMTrack;
 
 
 @interface MUMTrackCell : UITableViewCell
+
+- (void)configure:(id<MUMTrack>)track;
 
 @end

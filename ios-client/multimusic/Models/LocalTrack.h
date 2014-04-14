@@ -14,6 +14,8 @@
 @property (nonatomic, copy, readonly) NSString *filename, *artist, *album, *title;
 @property (nonatomic, weak) MUMLocalClient *client;
 
++ (UIImage *)sourceImage;
+
 - (NSURL *)playbackUrl;
 @end
 

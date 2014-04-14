@@ -19,11 +19,10 @@
 
 }
 
-- (instancetype)init {
+- (instancetype)init{
     if (!(self = [super init])) return nil;
 
     self.localClient = [MUMLocalClient new];
-
     RACSignal *localTracks = [[self.localClient getTracks] catch:^RACSignal *(NSError *error) {
         NSLog(@"Error while getting tracks: %@",error);
         return [RACSignal return:@[]];
@@ -34,31 +33,11 @@
     RACSignal *scLikes = [self.scClient getTracks];
 
     self.sptClient = [MUMSPTClient new];
-//    [[self.sptClient playlistWithName:@"My likes"] subscribeNext:^(id x) {
-//        NSLog(@"%@",x);
-//    }
-//                                                           error:^(NSError *error) {
-//                                                               NSLog(@"%@",error);
-//                                                           }
-//                                                       completed:^{
-//                                                           NSLog(@"completed");
-//                                                       }];
+    RACSignal *sptTracks = [self.sptClient getTracks];
 
-    RAC(self,tracks) = [self.sptClient getTracks];
-
-//    RACSignal *sptTracks = [self.sptClient getTracks];
-//
-//    [sptTracks subscribeNext:^(id x) {
-//        NSLog(@"%@",x);
-//    } error:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    } completed:^{
-//        NSLog(@"completed");
-//    }];
-
-//    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes, sptTracks]] map:^id(RACTuple *tuple) {
-//       return [tuple.first arrayByAddingObjectsFromArray:tuple.second];
-//   }];
+    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes, sptTracks]] map:^id(RACTuple *tuple) {
+       return [[tuple.first arrayByAddingObjectsFromArray:tuple.second] arrayByAddingObjectsFromArray:tuple.third];
+   }];
 
     return self;
 }

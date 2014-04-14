@@ -14,4 +14,5 @@
 @interface SCTrack : MTLModel<MUMTrack,MTLJSONSerializing>
 @property (nonatomic, copy, readonly) NSString *streamUrl, *artist, *title;
 @property (nonatomic, weak) MUMSCClient *client;
+
 @end

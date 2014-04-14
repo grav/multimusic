@@ -47,7 +47,7 @@ static NSString *const kPlaylistName = @"My likes";
        										   loadingPolicy:SPAsyncLoadingManual
        												   error:&error];
 
-        NSLog(@"Logging in...");           [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
+        NSLog(@"Logging in...");
 
         [SPSession sharedSession].delegate = self;
         [[SPSession sharedSession] attemptLoginWithUserName:kSpotifyUsername
@@ -81,7 +81,7 @@ static NSString *const kPlaylistName = @"My likes";
 
 
 - (void)sessionDidLoginSuccessfully:(SPSession *)aSession {
-    NSLog(@"logged in");
+    NSLog(@"Spotify logged in");
 }
 
 - (RACSignal *)playlistWithName:(NSString *)name{
@@ -123,7 +123,9 @@ static NSString *const kPlaylistName = @"My likes";
 - (void)playTrack:(SPTTrack *)track{
     [[self load:track.spTrack] subscribeNext:^(SPTrack *loadedTrack) {
         [self.playbackManager playTrack:loadedTrack callback:^(NSError *error) {
-            NSLog(@"error playing back %@: %@",track,error);
+            if(error){
+                NSLog(@"error playing back %@: %@",track,error);
+            }
         }];
     }];
 }

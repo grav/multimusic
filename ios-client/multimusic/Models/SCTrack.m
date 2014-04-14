@@ -31,4 +31,7 @@
     return [NSString stringWithFormat:@"%@ - %@",self.artist,self.title];
 }
 
++ (UIImage *)sourceImage {
+    return [UIImage imageNamed:@"soundcloud"];
+}
 @end

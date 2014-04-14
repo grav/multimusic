@@ -15,4 +15,5 @@
 @property(nonatomic, copy, readonly) NSString *trackDescription;
 - (void)play;
 - (void)stop;
++ (UIImage*)sourceImage;
 @end

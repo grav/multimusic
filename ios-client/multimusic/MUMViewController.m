@@ -31,6 +31,8 @@
             distinctUntilChanged];
 }
 
+
+
 - (void)updateOnClassInjection {
     @try{
         [self setup];
@@ -79,7 +81,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     id<MUMTrack> track = self.viewModel.tracks[(NSUInteger) indexPath.row];
     MUMTrackCell *cell = [tableView dequeueReusableCellWithClass:[MUMTrackCell class]];
-    cell.textLabel.text = track.trackDescription;
+    [cell configure:track];
     return cell;
 }
 
