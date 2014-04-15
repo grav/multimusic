@@ -6,7 +6,7 @@ PODS:
   - CocoaSoundCloudUI (1.0.9):
     - CocoaSoundCloudAPI (~> 1.0.2)
     - OHAttributedLabel
-  - DCIntrospect-ARC (0.0.6)
+  - DCIntrospect-ARC (0.0.7)
   - dyci (0.1.5.20140124):
     - dyci/Core
     - dyci/Helpers
@@ -59,12 +59,12 @@ PODS:
   - NSArray+Functional (1.0.0)
   - NXOAuth2Client (1.2.2)
   - OHAttributedLabel (3.5.3)
-  - ReactiveCocoa (2.2.4):
+  - ReactiveCocoa (2.3):
     - ReactiveCocoa/Core
     - ReactiveCocoa/no-arc
-  - ReactiveCocoa/Core (2.2.4):
+  - ReactiveCocoa/Core (2.3):
     - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.2.4)
+  - ReactiveCocoa/no-arc (2.3)
   - Reveal-iOS-SDK (1.0.3)
   - uicontrol-blocks (1.1.0)
 
@@ -90,7 +90,7 @@ SPEC CHECKSUMS:
   CocoaLibSpotify: 1719f45abb505d14ef84cfe64500b7e4924714b9
   CocoaSoundCloudAPI: 76323652e2e49e15609932ec4bf349f2249d039e
   CocoaSoundCloudUI: 0ba59a3bf331b7de5eca73bb5698cc046dc7d2e4
-  DCIntrospect-ARC: 41cae8dbe48748e77a4466963896df13889df041
+  DCIntrospect-ARC: bfaf751aa78387777e366364bc85a6c8ec78fbee
   dyci: a547f35263983aad987afa301ba0a10d2d160c51
   libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
   libspotify: 83337b28ad17bd27a7e7d4ac353e89f72f87bd29
@@ -99,7 +99,7 @@ SPEC CHECKSUMS:
   NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
   NXOAuth2Client: 2abb027fb64a9d9a467202e281bb0f2206924661
   OHAttributedLabel: 985e4b57eec0dc6add79179ac47ec888b8a914e7
-  ReactiveCocoa: 953a45dda30674fe704d1d9c77cc874141742f47
+  ReactiveCocoa: 1f6265f9d521923d3efcc37b00722cefc16df269
   Reveal-iOS-SDK: 8e6a6f22a9520437e4a180fe1d4e99f43b75430e
   uicontrol-blocks: b0b8484c05319edda2d07b84c13eb8b66977e2ed
 
