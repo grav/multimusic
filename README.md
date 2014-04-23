@@ -3,8 +3,6 @@ Mumu
 
 Mumu (or Multi Music) is an audio player that is able to playback audio from various sources. This way, you only need one player, no matter where your music comes from.
 
-Currently, the only source supported is the mumu server, but Spotify and Soundcloud support is in the pipeline.
-
 Components
 ----------
 
