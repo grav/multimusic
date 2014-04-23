@@ -8,66 +8,78 @@
 #import "CocoaLibSpotify.h"
 #import "NSArray+Functional.h"
 #import "SpotifyTrack.h"
-#import "SPPlaybackManager.h"
 #import "NSError+MUMAdditions.h"
-
-
-static NSString *const kSpotifyUsername = @"113192706";
 
 static NSString *const kPlaylistName = @"My likes";
 
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
-@property (nonatomic, strong) RACSignal *loginSignal;
-@property (nonatomic, strong) RACSignal *session;
+@property (nonatomic, readonly) RACSignal *session;
 @end
 
 @implementation MUMSpotifyClient {
 
 }
 
-- (instancetype)init {
-    if (!(self = [super init])) return nil;
-    RAC(self,playbackManager) = [self.session map:^id(SPSession *session) {
-        return [[SPPlaybackManager alloc] initWithPlaybackSession:session];
-    }];
-    return self;
-}
-
-
-- (RACSignal *)loginSignal{
-    if(!_loginSignal){
-        NSError *error;
-
-        NSString *passwordFilePath = [NSString stringWithFormat:@"%@/spotify_password.txt",[[NSBundle mainBundle] resourcePath]];
-        NSString *spotifyPassword = [NSString stringWithContentsOfFile:passwordFilePath encoding:NSUTF8StringEncoding error:&error];
-        NSCAssert(!error,@"Error reading from %@: %@", passwordFilePath,error);
-
-        [SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:g_appkey_size]
-       											   userAgent:@"dk.betafunk.splif"
-       										   loadingPolicy:SPAsyncLoadingManual
-       												   error:&error];
-
-        NSLog(@"Logging in...");
-
-        [SPSession sharedSession].delegate = self;
-        [[SPSession sharedSession] attemptLoginWithUserName:kSpotifyUsername
-                                        password:spotifyPassword];
-
-        _loginSignal = [[self rac_signalForSelector:@selector(sessionDidLoginSuccessfully:)] replayLazily];
+- (SPPlaybackManager *)playbackManager {
+    if(!_playbackManager){
+        _playbackManager = [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
     }
-    return _loginSignal;
-
+    return _playbackManager;
 }
 
 - (RACSignal *)session{
-    if(!_session){
-        _session = [[self.loginSignal flattenMap:^RACStream *(id value) {
-            return [self load:[SPSession sharedSession]];
-        }] replayLazily];
-    }
-    return _session;
+    return [[RACSignal return:[SPSession sharedSession]] flattenMap:^RACStream *(SPSession *session) {
+        if(session){
+            return [RACSignal return:session];
+        } else {
+            NSError *error;
+
+            BOOL result = [SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:g_appkey_size]
+           											   userAgent:@"dk.betafunk.splif"
+           										   loadingPolicy:SPAsyncLoadingManual
+           												   error:&error];
+            NSCAssert(result,@"");
+            // TODO - might want to handle error nicer here
+
+
+            NSLog(@"Logging in...");
+            session = [SPSession sharedSession];
+            session.delegate = self;
+
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSDictionary *storedCredentials = [defaults valueForKey:@"SpotifyUsers"];
+            id key = [[storedCredentials allKeys] firstObject];
+
+            // TODO - handle case where storedCredentials is too old!
+            if(key){
+                NSString *pw = storedCredentials[key];
+                [session attemptLoginWithUserName:key existingCredential:pw];
+            } else {
+                // TODO - handle case where user cancels - we'll never complete then!
+
+                [[self rac_signalForSelector:@selector(setPresentingViewController:)] subscribeNext:^(RACTuple *tuple) {
+                    UIViewController *presentingVC = tuple.first;
+                    UIViewController *loginVC = [SPLoginViewController loginControllerForSession:session];
+                    [presentingVC presentViewController:loginVC animated:YES completion:nil];
+                }];
+            }
+            RACSignal *didSucceed = [[self rac_signalForSelector:@selector(sessionDidLoginSuccessfully:)] flattenMap:^RACStream *(RACTuple *tuple) {
+                        return [self load:tuple.first];
+                    }];
+            RACSignal *didFail = [[self rac_signalForSelector:@selector(session:didFailToLoginWithError:)] flattenMap:^RACStream *(RACTuple *tuple) {
+                return [RACSignal error:tuple.second];
+            }];
+
+            return [RACSignal merge:@[didSucceed,didFail]];
+        }
+    }];
 }
+
+- (void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error {
+
+}
+
 
 - (RACSignal *)getTracks {
     return [[[self playlistWithName:kPlaylistName] map:^id(SPPlaylist *playlist) {
@@ -132,5 +144,18 @@ static NSString *const kPlaylistName = @"My likes";
 - (void)stop{
     self.playbackManager.isPlaying = NO;
 }
+
+- (void)session:(SPSession *)aSession didGenerateLoginCredentials:(NSString *)credential forUserName:(NSString *)userName {
+    NSLog(@"didGenerateLoginCreds");
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *storedCredentials = [[defaults valueForKey:@"SpotifyUsers"] mutableCopy];
+
+    if (storedCredentials == nil)
+        storedCredentials = [NSMutableDictionary dictionary];
+
+    [storedCredentials setValue:credential forKey:userName];
+    [defaults setValue:storedCredentials forKey:@"SpotifyUsers"];
+}
+
 
 @end

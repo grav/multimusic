@@ -11,9 +11,8 @@
 
 
 @interface MUMSpotifyClient : NSObject<MUMClient>
-@property (nonatomic, readonly) SPPlaybackManager *playbackManager;
+@property (nonatomic, weak) UIViewController *presentingViewController;
 
-- (RACSignal *)loginSignal;
 - (RACSignal *)playlistWithName:(NSString *)name;
 
 - (void)playTrack:(SpotifyTrack *)track;
