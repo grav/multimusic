@@ -12,11 +12,10 @@
 #import "NSArray+Functional.h"
 #import "MTLJSONAdapter.h"
 #import "SoundCloudTrack.h"
+#import "NSError+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
 
 static NSString *const kDefaultUser = @"betafunk";
-static NSString *const kErrorDomain = @"mydomain";
-static const int kCannotAuthorize = -1;
 static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 @interface MUMSoundCloudClient ()
@@ -55,11 +54,8 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 - (RACSignal *)loginWithPresentingViewController:(UIViewController *)viewController {
     if(!viewController) {
-        NSError *error = [NSError errorWithDomain:kErrorDomain
-                                                 code:kCannotAuthorize
-                                             userInfo:@{
-                                                     NSLocalizedDescriptionKey:@"Not authorized, and can't show login-view!"
-                                             }];
+        NSString *desc = @"Not authorized, and can't show login-view!";
+        NSError *error = [NSError mum_errorWithDescription:desc];
         return [RACSignal error:error];
     } else {
         RACSignal *loginSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
