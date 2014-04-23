@@ -7,6 +7,7 @@
 #import "MUMLocalClient.h"
 #import "MUMSCClient.h"
 #import "MUMSPTClient.h"
+#import "NSArray+Functional.h"
 
 @interface MUMViewModel ()
 @property(nonatomic, strong, readwrite) NSArray *tracks;
@@ -23,19 +24,19 @@
     if (!(self = [super init])) return nil;
 
     self.localClient = [MUMLocalClient new];
-    RACSignal *localTracks = [[self.localClient getTracks] catch:^RACSignal *(NSError *error) {
-        NSLog(@"Error while getting tracks: %@",error);
-        return [RACSignal return:@[]];
-    }];
-
     self.scClient = [MUMSCClient new];
-    RAC(self.scClient,presentingViewController) = RACObserve(self,presentingViewController);
-    RACSignal *scLikes = [self.scClient getTracks];
-
     self.sptClient = [MUMSPTClient new];
-    RACSignal *sptTracks = [self.sptClient getTracks];
 
-    RAC(self,tracks) = [[RACSignal combineLatest:@[localTracks, scLikes, sptTracks]] map:^id(RACTuple *tuple) {
+    NSArray *clients = @[self.localClient,self.scClient,self.sptClient];
+
+    RAC(self.scClient,presentingViewController) = RACObserve(self,presentingViewController);
+
+    RAC(self,tracks) = [[RACSignal combineLatest:[clients mapUsingBlock:^id(id<MUMClient>client) {
+            return [[client getTracks] catch:^RACSignal *(NSError *error) {
+                NSLog(@"Error while getting tracks from %@: %@",client,error);
+                return [RACSignal return:@[]];
+            }];
+        }]] map:^id(RACTuple *tuple) {
        return [[tuple.first arrayByAddingObjectsFromArray:tuple.second] arrayByAddingObjectsFromArray:tuple.third];
    }];
 
