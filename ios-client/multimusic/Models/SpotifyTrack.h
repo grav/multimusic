@@ -7,13 +7,13 @@
 #import "MUM.h"
 
 @class SPTrack;
-@class MUMSPTClient;
+@class MUMSpotifyClient;
 
 
-@interface SPTTrack : NSObject<MUMTrack>
+@interface SpotifyTrack : NSObject<MUMTrack>
 @property (nonatomic, readonly) SPTrack *spTrack;
 
-+ (instancetype)trackWithSPTrack:(SPTrack *)track client:(MUMSPTClient *)client;
++ (instancetype)trackWithSPTrack:(SPTrack *)track client:(MUMSpotifyClient *)client;
 
 
 

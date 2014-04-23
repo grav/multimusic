@@ -7,16 +7,16 @@
 #import "MUM.h"
 
 @class SPPlaybackManager;
-@class SPTTrack;
+@class SpotifyTrack;
 
 
-@interface MUMSPTClient : NSObject<MUMClient>
+@interface MUMSpotifyClient : NSObject<MUMClient>
 @property (nonatomic, readonly) SPPlaybackManager *playbackManager;
 
 - (RACSignal *)loginSignal;
 - (RACSignal *)playlistWithName:(NSString *)name;
 
-- (void)playTrack:(SPTTrack *)track;
+- (void)playTrack:(SpotifyTrack *)track;
 
 - (void)stop;
 @end

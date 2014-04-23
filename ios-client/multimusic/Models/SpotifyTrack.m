@@ -3,21 +3,21 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "SPTTrack.h"
+#import "SpotifyTrack.h"
 #import "SPTrack.h"
-#import "MUMSPTClient.h"
+#import "MUMSpotifyClient.h"
 
-@interface SPTTrack ()
+@interface SpotifyTrack ()
 @property (nonatomic, strong) SPTrack *spTrack;
-@property (nonatomic, weak) MUMSPTClient *client;
+@property (nonatomic, weak) MUMSpotifyClient *client;
 @end
 
-@implementation SPTTrack {
+@implementation SpotifyTrack {
 
 }
 
-+ (instancetype)trackWithSPTrack:(SPTrack *)spTrack client:(MUMSPTClient *)client {
-    SPTTrack *track = [SPTTrack new];
++ (instancetype)trackWithSPTrack:(SPTrack *)spTrack client:(MUMSpotifyClient *)client {
+    SpotifyTrack *track = [SpotifyTrack new];
     track.spTrack = spTrack;
     track.client = client;
     return track;

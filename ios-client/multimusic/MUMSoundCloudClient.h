@@ -6,12 +6,12 @@
 #import <Foundation/Foundation.h>
 #import "MUM.h"
 
-@class SCTrack;
+@class SoundCloudTrack;
 
-@interface MUMSCClient : NSObject<MUMClient>
+@interface MUMSoundCloudClient : NSObject<MUMClient>
 @property (nonatomic, weak) UIViewController *presentingViewController;
 
-- (void)playTrack:(SCTrack *)track;
+- (void)playTrack:(SoundCloudTrack *)track;
 
 - (RACSignal *)loginWithPresentingViewController:(UIViewController *)viewController;
 

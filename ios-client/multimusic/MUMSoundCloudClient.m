@@ -3,7 +3,7 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "MUMSCClient.h"
+#import "MUMSoundCloudClient.h"
 #import "SCRequest.h"
 #import "SCAccount.h"
 #import "SCSoundCloud.h"
@@ -11,7 +11,7 @@
 #import "SCLoginViewController.h"
 #import "NSArray+Functional.h"
 #import "MTLJSONAdapter.h"
-#import "SCTrack.h"
+#import "SoundCloudTrack.h"
 #import <AVFoundation/AVFoundation.h>
 
 static NSString *const kDefaultUser = @"betafunk";
@@ -19,12 +19,12 @@ static NSString *const kErrorDomain = @"mydomain";
 static const int kCannotAuthorize = -1;
 static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
-@interface MUMSCClient ()
+@interface MUMSoundCloudClient ()
 @property(nonatomic, strong) AVAudioPlayer* player;
 @property (nonatomic, strong) RACSignal *loginSignal;
 @end
 
-@implementation MUMSCClient {
+@implementation MUMSoundCloudClient {
 
 }
 
@@ -41,7 +41,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 }
 
 
-- (void)playTrack:(SCTrack *)track {
+- (void)playTrack:(SoundCloudTrack *)track {
     @weakify(self)
     [[self getStreamData:[track streamUrl]] subscribeNext:^(NSData *data) {
         @strongify(self)
@@ -161,7 +161,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     }] map:^id(NSArray *likes) {
         return [likes mapUsingBlock:^id(NSDictionary *d) {
             NSError *error;
-            SCTrack *track = [MTLJSONAdapter modelOfClass:[SCTrack class] fromJSONDictionary:d error:&error];
+            SoundCloudTrack *track = [MTLJSONAdapter modelOfClass:[SoundCloudTrack class] fromJSONDictionary:d error:&error];
             track.client = self;
             return track;
         }];

@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MUMSCClient;
+@class MUMSoundCloudClient;
 @class MUMLocalClient;
 
 

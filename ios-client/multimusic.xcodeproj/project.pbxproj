@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		308A6298FA29AD2FD8E550F2 /* MUMSCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6D624EDE0A8DFD647818 /* MUMSCClient.m */; };
+		308A6298FA29AD2FD8E550F2 /* MUMSoundCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
 		308A63A323AB977E8FE2A6F8 /* spotify_password.txt in Resources */ = {isa = PBXBuildFile; fileRef = 308A6CDED177B7836C48F5EB /* spotify_password.txt */; };
 		308A63FEB7D1E4ADD5F5ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
@@ -18,16 +18,16 @@
 		308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */; };
 		308A6775F7061E6FD7AD19FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
 		308A67B047B56843BBFB3F4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6AF1C93C992122A0F7F0 /* UIKit.framework */; };
-		308A68CE51797EBA8F8F1546 /* SCTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A64C53A3CACF210CF4F96 /* SCTrack.m */; };
+		308A68CE51797EBA8F8F1546 /* SoundCloudTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */; };
 		308A693280D226FCD1A6EF1F /* MUMViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A69CB887B3924E74CAD24 /* MUMViewModel.m */; };
 		308A699D3D62E21B6EB50231 /* MUMTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */; };
 		308A69E503529AD288B0CE5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6AF1C93C992122A0F7F0 /* UIKit.framework */; };
 		308A6A11DEC472299E8A060C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 308A6D64766DCE1A77B983C5 /* Images.xcassets */; };
 		308A6A61E430549A3D0E10FD /* multimusicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A627F7257791F04360FA0 /* multimusicTests.m */; };
-		308A6A9EA74554FEAB2E1BDB /* SPTTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A62891C9D570ABE3E3440 /* SPTTrack.m */; };
+		308A6A9EA74554FEAB2E1BDB /* SpotifyTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A62891C9D570ABE3E3440 /* SpotifyTrack.m */; };
 		308A6ADE3045DCE962ED4E7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 308A6814D25CD3E57C2BD18F /* InfoPlist.strings */; };
 		308A6B9D8B70DFDCF1CE65A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6531580858448E4BEF44 /* main.m */; };
-		308A6C62AA88019F5DFE8975 /* MUMSPTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A688EB68AF2DBC1F1E9AF /* MUMSPTClient.m */; };
+		308A6C62AA88019F5DFE8975 /* MUMSpotifyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A688EB68AF2DBC1F1E9AF /* MUMSpotifyClient.m */; };
 		308A6C8877BC5812AA21D129 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 308A6AAEF284556A03A6133D /* InfoPlist.strings */; };
 		308A6CA0D369645F51E8A615 /* UITableView+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6B5AB5609753EC010B68 /* UITableView+MUMAdditions.m */; };
 		308A6CCB1A2ADFFD50ACE38A /* LocalTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6564A75ED6EAD1875804 /* LocalTrack.m */; };
@@ -51,13 +51,13 @@
 		308A62515EC4C8E4E3FE49FE /* multimusic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "multimusic-Prefix.pch"; sourceTree = "<group>"; };
 		308A6278E7B63863F5E4BC17 /* multimusic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusic-Info.plist"; sourceTree = "<group>"; };
 		308A627F7257791F04360FA0 /* multimusicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = multimusicTests.m; sourceTree = "<group>"; };
-		308A62891C9D570ABE3E3440 /* SPTTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTTrack.m; sourceTree = "<group>"; };
-		308A629E7FDBEFDE5185996F /* SPTTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTTrack.h; sourceTree = "<group>"; };
-		308A6370E59E3A10C5046EAE /* MUMSPTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSPTClient.h; sourceTree = "<group>"; };
+		308A62891C9D570ABE3E3440 /* SpotifyTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyTrack.m; sourceTree = "<group>"; };
+		308A629E7FDBEFDE5185996F /* SpotifyTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyTrack.h; sourceTree = "<group>"; };
+		308A6370E59E3A10C5046EAE /* MUMSpotifyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSpotifyClient.h; sourceTree = "<group>"; };
 		308A63ED69910E2A194C846E /* MUMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMViewController.h; sourceTree = "<group>"; };
 		308A64002E9393CB6F3274C1 /* multimusicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusicTests-Info.plist"; sourceTree = "<group>"; };
 		308A644E81ADA1A4720B086E /* MUMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMConstants.h; sourceTree = "<group>"; };
-		308A64C53A3CACF210CF4F96 /* SCTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTrack.m; sourceTree = "<group>"; };
+		308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundCloudTrack.m; sourceTree = "<group>"; };
 		308A6531580858448E4BEF44 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		308A654E8792FB72652974F6 /* multimusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = multimusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A6564A75ED6EAD1875804 /* LocalTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTrack.m; sourceTree = "<group>"; };
@@ -66,10 +66,10 @@
 		308A65C12B5B89DBC21C0413 /* MUMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMViewController.m; sourceTree = "<group>"; };
 		308A66E3CD94B1863C279137 /* multimusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = multimusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A66E61C6A93C96AFED82E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		308A68590BEA5F92E4A068B0 /* SCTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTrack.h; sourceTree = "<group>"; };
-		308A688EB68AF2DBC1F1E9AF /* MUMSPTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSPTClient.m; sourceTree = "<group>"; };
+		308A68590BEA5F92E4A068B0 /* SoundCloudTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCloudTrack.h; sourceTree = "<group>"; };
+		308A688EB68AF2DBC1F1E9AF /* MUMSpotifyClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSpotifyClient.m; sourceTree = "<group>"; };
 		308A68A4355D044638A0B55E /* LocalTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTrack.h; sourceTree = "<group>"; };
-		308A6948291471F4448FAFE8 /* MUMSCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSCClient.h; sourceTree = "<group>"; };
+		308A6948291471F4448FAFE8 /* MUMSoundCloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSoundCloudClient.h; sourceTree = "<group>"; };
 		308A69CB887B3924E74CAD24 /* MUMViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMViewModel.m; sourceTree = "<group>"; };
 		308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUMAppDelegate.m; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		308A6CDED177B7836C48F5EB /* spotify_password.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spotify_password.txt; sourceTree = SOURCE_ROOT; };
 		308A6CE2726C9401D22875EB /* MUM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUM.h; sourceTree = "<group>"; };
 		308A6D1851181E4C29091F41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		308A6D624EDE0A8DFD647818 /* MUMSCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSCClient.m; sourceTree = "<group>"; };
+		308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSoundCloudClient.m; sourceTree = "<group>"; };
 		308A6D64766DCE1A77B983C5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		308A6F38412041354378C6C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		308A6FA4A329509AA5241706 /* MUMLocalClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMLocalClient.m; sourceTree = "<group>"; };
@@ -161,10 +161,10 @@
 			children = (
 				308A6564A75ED6EAD1875804 /* LocalTrack.m */,
 				308A68A4355D044638A0B55E /* LocalTrack.h */,
-				308A64C53A3CACF210CF4F96 /* SCTrack.m */,
-				308A68590BEA5F92E4A068B0 /* SCTrack.h */,
-				308A62891C9D570ABE3E3440 /* SPTTrack.m */,
-				308A629E7FDBEFDE5185996F /* SPTTrack.h */,
+				308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */,
+				308A68590BEA5F92E4A068B0 /* SoundCloudTrack.h */,
+				308A62891C9D570ABE3E3440 /* SpotifyTrack.m */,
+				308A629E7FDBEFDE5185996F /* SpotifyTrack.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -209,11 +209,11 @@
 				308A644E81ADA1A4720B086E /* MUMConstants.h */,
 				308A6FA4A329509AA5241706 /* MUMLocalClient.m */,
 				308A6BF38BBDE764F6B5E567 /* MUMLocalClient.h */,
-				308A6D624EDE0A8DFD647818 /* MUMSCClient.m */,
-				308A6948291471F4448FAFE8 /* MUMSCClient.h */,
+				308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */,
+				308A6948291471F4448FAFE8 /* MUMSoundCloudClient.h */,
 				308A6CE2726C9401D22875EB /* MUM.h */,
-				308A688EB68AF2DBC1F1E9AF /* MUMSPTClient.m */,
-				308A6370E59E3A10C5046EAE /* MUMSPTClient.h */,
+				308A688EB68AF2DBC1F1E9AF /* MUMSpotifyClient.m */,
+				308A6370E59E3A10C5046EAE /* MUMSpotifyClient.h */,
 				308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */,
 				308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */,
 			);
@@ -353,10 +353,10 @@
 				308A699D3D62E21B6EB50231 /* MUMTrackCell.m in Sources */,
 				308A6CA0D369645F51E8A615 /* UITableView+MUMAdditions.m in Sources */,
 				308A652104682A75FD91D5C6 /* MUMLocalClient.m in Sources */,
-				308A6298FA29AD2FD8E550F2 /* MUMSCClient.m in Sources */,
-				308A68CE51797EBA8F8F1546 /* SCTrack.m in Sources */,
-				308A6C62AA88019F5DFE8975 /* MUMSPTClient.m in Sources */,
-				308A6A9EA74554FEAB2E1BDB /* SPTTrack.m in Sources */,
+				308A6298FA29AD2FD8E550F2 /* MUMSoundCloudClient.m in Sources */,
+				308A68CE51797EBA8F8F1546 /* SoundCloudTrack.m in Sources */,
+				308A6C62AA88019F5DFE8975 /* MUMSpotifyClient.m in Sources */,
+				308A6A9EA74554FEAB2E1BDB /* SpotifyTrack.m in Sources */,
 				308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

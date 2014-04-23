@@ -3,11 +3,11 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "SCTrack.h"
-#import "MUMSCClient.h"
+#import "SoundCloudTrack.h"
+#import "MUMSoundCloudClient.h"
 
 
-@implementation SCTrack {
+@implementation SoundCloudTrack {
 
 }
 

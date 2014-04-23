@@ -3,11 +3,11 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "MUMSPTClient.h"
+#import "MUMSpotifyClient.h"
 #include "appkey.c"
 #import "CocoaLibSpotify.h"
 #import "NSArray+Functional.h"
-#import "SPTTrack.h"
+#import "SpotifyTrack.h"
 #import "SPPlaybackManager.h"
 
 
@@ -15,13 +15,13 @@ static NSString *const kSpotifyUsername = @"113192706";
 
 static NSString *const kPlaylistName = @"My likes";
 
-@interface MUMSPTClient () <SPSessionDelegate>
+@interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
 @property (nonatomic, strong) RACSignal *loginSignal;
 @property (nonatomic, strong) RACSignal *session;
 @end
 
-@implementation MUMSPTClient {
+@implementation MUMSpotifyClient {
 
 }
 
@@ -73,7 +73,7 @@ static NSString *const kPlaylistName = @"My likes";
         return playlist.items;
     }] map:^id(NSArray *items) {
         return [items mapUsingBlock:^id(SPPlaylistItem *playlistItem) {
-            return [SPTTrack trackWithSPTrack:(SPTrack *) playlistItem.item client:self ];
+            return [SpotifyTrack trackWithSPTrack:(SPTrack *) playlistItem.item client:self];
         }];
     }];
 }
@@ -120,7 +120,7 @@ static NSString *const kPlaylistName = @"My likes";
 }
 
 
-- (void)playTrack:(SPTTrack *)track{
+- (void)playTrack:(SpotifyTrack *)track{
     [[self load:track.spTrack] subscribeNext:^(SPTrack *loadedTrack) {
         [self.playbackManager playTrack:loadedTrack callback:^(NSError *error) {
             if(error){

@@ -8,11 +8,11 @@
 #import "MTLJSONAdapter.h"
 #import "MUM.h"
 
-@class MUMSCClient;
+@class MUMSoundCloudClient;
 
 
-@interface SCTrack : MTLModel<MUMTrack,MTLJSONSerializing>
+@interface SoundCloudTrack : MTLModel<MUMTrack,MTLJSONSerializing>
 @property (nonatomic, copy, readonly) NSString *streamUrl, *artist, *title;
-@property (nonatomic, weak) MUMSCClient *client;
+@property (nonatomic, weak) MUMSoundCloudClient *client;
 
 @end

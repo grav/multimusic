@@ -5,8 +5,8 @@
 
 #import "MUMViewModel.h"
 #import "MUMLocalClient.h"
-#import "MUMSCClient.h"
-#import "MUMSPTClient.h"
+#import "MUMSoundCloudClient.h"
+#import "MUMSpotifyClient.h"
 #import "NSArray+Functional.h"
 
 @interface MUMViewModel ()
@@ -20,12 +20,12 @@
 - (instancetype)init{
     if (!(self = [super init])) return nil;
 
-    MUMSCClient *mumscClient = [MUMSCClient new];
-    RAC(mumscClient,presentingViewController) = RACObserve(self,presentingViewController);
+    MUMSoundCloudClient *soundCloudClient = [MUMSoundCloudClient new];
+    RAC(soundCloudClient,presentingViewController) = RACObserve(self,presentingViewController);
 
     MUMLocalClient *localClient = [MUMLocalClient new];
-    MUMSPTClient *mumsptClient = [MUMSPTClient new];
-    NSArray *clients = @[mumscClient, localClient, mumsptClient];
+    MUMSpotifyClient *spotifyClient = [MUMSpotifyClient new];
+    NSArray *clients = @[soundCloudClient, localClient, spotifyClient];
 
 
     RAC(self,tracks) = [[RACSignal combineLatest:[clients mapUsingBlock:^id(id<MUMClient>client) {
