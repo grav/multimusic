@@ -1,7 +1,7 @@
 Mumu
 ==========
 
-Mumu (or Multi Music) is an audio player that is able to playback audio from various sources. This way, you only need one player, no matter where your music comes from.
+Mumu (or Multi Music) is an audio player that is able to play back audio from various sources. This way, you only need one player, no matter where your music comes from.
 
 Components
 ----------
