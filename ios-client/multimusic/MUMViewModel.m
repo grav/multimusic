@@ -25,6 +25,8 @@
 
     MUMLocalClient *localClient = [MUMLocalClient new];
 
+
+    // TODO - stack up requests for presenting a login dialog somehow ...
     MUMSpotifyClient *spotifyClient = [MUMSpotifyClient new];
     RAC(spotifyClient,presentingViewController) = RACObserve(self,presentingViewController);
 
