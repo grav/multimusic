@@ -21,11 +21,12 @@
     if (!(self = [super init])) return nil;
 
     MUMSCClient *mumscClient = [MUMSCClient new];
+    RAC(mumscClient,presentingViewController) = RACObserve(self,presentingViewController);
+
     MUMLocalClient *localClient = [MUMLocalClient new];
     MUMSPTClient *mumsptClient = [MUMSPTClient new];
     NSArray *clients = @[mumscClient, localClient, mumsptClient];
 
-    RAC(mumscClient,presentingViewController) = RACObserve(self,presentingViewController);
 
     RAC(self,tracks) = [[RACSignal combineLatest:[clients mapUsingBlock:^id(id<MUMClient>client) {
             return [[client getTracks] catch:^RACSignal *(NSError *error) {
