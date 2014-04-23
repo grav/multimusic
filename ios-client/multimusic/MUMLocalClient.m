@@ -9,6 +9,7 @@
 #import "Mantle.h"
 #import "LocalTrack.h"
 #import "NSError+MUMAdditions.h"
+#import "NSURLConnection+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface MUMLocalClient ()
@@ -33,18 +34,7 @@
 
 - (RACSignal *)getTracks {
     NSURLRequest *request = [NSURLRequest requestWithURL:[MUMLocalClient libraryUrl]];
-    RACSignal *tracksSignal = [[[[NSURLConnection rac_sendAsynchronousRequest:request] flattenMap:^id(RACTuple *tuple) {
-        RACTupleUnpack(NSHTTPURLResponse *response,NSData *data) = tuple;
-        if(response.statusCode>=400){
-            NSString *desc = [NSString stringWithFormat:@"Got status code %d from local server %@",response.statusCode,[MUMLocalClient libraryUrl]];
-            return [RACSignal error:[NSError mum_errorWithDescription:desc]];
-        } else {
-            return [RACSignal return:data];
-        }
-    }] map:^id(NSData *data) {
-        NSError *error;
-        return [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-    }] map:^id(NSDictionary *library) {
+    RACSignal *tracksSignal = [[NSURLConnection rac_sendAsynchronousJSONRequest:request]  map:^id(NSDictionary *library) {
         NSArray *tracks = library[@"tracks"];
         return [tracks mapUsingBlock:^id(NSDictionary *jsonDictionary) {
             NSError *error;

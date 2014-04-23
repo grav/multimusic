@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */; };
 		308A6298FA29AD2FD8E550F2 /* MUMSoundCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
 		308A63A323AB977E8FE2A6F8 /* spotify_password.txt in Resources */ = {isa = PBXBuildFile; fileRef = 308A6CDED177B7836C48F5EB /* spotify_password.txt */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		308A605A668428A112F1C2DE /* NSURLConnection+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A6080D5D912D1E90D6E58 /* UITableView+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A61028EF3CAC69E48D875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MUMAdditions.m"; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		308A63ED69910E2A194C846E /* MUMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMViewController.h; sourceTree = "<group>"; };
 		308A64002E9393CB6F3274C1 /* multimusicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusicTests-Info.plist"; sourceTree = "<group>"; };
 		308A644E81ADA1A4720B086E /* MUMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMConstants.h; sourceTree = "<group>"; };
+		308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundCloudTrack.m; sourceTree = "<group>"; };
 		308A6531580858448E4BEF44 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		308A654E8792FB72652974F6 /* multimusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = multimusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,6 +219,8 @@
 				308A6370E59E3A10C5046EAE /* MUMSpotifyClient.h */,
 				308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */,
 				308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */,
+				308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */,
+				308A605A668428A112F1C2DE /* NSURLConnection+MUMAdditions.h */,
 			);
 			path = multimusic;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 				308A6C62AA88019F5DFE8975 /* MUMSpotifyClient.m in Sources */,
 				308A6A9EA74554FEAB2E1BDB /* SpotifyTrack.m in Sources */,
 				308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */,
+				308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
