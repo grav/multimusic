@@ -14,7 +14,7 @@ Mumu consists of the following components:
 Roadmap
 -------
 
-Mumu will eventually support more sources throught various APIs, such as Deezer, Wimp, ...
+Mumu will eventually support more sources throught various APIs, such as Deezer, Wimp, iTunes library ...
 
 Also, search across the different channels is planned.
 
