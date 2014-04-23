@@ -102,29 +102,33 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 - (RACSignal *)getStreamData:(NSString*)streamUrl
 {
-    return [self get:streamUrl completion:^(id <RACSubscriber> subscriber, NSURLResponse *response, NSData *data) {
-        [subscriber sendNext:data];
-        [subscriber sendCompleted];
+    return [[self get:streamUrl] map:^id(RACTuple *tuple) {
+        return tuple.second;
     }];
 }
 
 - (RACSignal *)getJSON:(NSString*)path
 {
     NSString *fullPath = [NSString stringWithFormat:@"%@%@.json",kSCBaseUrl,path];
-    return [self get:fullPath completion:^void(id <RACSubscriber> subscriber, NSURLResponse *response, NSData *data) {
+    return [[self get:fullPath] flattenMap:^id(RACTuple *tuple) {
+        RACTupleUnpack(NSHTTPURLResponse *response, NSData *data) = tuple;
+        if(response.statusCode>=400){
+            NSString *desc = [NSString stringWithFormat:@"Got http status code %d from client %@ on request %@",response.statusCode,self,fullPath];
+            NSError *error = [NSError mum_errorWithDescription:desc];
+            return [RACSignal error:error];    
+        }
+        
         NSError *jsonError;
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-        if (jsonError) {
-            [subscriber sendError:jsonError];
-        } else {
-            RACTuple *result = [RACTuple tupleWithObjectsFromArray:@[response, dict]];
-            [subscriber sendNext:result];
-            [subscriber sendCompleted];
+
+        if(jsonError){
+            return [RACSignal error:jsonError];
         }
+        return [RACSignal return:dict];
     }];
 }
 
-- (RACSignal *)get:(NSString *)fullPath completion:(void (^)(id <RACSubscriber> subscriber, NSURLResponse *, NSData *))completion {
+- (RACSignal *)get:(NSString *)fullPath {
 
     NSURL *url = [NSURL URLWithString:fullPath];
     RACSignal *responseSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
@@ -138,7 +142,8 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
                      if (error) {
                          [subscriber sendError:error];
                      } else {
-                         completion(subscriber, response, data);
+                         [subscriber sendNext:RACTuplePack(response,data)];
+                         [subscriber sendCompleted];
                      }
 
                  }];
@@ -153,9 +158,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 - (RACSignal *)getTracks {
     
     NSString *path = [NSString stringWithFormat:@"/users/%@/favorites", kDefaultUser];
-    return [[[[self getJSON:path] map:^id(RACTuple *tuple) {
-        return tuple.second;
-    }] map:^id(NSArray *likes) {
+    return [[[self getJSON:path] map:^id(NSArray *likes) {
         return [likes mapUsingBlock:^id(NSDictionary *d) {
             NSError *error;
             SoundCloudTrack *track = [MTLJSONAdapter modelOfClass:[SoundCloudTrack class] fromJSONDictionary:d error:&error];
