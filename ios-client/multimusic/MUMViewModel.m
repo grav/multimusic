@@ -11,9 +11,6 @@
 
 @interface MUMViewModel ()
 @property(nonatomic, strong, readwrite) NSArray *tracks;
-@property(nonatomic, strong) MUMSCClient *scClient;
-@property(nonatomic, strong) MUMLocalClient *localClient;
-@property(nonatomic, strong) MUMSPTClient *sptClient;
 @end
 
 @implementation MUMViewModel {
@@ -23,13 +20,12 @@
 - (instancetype)init{
     if (!(self = [super init])) return nil;
 
-    self.localClient = [MUMLocalClient new];
-    self.scClient = [MUMSCClient new];
-    self.sptClient = [MUMSPTClient new];
+    MUMSCClient *mumscClient = [MUMSCClient new];
+    MUMLocalClient *localClient = [MUMLocalClient new];
+    MUMSPTClient *mumsptClient = [MUMSPTClient new];
+    NSArray *clients = @[mumscClient, localClient, mumsptClient];
 
-    NSArray *clients = @[self.localClient,self.scClient,self.sptClient];
-
-    RAC(self.scClient,presentingViewController) = RACObserve(self,presentingViewController);
+    RAC(mumscClient,presentingViewController) = RACObserve(self,presentingViewController);
 
     RAC(self,tracks) = [[RACSignal combineLatest:[clients mapUsingBlock:^id(id<MUMClient>client) {
             return [[client getTracks] catch:^RACSignal *(NSError *error) {
@@ -37,8 +33,10 @@
                 return [RACSignal return:@[]];
             }];
         }]] map:^id(RACTuple *tuple) {
-       return [[tuple.first arrayByAddingObjectsFromArray:tuple.second] arrayByAddingObjectsFromArray:tuple.third];
-   }];
+       return [tuple.allObjects reduceUsingBlock:^id(id aggregation, id obj) {
+           return [aggregation arrayByAddingObjectsFromArray:obj];
+       } initialAggregation:@[]];
+    }];
 
     return self;
 }
