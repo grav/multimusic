@@ -9,6 +9,7 @@
 #import "NSArray+Functional.h"
 #import "SpotifyTrack.h"
 #import "SPPlaybackManager.h"
+#import "NSError+MUMAdditions.h"
 
 
 static NSString *const kSpotifyUsername = @"113192706";
@@ -109,9 +110,7 @@ static NSString *const kPlaylistName = @"My likes";
                                        } else {
                                            NSCAssert(notLoadedItems.count>0,@"");
                                            NSString *string = [NSString stringWithFormat:@"Could not load %@",thing];
-                                           NSError *error = [NSError errorWithDomain:@"foo"
-                                                                                code:-1
-                                                                            userInfo:@{NSLocalizedDescriptionKey: string}];
+                                           NSError *error = [NSError mum_errorWithDescription:string];
                                            [subscriber sendError:error];
                                        }
                                    }];
