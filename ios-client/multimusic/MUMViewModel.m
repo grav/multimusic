@@ -24,7 +24,10 @@
     RAC(soundCloudClient,presentingViewController) = RACObserve(self,presentingViewController);
 
     MUMLocalClient *localClient = [MUMLocalClient new];
+
     MUMSpotifyClient *spotifyClient = [MUMSpotifyClient new];
+    RAC(spotifyClient,presentingViewController) = RACObserve(self,presentingViewController);
+
     NSArray *clients = @[soundCloudClient, localClient, spotifyClient];
 
 
