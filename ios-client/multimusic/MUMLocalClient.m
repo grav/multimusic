@@ -8,6 +8,7 @@
 #import "NSArray+Functional.h"
 #import "Mantle.h"
 #import "LocalTrack.h"
+#import "NSError+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface MUMLocalClient ()
@@ -32,7 +33,17 @@
 
 - (RACSignal *)getTracks {
     NSURLRequest *request = [NSURLRequest requestWithURL:[MUMLocalClient libraryUrl]];
-    RACSignal *tracksSignal = [[[[NSURLConnection rac_sendAsynchronousRequest:request] map:^id(RACTuple *tuple) {
+    RACSignal *tracksSignal = [[[[NSURLConnection rac_sendAsynchronousRequest:request] flattenMap:^id(RACTuple *tuple) {
+        RACTupleUnpack(NSURLResponse *response,NSData *data) = tuple;
+        if([response isKindOfClass:[NSHTTPURLResponse class]]){
+            NSHTTPURLResponse *httpurlResponse = (NSHTTPURLResponse *) response;
+            if(httpurlResponse.statusCode>=400){
+                NSString *desc = [NSString stringWithFormat:@"Got status code %d from local server %@",httpurlResponse.statusCode,[MUMLocalClient libraryUrl]];
+                return [RACSignal error:[NSError mum_errorWithDescription:desc]];
+            } else {
+                return [RACSignal return:data];
+            }
+        }
         return tuple.second;
     }] map:^id(NSData *data) {
         NSError *error;

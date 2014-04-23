@@ -15,6 +15,7 @@
 		308A6498D25F07217A63CBF2 /* MUMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A65C12B5B89DBC21C0413 /* MUMViewController.m */; };
 		308A652104682A75FD91D5C6 /* MUMLocalClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6FA4A329509AA5241706 /* MUMLocalClient.m */; };
 		308A654E352C0DEB6836AB0D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A656E1D61175B76597EDF /* XCTest.framework */; };
+		308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */; };
 		308A6775F7061E6FD7AD19FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
 		308A67B047B56843BBFB3F4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6AF1C93C992122A0F7F0 /* UIKit.framework */; };
 		308A68CE51797EBA8F8F1546 /* SCTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A64C53A3CACF210CF4F96 /* SCTrack.m */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		308A6080D5D912D1E90D6E58 /* UITableView+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A61028EF3CAC69E48D875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A62515EC4C8E4E3FE49FE /* multimusic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "multimusic-Prefix.pch"; sourceTree = "<group>"; };
 		308A6278E7B63863F5E4BC17 /* multimusic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusic-Info.plist"; sourceTree = "<group>"; };
 		308A627F7257791F04360FA0 /* multimusicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = multimusicTests.m; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		308A68A4355D044638A0B55E /* LocalTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTrack.h; sourceTree = "<group>"; };
 		308A6948291471F4448FAFE8 /* MUMSCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSCClient.h; sourceTree = "<group>"; };
 		308A69CB887B3924E74CAD24 /* MUMViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMViewModel.m; sourceTree = "<group>"; };
+		308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUMAppDelegate.m; sourceTree = "<group>"; };
 		308A6AF1C93C992122A0F7F0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		308A6B1844713BBDB996D7C6 /* MUMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUMAppDelegate.h; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				308A6CE2726C9401D22875EB /* MUM.h */,
 				308A688EB68AF2DBC1F1E9AF /* MUMSPTClient.m */,
 				308A6370E59E3A10C5046EAE /* MUMSPTClient.h */,
+				308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */,
+				308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */,
 			);
 			path = multimusic;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 				308A68CE51797EBA8F8F1546 /* SCTrack.m in Sources */,
 				308A6C62AA88019F5DFE8975 /* MUMSPTClient.m in Sources */,
 				308A6A9EA74554FEAB2E1BDB /* SPTTrack.m in Sources */,
+				308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
