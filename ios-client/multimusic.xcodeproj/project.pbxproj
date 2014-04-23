@@ -10,7 +10,6 @@
 		308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */; };
 		308A6298FA29AD2FD8E550F2 /* MUMSoundCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
-		308A63A323AB977E8FE2A6F8 /* spotify_password.txt in Resources */ = {isa = PBXBuildFile; fileRef = 308A6CDED177B7836C48F5EB /* spotify_password.txt */; };
 		308A63FEB7D1E4ADD5F5ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
 		308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A61028EF3CAC69E48D875 /* CoreGraphics.framework */; };
 		308A6498D25F07217A63CBF2 /* MUMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A65C12B5B89DBC21C0413 /* MUMViewController.m */; };
@@ -82,7 +81,6 @@
 		308A6BE75F436F9283D90878 /* MUMTrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMTrackCell.h; sourceTree = "<group>"; };
 		308A6BF38BBDE764F6B5E567 /* MUMLocalClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMLocalClient.h; sourceTree = "<group>"; };
 		308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTrackCell.m; sourceTree = "<group>"; };
-		308A6CDED177B7836C48F5EB /* spotify_password.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spotify_password.txt; sourceTree = SOURCE_ROOT; };
 		308A6CE2726C9401D22875EB /* MUM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUM.h; sourceTree = "<group>"; };
 		308A6D1851181E4C29091F41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSoundCloudClient.m; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				308A6AAEF284556A03A6133D /* InfoPlist.strings */,
 				308A6531580858448E4BEF44 /* main.m */,
 				308A62515EC4C8E4E3FE49FE /* multimusic-Prefix.pch */,
-				308A6CDED177B7836C48F5EB /* spotify_password.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -306,7 +303,6 @@
 			files = (
 				308A6C8877BC5812AA21D129 /* InfoPlist.strings in Resources */,
 				308A6A11DEC472299E8A060C /* Images.xcassets in Resources */,
-				308A63A323AB977E8FE2A6F8 /* spotify_password.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
