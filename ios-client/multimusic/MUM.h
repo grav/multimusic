@@ -9,6 +9,9 @@
 
 @protocol MUMClient
 - (RACSignal *)getTracks;
+@optional
+@property(nonatomic, weak) UIViewController *presentingViewController;
+@property(nonatomic, readonly) BOOL wantsPresentingViewController;
 @end
 
 @protocol MUMTrack <NSObject>

@@ -15,6 +15,7 @@ static NSString *const kPlaylistName = @"My likes";
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
 @property (nonatomic, readonly) RACSignal *session;
+@property (nonatomic,readwrite) BOOL wantsPresentingViewController;
 @end
 
 @implementation MUMSpotifyClient {
@@ -57,9 +58,10 @@ static NSString *const kPlaylistName = @"My likes";
                 [session attemptLoginWithUserName:key existingCredential:pw];
             } else {
                 // TODO - handle case where user cancels - we'll never complete then!
-
-                [[self rac_signalForSelector:@selector(setPresentingViewController:)] subscribeNext:^(RACTuple *tuple) {
-                    UIViewController *presentingVC = tuple.first;
+                self.wantsPresentingViewController = YES;
+                [[[[self rac_signalForSelector:@selector(setPresentingViewController:)] map:^id(RACTuple *tuple) {
+                    return tuple.first;
+                }] ignore:nil] subscribeNext:^(UIViewController *presentingVC) {
                     UIViewController *loginVC = [SPLoginViewController loginControllerForSession:session];
                     [presentingVC presentViewController:loginVC animated:YES completion:nil];
                 }];

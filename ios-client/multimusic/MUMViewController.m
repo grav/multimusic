@@ -26,9 +26,7 @@
 
 - (void)setup {
     self.viewModel = [MUMViewModel new];
-    RAC(self.viewModel,presentingViewController) = [[[self rac_signalForSelector:@selector(viewDidAppear:)]
-            mapReplace:self]       //mapReplace -> distinct - will never change
-            distinctUntilChanged];
+    RAC(self.viewModel,presentingViewController) = [[self rac_signalForSelector:@selector(viewDidAppear:)] mapReplace:self];
 }
 
 
@@ -85,6 +83,11 @@
     return cell;
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"didappear");
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id<MUMTrack> track = self.viewModel.tracks[(NSUInteger) indexPath.row];

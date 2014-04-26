@@ -21,6 +21,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 @interface MUMSoundCloudClient ()
 @property(nonatomic, strong) AVAudioPlayer* player;
 @property (nonatomic, readonly) RACSignal *loginSignal;
+@property (nonatomic, readwrite) BOOL wantsPresentingViewController;
 @end
 
 @implementation MUMSoundCloudClient {
@@ -30,9 +31,10 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 - (RACSignal *)loginSignal {
     return [[RACSignal return:[SCSoundCloud account]] flattenMap:^RACStream *(id value) {
         if(!value){
-            return [[[self rac_signalForSelector:@selector(setPresentingViewController:)] map:^id(RACTuple *tuple) {
+            self.wantsPresentingViewController = YES;
+            return [[[[self rac_signalForSelector:@selector(setPresentingViewController:) ]  map:^id(RACTuple *tuple) {
                     return tuple.first;
-                }] flattenMap:^RACStream *(UIViewController *viewController) {
+                }]ignore:nil] flattenMap:^RACStream *(UIViewController *viewController) {
                     return [self loginWithPresentingViewController:viewController];
                 }];
         } else {
@@ -76,11 +78,8 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
                                    presentingViewController:(UIViewController *)presentingViewController {
     RACSignal *loginSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         UIViewController *vc;
-        @weakify(vc)
         vc = [SCLoginViewController loginViewControllerWithPreparedURL:preparedURL
                                                     completionHandler:^(NSError *error){
-            @strongify(vc)
-            [vc dismissViewControllerAnimated:YES completion:nil];
             if (SC_CANCELED(error)) {
                 [subscriber sendError:error];
             } else if (error) {
