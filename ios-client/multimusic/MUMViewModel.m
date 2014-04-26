@@ -24,13 +24,10 @@
 
     self.clientsWantingViewController = @[];
 
-    MUMSoundCloudClient *soundCloudClient = [MUMSoundCloudClient new];
-
-    MUMLocalClient *localClient = [MUMLocalClient new];
-
-    MUMSpotifyClient *spotifyClient = [MUMSpotifyClient new];
-
-    NSArray *clients = @[soundCloudClient, localClient, spotifyClient];
+    NSArray *clients = @[
+            [MUMSoundCloudClient new],
+            [MUMLocalClient new],
+            [MUMSpotifyClient new]];
 
     [clients enumerateObjectsUsingBlock:^(id<MUMClient> client, NSUInteger idx, BOOL *stop) {
         if([((NSObject*)client) respondsToSelector:@selector(wantsPresentingViewController)]){
