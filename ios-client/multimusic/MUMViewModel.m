@@ -52,9 +52,11 @@
 
     RACSignal *presentingVCSignal = [RACObserve(self, presentingViewController) ignore:nil];
 
+    @weakify(self)
     [presentingVCSignal subscribeNext:^(id viewController) {
+        @strongify(self)
         id <MUMClient> client = self.clientsWantingViewController.lastObject;
-        if(client.presentingViewController) return;
+        NSCAssert(!client.presentingViewController,@"client already has the presenting vc?");
         [self.clientsWantingViewController enumerateObjectsUsingBlock:^(id <MUMClient> c, NSUInteger idx, BOOL *stop) {
             c.presentingViewController = nil;
         }];
