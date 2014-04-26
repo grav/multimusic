@@ -49,6 +49,16 @@
     return tracksSignal;
 }
 
+- (RACSignal *)search:(NSString *)query {
+    return [[self getTracks] map:^id(NSArray *tracks) {
+        return [tracks filterUsingBlock:^BOOL(LocalTrack *track) {
+            NSString *lCaseQuery = [query lowercaseString];
+            NSString *searchField = [[track trackDescription] lowercaseString];
+            return [searchField rangeOfString:lCaseQuery].location != NSNotFound;
+        }];
+    }];
+}
+
 
 - (void)stop {
     [self.player pause];

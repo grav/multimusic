@@ -54,6 +54,10 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     }];
 }
 
+- (void)stop {
+    [self.player pause];
+}
+
 - (RACSignal *)loginWithPresentingViewController:(UIViewController *)viewController {
     if(!viewController) {
         NSString *desc = @"Not authorized, and can't show login-view!";
@@ -106,9 +110,24 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     }];
 }
 
-- (RACSignal *)getJSON:(NSString*)path
-{
-    NSString *fullPath = [NSString stringWithFormat:@"%@%@.json",kSCBaseUrl,path];
++ (NSString *)filterString:(NSDictionary *)dictionary{
+    __block NSString *string = @"";
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        string = [NSString stringWithFormat:@"%@%@=%@&",string,key,[obj stringByAddingPercentEscapesUsingEncoding : NSUTF8StringEncoding]];
+    }];
+    return string;
+}
+
+
+- (RACSignal *)getJSON:(NSString *)path{
+    return [self getJSON:path filter:nil];
+}
+
+- (RACSignal *)getJSON:(NSString *)path filter:(NSDictionary *)filter {
+
+    NSString *filterString = [MUMSoundCloudClient filterString:filter];
+
+    NSString *fullPath = [NSString stringWithFormat:@"%@%@.json?%@",kSCBaseUrl,path,filterString];
     return [[self get:fullPath] flattenMap:^id(RACTuple *tuple) {
         RACTupleUnpack(NSHTTPURLResponse *response, NSData *data) = tuple;
         if(response.statusCode>=400){
@@ -157,21 +176,29 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 - (RACSignal *)getTracks {
     
     NSString *path = [NSString stringWithFormat:@"/users/%@/favorites", kDefaultUser];
-    return [[[self getJSON:path] map:^id(NSArray *likes) {
+    return [[self getJSON:path] map:^id(NSArray *likes) {
         return [likes mapUsingBlock:^id(NSDictionary *d) {
-            NSError *error;
-            SoundCloudTrack *track = [MTLJSONAdapter modelOfClass:[SoundCloudTrack class] fromJSONDictionary:d error:&error];
-            track.client = self;
-            return track;
+            return [self soundCloudTrack:d];
         }];
-    }] catch:^RACSignal *(NSError *error) {
-        NSLog(@"%@",error);
-        return [RACSignal return:@[]];
     }];
 }
 
-
-- (void)stop {
-    [self.player pause];
+- (RACSignal *)search:(NSString *)query {
+    return [[self getJSON:@"/tracks" filter:@{@"q" : query}] map:^id(NSArray *results) {
+        return [results mapUsingBlock:^id(id obj) {
+            return [self soundCloudTrack:obj];
+        }];
+    }];
 }
+
+- (SoundCloudTrack *)soundCloudTrack:(NSDictionary *)d {
+    NSError *error;
+    SoundCloudTrack *track = [MTLJSONAdapter modelOfClass:[SoundCloudTrack class] fromJSONDictionary:d
+                                                            error:&error];
+    track.client = self;
+    return track;
+}
+
+
+
 @end

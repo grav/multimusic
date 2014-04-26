@@ -17,7 +17,7 @@
 
 - (RACSignal *)getStreamData:(NSString *)streamUrl;
 
-- (RACSignal *)getJSON:(NSString *)path;
+- (RACSignal *)getJSON:(NSString *)path filter:(NSDictionary *)filter;
 
 - (RACSignal *)getTracks;
 

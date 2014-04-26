@@ -159,5 +159,18 @@ static NSString *const kPlaylistName = @"My likes";
     [defaults setValue:storedCredentials forKey:@"SpotifyUsers"];
 }
 
+- (RACSignal *)search:(NSString *)query {
+
+    return [[self.session flattenMap:^RACStream *(SPSession *session) {
+        SPSearch *search = [SPSearch searchWithSearchQuery:query inSession:session];
+        return [self load:search];
+    }] map:^id(SPSearch *search) {
+        return [search.tracks mapUsingBlock:^id(id track) {
+            return [SpotifyTrack trackWithSPTrack:track client:self];
+        }];
+    }];
+
+}
+
 
 @end

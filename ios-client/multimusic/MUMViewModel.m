@@ -25,9 +25,10 @@
     self.clientsWantingViewController = @[];
 
     NSArray *clients = @[
-            [MUMSoundCloudClient new],
             [MUMLocalClient new],
-            [MUMSpotifyClient new]];
+            [MUMSoundCloudClient new],
+            [MUMSpotifyClient new]
+    ];
 
     [clients enumerateObjectsUsingBlock:^(id<MUMClient> client, NSUInteger idx, BOOL *stop) {
         if([((NSObject*)client) respondsToSelector:@selector(wantsPresentingViewController)]){
@@ -40,7 +41,7 @@
     }];
 
     RAC(self,tracks) = [[RACSignal combineLatest:[clients mapUsingBlock:^id(id<MUMClient>client) {
-            return [[client getTracks] catch:^RACSignal *(NSError *error) {
+            return [[client search:@"sunshine"] catch:^RACSignal *(NSError *error) {
                 NSLog(@"Error while getting tracks from %@: %@",client,error);
                 return [RACSignal return:@[]];
             }];
