@@ -22,11 +22,24 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 @property(nonatomic, strong) AVAudioPlayer* player;
 @property (nonatomic, readonly) RACSignal *loginSignal;
 @property (nonatomic, readwrite) BOOL wantsPresentingViewController;
+@property (nonatomic, readwrite) BOOL playing;
 @end
 
 @implementation MUMSoundCloudClient {
 
 }
+
+- (instancetype)init {
+    if (!(self = [super init])) return nil;
+    RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVAudioPlayer *player) {
+        RACSignal *startPlaying = [[player rac_signalForSelector:@selector(play)] map:^id(id value) {
+            return @YES;
+        }];
+        return [RACSignal merge:@[startPlaying, [RACObserve(player,playing) skip:1]]];
+    }];
+    return self;
+}
+
 
 - (RACSignal *)loginSignal {
     return [[RACSignal return:[SCSoundCloud account]] flattenMap:^RACStream *(id value) {
@@ -198,7 +211,5 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     track.client = self;
     return track;
 }
-
-
 
 @end

@@ -13,6 +13,7 @@
 @interface MUMViewModel ()
 @property(nonatomic, strong, readwrite) NSArray *tracks;
 @property (nonatomic, strong) NSArray *clientsWantingViewController;
+@property (nonatomic, readwrite) BOOL playing;
 @end
 
 @implementation MUMViewModel {
@@ -67,6 +68,10 @@
            return [aggregation arrayByAddingObjectsFromArray:obj];
        } initialAggregation:@[]];
     }];
+
+    RAC(self,playing) = [RACSignal merge:[clients mapUsingBlock:^id(id<MUMClient> client) {
+        return RACObserve(client,playing);
+    }]];
 
     return self;
 }

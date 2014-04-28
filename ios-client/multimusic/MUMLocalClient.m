@@ -14,16 +14,28 @@
 
 @interface MUMLocalClient ()
 @property(nonatomic, strong) AVPlayer* player;
+@property (nonatomic, readwrite) BOOL playing;
 @end
 
 @implementation MUMLocalClient {
 
 }
 
+- (instancetype)init {
+    if (!(self = [super init])) return nil;
+    RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVPlayer *player) {
+        return [RACObserve(player,rate) map:^id(NSNumber *rate) {
+                return @(rate.floatValue>0);
+            }];
+    }];
+    return self;
+}
+
+
 - (void)playTrack:(LocalTrack *)track {
     self.player = [[AVPlayer alloc] initWithURL:[track playbackUrl]];
     [self.player play];
-    
+
 }
 
 

@@ -12,5 +12,5 @@
 @interface MUMViewModel : NSObject
 @property(nonatomic, readonly) NSArray *tracks;
 @property (nonatomic, weak) UIViewController *presentingViewController;
-
+@property (nonatomic, readonly) BOOL playing;
 @end

@@ -16,6 +16,7 @@ static NSString *const kPlaylistName = @"My likes";
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
 @property (nonatomic, readonly) RACSignal *session;
 @property (nonatomic,readwrite) BOOL wantsPresentingViewController;
+@property (nonatomic, readwrite) BOOL playing;
 @end
 
 @implementation MUMSpotifyClient {
@@ -25,6 +26,9 @@ static NSString *const kPlaylistName = @"My likes";
 - (SPPlaybackManager *)playbackManager {
     if(!_playbackManager){
         _playbackManager = [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
+        RAC(self,playing) = [RACObserve(_playbackManager, currentTrack) map:^id(id value) {
+            return @(value!=nil);
+        }];
     }
     return _playbackManager;
 }
@@ -142,6 +146,7 @@ static NSString *const kPlaylistName = @"My likes";
         }];
     }];
 }
+
 
 - (void)stop{
     self.playbackManager.isPlaying = NO;

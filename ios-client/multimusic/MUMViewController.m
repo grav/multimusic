@@ -21,6 +21,9 @@
 - (instancetype)init {
     if (!(self = [super init])) return nil;
     [self setup];
+    [RACObserve(self.viewModel, playing) subscribeNext:^(id x) {
+        NSLog(@"playing: %@",x);
+    }];
     return self;
 }
 

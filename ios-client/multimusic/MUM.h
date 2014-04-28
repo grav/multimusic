@@ -10,6 +10,7 @@
 @protocol MUMClient
 - (RACSignal *)getTracks;
 - (RACSignal *)search:(NSString *)query;
+@property(nonatomic, readonly) BOOL playing;
 @optional
 @property(nonatomic, weak) UIViewController *presentingViewController;
 @property(nonatomic, readonly) BOOL wantsPresentingViewController;
