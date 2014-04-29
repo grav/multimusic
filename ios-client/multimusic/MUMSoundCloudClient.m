@@ -13,13 +13,16 @@
 #import "MTLJSONAdapter.h"
 #import "SoundCloudTrack.h"
 #import "NSError+MUMAdditions.h"
+#import "NXOAuth2Request.h"
+#import "NXOAuth2Connection.h"
+#import "NXOAuth2Account.h"
 #import <AVFoundation/AVFoundation.h>
 
 static NSString *const kDefaultUser = @"betafunk";
 static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
-@interface MUMSoundCloudClient ()
-@property(nonatomic, strong) AVAudioPlayer* player;
+@interface MUMSoundCloudClient ()<NSURLConnectionDataDelegate>
+@property(nonatomic, strong) AVPlayer* player;
 @property (nonatomic, readonly) RACSignal *loginSignal;
 @property (nonatomic, readwrite) BOOL wantsPresentingViewController;
 @property (nonatomic, readwrite) BOOL playing;
@@ -32,10 +35,9 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 - (instancetype)init {
     if (!(self = [super init])) return nil;
     RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVAudioPlayer *player) {
-        RACSignal *startPlaying = [[player rac_signalForSelector:@selector(play)] map:^id(id value) {
-            return @YES;
+        return [RACObserve(player, rate) map:^id(NSNumber *rate) {
+            return @(rate.floatValue > 0);
         }];
-        return [RACSignal merge:@[startPlaying, [RACObserve(player,playing) skip:1]]];
     }];
     return self;
 }
@@ -59,12 +61,17 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 - (void)playTrack:(SoundCloudTrack *)track {
     @weakify(self)
-    [[self getStreamData:[track streamUrl]] subscribeNext:^(NSData *data) {
+    [[self getStreamURL:[track streamUrl]] subscribeNext:^(id x) {
         @strongify(self)
-        NSError *error;
-        self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+        self.player = [[AVPlayer alloc] initWithURL:x];
         [self.player play];
     }];
+
+//    [[self getStreamData:[track streamUrl]] subscribeNext:^(NSData *data) {
+//        NSError *error;
+//        self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+//        [self.player play];
+//    }];
 }
 
 - (void)stop {
@@ -115,6 +122,31 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 }
 
+- (RACSignal *)getStreamURL:(NSString*)streamUrl
+{
+    NSURLConnection *origConnection = [self requestForPath:streamUrl];
+    NSURLConnection *connection = [NSURLConnection connectionWithRequest:[origConnection originalRequest]
+                                                                delegate:self];
+    [origConnection cancel];
+    [connection start];
+
+
+    RACSignal *delegateSignal = [self rac_signalForSelector:@selector(connection:willSendRequest:redirectResponse:)];
+
+    return [[delegateSignal filter:^BOOL(RACTuple *tuple) {
+        return tuple.third != nil;
+    }] map:^id(RACTuple *tuple) {
+        NSURLRequest *redirectedRequest = tuple.second;
+        return [redirectedRequest URL];
+    }];
+
+}
+
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
+    if(response) return nil; // <- this will stop any 302 forwards
+    return request;
+}
+
 
 - (RACSignal *)getStreamData:(NSString*)streamUrl
 {
@@ -159,12 +191,26 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     }];
 }
 
+- (NSURLConnection *)requestForPath:(NSString *)fullPath
+{
+    NSURL *url = [NSURL URLWithString:fullPath];
+        SCAccount *account = [SCSoundCloud account];
+        NXOAuth2Request *req = [SCRequest performMethod:SCRequestMethodGET
+                      onResource:url
+                 usingParameters:nil
+                     withAccount:account
+          sendingProgressHandler:nil
+                 responseHandler:nil];
+        NSURLConnection *connection= [req.connection getNSURLConnection];
+      return connection;
+}
+
 - (RACSignal *)get:(NSString *)fullPath {
 
     NSURL *url = [NSURL URLWithString:fullPath];
     RACSignal *responseSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         SCAccount *account = [SCSoundCloud account];
-        [SCRequest performMethod:SCRequestMethodGET
+        NXOAuth2Request *req = [SCRequest performMethod:SCRequestMethodGET
                       onResource:url
                  usingParameters:nil
                      withAccount:account
