@@ -2,7 +2,7 @@ PODS:
   - CocoaLibSpotify (2.4.5):
     - libspotify (= 12.1.64)
   - CocoaSoundCloudAPI (1.0.2):
-    - NXOAuth2Client (= 1.2.2)
+    - NXOAuth2Client
   - CocoaSoundCloudUI (1.0.9):
     - CocoaSoundCloudAPI (~> 1.0.2)
     - OHAttributedLabel
@@ -57,7 +57,7 @@ PODS:
   - Mantle/extobjc (1.4.1)
   - Masonry (0.4.0)
   - NSArray+Functional (1.0.0)
-  - NXOAuth2Client (1.2.2)
+  - NXOAuth2Client (1.2.5)
   - OHAttributedLabel (3.5.3)
   - ReactiveCocoa (2.3):
     - ReactiveCocoa/Core
@@ -70,7 +70,7 @@ PODS:
 
 DEPENDENCIES:
   - CocoaLibSpotify
-  - CocoaSoundCloudAPI
+  - CocoaSoundCloudAPI (from `/Users/grav/repositories/CocoaSoundCloudAPI`)
   - CocoaSoundCloudUI
   - DCIntrospect-ARC
   - dyci (from `https://github.com/DyCI/dyci-main.git`)
@@ -78,17 +78,22 @@ DEPENDENCIES:
   - Mantle
   - Masonry
   - NSArray+Functional
+  - NXOAuth2Client (from `/Users/grav/repositories/OAuth2Client`)
   - ReactiveCocoa
   - Reveal-iOS-SDK
   - uicontrol-blocks
 
 EXTERNAL SOURCES:
+  CocoaSoundCloudAPI:
+    :path: /Users/grav/repositories/CocoaSoundCloudAPI
   dyci:
     :git: https://github.com/DyCI/dyci-main.git
+  NXOAuth2Client:
+    :path: /Users/grav/repositories/OAuth2Client
 
 SPEC CHECKSUMS:
   CocoaLibSpotify: 1719f45abb505d14ef84cfe64500b7e4924714b9
-  CocoaSoundCloudAPI: 76323652e2e49e15609932ec4bf349f2249d039e
+  CocoaSoundCloudAPI: 03e90323571fc4fe09f221a596e73ef37e45618e
   CocoaSoundCloudUI: 0ba59a3bf331b7de5eca73bb5698cc046dc7d2e4
   DCIntrospect-ARC: bfaf751aa78387777e366364bc85a6c8ec78fbee
   dyci: a547f35263983aad987afa301ba0a10d2d160c51
@@ -97,10 +102,10 @@ SPEC CHECKSUMS:
   Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
   NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
-  NXOAuth2Client: 2abb027fb64a9d9a467202e281bb0f2206924661
+  NXOAuth2Client: 2ad31d48b28e00663ce4fe21345ccee0cab35e01
   OHAttributedLabel: 985e4b57eec0dc6add79179ac47ec888b8a914e7
   ReactiveCocoa: 1f6265f9d521923d3efcc37b00722cefc16df269
   Reveal-iOS-SDK: 8e6a6f22a9520437e4a180fe1d4e99f43b75430e
   uicontrol-blocks: b0b8484c05319edda2d07b84c13eb8b66977e2ed
 
-COCOAPODS: 0.31.1
+COCOAPODS: 0.32.1
