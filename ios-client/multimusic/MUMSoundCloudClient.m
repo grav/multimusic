@@ -124,6 +124,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 - (RACSignal *)getStreamURL:(NSString*)streamUrl
 {
+    // TODO - this could be factored out into a component
     NSURLConnection *origConnection = [self requestForPath:streamUrl];
     NSURLConnection *connection = [NSURLConnection connectionWithRequest:[origConnection originalRequest]
                                                                 delegate:self];
