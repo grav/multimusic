@@ -34,11 +34,11 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 - (instancetype)init {
     if (!(self = [super init])) return nil;
-    RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVAudioPlayer *player) {
+    RAC(self,playing) = [[[[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVAudioPlayer *player) {
         return [RACObserve(player, rate) map:^id(NSNumber *rate) {
             return @(rate.floatValue > 0);
         }];
-    }];
+    }] distinctUntilChanged] throttle:0.1];
     return self;
 }
 
@@ -211,7 +211,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     NSURL *url = [NSURL URLWithString:fullPath];
     RACSignal *responseSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         SCAccount *account = [SCSoundCloud account];
-        NXOAuth2Request *req = [SCRequest performMethod:SCRequestMethodGET
+        11[SCRequest performMethod:SCRequestMethodGET
                       onResource:url
                  usingParameters:nil
                      withAccount:account
