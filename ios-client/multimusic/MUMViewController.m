@@ -46,15 +46,10 @@
 
 - (void)loadView {
     [super loadView];
-    UITableView *tableView = [UITableView new];
+    UITableView *tableView = self.tableView;
     [tableView registerClass:[MUMTrackCell class]];
     tableView.dataSource = self;
     tableView.delegate = self;
-    [self.view addSubview:tableView];
-
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
 
     RACSignal *tracks = [RACObserve(self.viewModel,tracks) ignore:nil];
 
@@ -97,6 +92,10 @@
     [self.currentTrack stop];
     self.currentTrack = track;
     [track play];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

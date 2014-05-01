@@ -8,7 +8,7 @@
 @class MUMViewModel;
 
 
-@interface MUMViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MUMViewController : UITableViewController
 
 
 @end
