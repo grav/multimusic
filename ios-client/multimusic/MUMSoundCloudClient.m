@@ -211,7 +211,7 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     NSURL *url = [NSURL URLWithString:fullPath];
     RACSignal *responseSignal = [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
         SCAccount *account = [SCSoundCloud account];
-        11[SCRequest performMethod:SCRequestMethodGET
+        [SCRequest performMethod:SCRequestMethodGET
                       onResource:url
                  usingParameters:nil
                      withAccount:account
