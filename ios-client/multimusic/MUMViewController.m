@@ -101,23 +101,16 @@
 - (void)loadView {
     [super loadView];
     self.refreshControl = [UIRefreshControl new];
-    UITableView *tableView = self.tableView;
-    [tableView registerClass:[MUMTrackCell class]];
-    tableView.dataSource = self;
-    tableView.delegate = self;
+
+    [self.tableView registerClass:[MUMTrackCell class]];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 
     @weakify(self)
-    [[self.refreshControl rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
-        @strongify(self)
-//        self.tracksViewModel = [MUMViewModel new];
-    }];
 
-    RACSignal *tracks;
-
-    @weakify(tableView)
     [[RACObserve(self.tracksViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
-        @strongify(tableView)
-        [tableView reloadData];
+        @strongify(self)
+        [self.tableView reloadData];
     } error:^(NSError *error) {
         NSLog(@"%@", error);
     } completed:^{
