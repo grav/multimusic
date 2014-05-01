@@ -16,7 +16,7 @@ typedef RACSignal * (^ClientAction)(id<MUMClient>, id);
 @property(nonatomic, readonly) NSArray *tracks;
 @property (nonatomic, readonly) BOOL playing;
 
-+ (instancetype)searchViewModelWithClients:(NSArray *)clients searchDisplayDelegate:(id <UISearchDisplayDelegate>)delegate;
++ (instancetype)searchViewModelWithClients:(NSArray *)clients searchSignal:(RACSignal *)searchSignal;
 
 + (instancetype)tracklistingViewModelWithClients:(NSArray *)clients;
 

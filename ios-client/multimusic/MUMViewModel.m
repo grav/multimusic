@@ -20,14 +20,7 @@
 
 }
 
-+ (instancetype)searchViewModelWithClients:(NSArray *)clients searchDisplayDelegate:(id<UISearchDisplayDelegate>)delegate{
-
-    RACSignal *searchSignal = [[[[(NSObject*)delegate rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
-                                             fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
-            return tuple.second;
-        }] filter:^BOOL(NSString *searchString) {
-            return searchString.length>2;
-        }] throttle:0.5];
++ (instancetype)searchViewModelWithClients:(NSArray *)clients searchSignal:(RACSignal *)searchSignal {
 
     return [[MUMViewModel alloc] initWithClients:clients
                                    triggerSignal:searchSignal

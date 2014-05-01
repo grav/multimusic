@@ -45,8 +45,15 @@
 
     self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients];
 
+    RACSignal *searchSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
+                                                                    fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
+            return tuple.second;
+        }] filter:^BOOL(NSString *searchString) {
+            return searchString.length>2;
+        }] throttle:0.5];
+
     self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients
-                                              searchDisplayDelegate:self];
+                                                       searchSignal:searchSignal];
 
     // Adding to vc queue
     NSArray *clientSignals = [[clients filterUsingBlock:^BOOL(NSObject *client) {
