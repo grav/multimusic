@@ -58,7 +58,7 @@ PODS:
   - Masonry (0.4.0)
   - NSArray+Functional (1.0.0)
   - NXOAuth2Client (1.2.5)
-  - OHAttributedLabel (3.5.3)
+  - OHAttributedLabel (3.5.4)
   - ReactiveCocoa (2.3):
     - ReactiveCocoa/Core
     - ReactiveCocoa/no-arc
@@ -103,7 +103,7 @@ SPEC CHECKSUMS:
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
   NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
   NXOAuth2Client: 2ad31d48b28e00663ce4fe21345ccee0cab35e01
-  OHAttributedLabel: 985e4b57eec0dc6add79179ac47ec888b8a914e7
+  OHAttributedLabel: 8fec862b9ba3e7e9a8ff624e21c9f00c56eb195a
   ReactiveCocoa: 1f6265f9d521923d3efcc37b00722cefc16df269
   Reveal-iOS-SDK: 8e6a6f22a9520437e4a180fe1d4e99f43b75430e
   uicontrol-blocks: b0b8484c05319edda2d07b84c13eb8b66977e2ed
