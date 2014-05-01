@@ -105,14 +105,23 @@
 //        self.tracksViewModel = [MUMViewModel new];
     }];
 
-    RACSignal *tracks = [RACObserve(self.tracksViewModel,tracks) ignore:nil];
+    RACSignal *tracks;
 
     @weakify(tableView)
-    [tracks subscribeNext:^(id x) {
+    [[RACObserve(self.tracksViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
         @strongify(tableView)
         [tableView reloadData];
     } error:^(NSError *error) {
-        NSLog(@"%@",error);
+        NSLog(@"%@", error);
+    } completed:^{
+        NSLog(@"completed");
+    }];
+
+    [[RACObserve(self.searchViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
+        @strongify(self)
+        [self.searchController.searchResultsTableView reloadData];
+    } error:^(NSError *error) {
+        NSLog(@"%@", error);
     } completed:^{
         NSLog(@"completed");
     }];
@@ -132,15 +141,19 @@
 
 #pragma tableview
 
+- (MUMViewModel *)viewModelForTableView:(UITableView *)tableView
+{
+    return tableView==self.searchController.searchResultsTableView ? self.searchViewModel : self.tracksViewModel;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if(tableView==self.tableView){
-        NSArray *tracks = self.tracksViewModel.tracks;
+        NSArray *tracks = [[self viewModelForTableView:tableView] tracks];
         return tracks.count;
-//    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id<MUMTrack> track = self.tracksViewModel.tracks[(NSUInteger) indexPath.row];
+    NSArray *tracks = [[self viewModelForTableView:tableView] tracks];
+    id<MUMTrack> track = tracks[(NSUInteger) indexPath.row];
     MUMTrackCell *cell = [tableView dequeueReusableCellWithClass:[MUMTrackCell class]];
     [cell configure:track];
     return cell;
@@ -153,7 +166,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    id<MUMTrack> track = self.tracksViewModel.tracks[(NSUInteger) indexPath.row];
+    NSArray *tracks = [[self viewModelForTableView:tableView] tracks];
+    id<MUMTrack> track = tracks[(NSUInteger) indexPath.row];
     [self.currentTrack stop];
     self.currentTrack = track;
     [track play];
