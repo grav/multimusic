@@ -3,15 +3,23 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
+#import <NSArray+Functional/NSArray+Functional.h>
 #import "MUMViewController.h"
 #import "MUMViewModel.h"
 #import "UITableView+MUMAdditions.h"
 #import "MUMTrackCell.h"
 #import "LocalTrack.h"
+#import "MUMSpotifyClient.h"
+#import "MUMSoundCloudClient.h"
+#import "MUMLocalClient.h"
+#import "NSArray+MUMAdditions.h"
 
 @interface MUMViewController ()
-@property (nonatomic, strong) MUMViewModel *viewModel;
+@property (nonatomic, strong) MUMViewModel *tracksViewModel;
 @property (nonatomic, strong) id<MUMTrack> currentTrack;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchDisplayController *searchController;
+@property (nonatomic, strong) NSArray *clientsWantingViewController;
 @end
 
 @implementation MUMViewController {
@@ -21,15 +29,60 @@
 - (instancetype)init {
     if (!(self = [super init])) return nil;
     [self setup];
-    [RACObserve(self.viewModel, playing) subscribeNext:^(id x) {
+    [RACObserve(self.tracksViewModel, playing) subscribeNext:^(id x) {
         NSLog(@"playing: %@",x);
     }];
     return self;
 }
 
 - (void)setup {
-    self.viewModel = [MUMViewModel new];
-    RAC(self.viewModel,presentingViewController) = [[self rac_signalForSelector:@selector(viewDidAppear:)] mapReplace:self];
+    self.searchBar = [UISearchBar new];
+    self.searchController = [[UISearchDisplayController alloc]initWithSearchBar:self.searchBar contentsController:self];
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+
+
+    NSArray *clients = @[
+            [MUMLocalClient new],
+            [MUMSoundCloudClient new],
+            [MUMSpotifyClient new]
+    ];
+
+    [clients enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+    }];
+
+    self.tracksViewModel = [[MUMViewModel alloc] initWithClients:clients];
+
+        // Adding to vc queue
+    NSArray *clientSignals = [[clients filterUsingBlock:^BOOL(NSObject *client) {
+        return [client respondsToSelector:@selector(wantsPresentingViewController)];
+    }] mapUsingBlock:^id(id<MUMClient> client) {
+        return [[RACObserve(client, wantsPresentingViewController) ignore:@NO] mapReplace:client];
+    }];
+
+    RAC(self,clientsWantingViewController) = [[RACSignal merge:clientSignals] scanWithStart:@[]
+                                                                                     reduce:^id(id running, id client) {
+                                                                                         return [running arrayByAddingObject:client];
+                                                                                     }];
+
+    // Removing from queue
+    RACSignal *presentingVCSignal = [[self rac_signalForSelector:@selector(viewDidAppear:)] mapReplace:self];
+
+    // TODO - combine this with adding to the queue
+    @weakify(self)
+    [presentingVCSignal subscribeNext:^(id viewController) {
+        @strongify(self)
+        id <MUMClient> client = self.clientsWantingViewController.lastObject;
+        NSCAssert(!client.presentingViewController,@"client already has the presenting vc?");
+        [self.clientsWantingViewController enumerateObjectsUsingBlock:^(id <MUMClient> c, NSUInteger idx, BOOL *stop) {
+            c.presentingViewController = nil;
+        }];
+        client.presentingViewController = viewController;
+        self.clientsWantingViewController = [self.clientsWantingViewController arrayByRemovingLastObject];
+    }];
+
+
 }
 
 
@@ -46,12 +99,21 @@
 
 - (void)loadView {
     [super loadView];
+    self.refreshControl = [UIRefreshControl new];
     UITableView *tableView = self.tableView;
     [tableView registerClass:[MUMTrackCell class]];
     tableView.dataSource = self;
     tableView.delegate = self;
 
-    RACSignal *tracks = [RACObserve(self.viewModel,tracks) ignore:nil];
+    self.tableView.tableHeaderView = self.searchBar;
+
+    @weakify(self)
+    [[self.refreshControl rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
+        @strongify(self)
+        self.tracksViewModel = [MUMViewModel new];
+    }];
+
+    RACSignal *tracks = [RACObserve(self.tracksViewModel,tracks) ignore:nil];
 
     @weakify(tableView)
     [tracks subscribeNext:^(id x) {
@@ -70,12 +132,12 @@
 #pragma tableview
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *tracks = self.viewModel.tracks;
+    NSArray *tracks = self.tracksViewModel.tracks;
     return tracks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id<MUMTrack> track = self.viewModel.tracks[(NSUInteger) indexPath.row];
+    id<MUMTrack> track = self.tracksViewModel.tracks[(NSUInteger) indexPath.row];
     MUMTrackCell *cell = [tableView dequeueReusableCellWithClass:[MUMTrackCell class]];
     [cell configure:track];
     return cell;
@@ -88,7 +150,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    id<MUMTrack> track = self.viewModel.tracks[(NSUInteger) indexPath.row];
+    id<MUMTrack> track = self.tracksViewModel.tracks[(NSUInteger) indexPath.row];
     [self.currentTrack stop];
     self.currentTrack = track;
     [track play];
