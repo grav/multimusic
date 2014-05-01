@@ -7,11 +7,18 @@
 
 @class MUMSoundCloudClient;
 @class MUMLocalClient;
+@protocol MUMClient;
+
+typedef RACSignal * (^ClientAction)(id<MUMClient>, id);
 
 
 @interface MUMViewModel : NSObject
 @property(nonatomic, readonly) NSArray *tracks;
 @property (nonatomic, readonly) BOOL playing;
 
-- (instancetype)initWithClients:(NSArray *)clients;
++ (instancetype)searchViewModelWithClients:(NSArray *)clients searchDisplayDelegate:(id <UISearchDisplayDelegate>)delegate;
+
++ (instancetype)tracklistingViewModelWithClients:(NSArray *)clients;
+
+- (instancetype)initWithClients:(NSArray *)clients triggerSignal:(RACSignal *)triggerSignal clientAction:(ClientAction)clientAction;
 @end

@@ -14,8 +14,8 @@
 #import "MUMLocalClient.h"
 #import "NSArray+MUMAdditions.h"
 
-@interface MUMViewController ()
-@property (nonatomic, strong) MUMViewModel *tracksViewModel;
+@interface MUMViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@property (nonatomic, strong) MUMViewModel *tracksViewModel, *searchViewModel;
 @property (nonatomic, strong) id<MUMTrack> currentTrack;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
@@ -36,25 +36,19 @@
 }
 
 - (void)setup {
-    self.searchBar = [UISearchBar new];
-    self.searchController = [[UISearchDisplayController alloc]initWithSearchBar:self.searchBar contentsController:self];
-    self.searchController.searchResultsDataSource = self;
-    self.searchController.searchResultsDelegate = self;
-
-
     NSArray *clients = @[
             [MUMLocalClient new],
             [MUMSoundCloudClient new],
             [MUMSpotifyClient new]
     ];
 
-    [clients enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
-    }];
+    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients];
 
-    self.tracksViewModel = [[MUMViewModel alloc] initWithClients:clients];
+    self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients
+                                              searchDisplayDelegate:self];
 
-        // Adding to vc queue
+    // Adding to vc queue
     NSArray *clientSignals = [[clients filterUsingBlock:^BOOL(NSObject *client) {
         return [client respondsToSelector:@selector(wantsPresentingViewController)];
     }] mapUsingBlock:^id(id<MUMClient> client) {
@@ -105,12 +99,10 @@
     tableView.dataSource = self;
     tableView.delegate = self;
 
-    self.tableView.tableHeaderView = self.searchBar;
-
     @weakify(self)
     [[self.refreshControl rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
         @strongify(self)
-        self.tracksViewModel = [MUMViewModel new];
+//        self.tracksViewModel = [MUMViewModel new];
     }];
 
     RACSignal *tracks = [RACObserve(self.tracksViewModel,tracks) ignore:nil];
@@ -125,6 +117,15 @@
         NSLog(@"completed");
     }];
 
+    self.searchBar = [UISearchBar new];
+    self.searchBar.delegate = self;
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+    self.searchController.delegate = self;
+    [self.searchController.searchResultsTableView registerClass:[MUMTrackCell class]];
+
+    self.tableView.tableHeaderView = self.searchBar;
 
 }
 
@@ -132,8 +133,10 @@
 #pragma tableview
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *tracks = self.tracksViewModel.tracks;
-    return tracks.count;
+//    if(tableView==self.tableView){
+        NSArray *tracks = self.tracksViewModel.tracks;
+        return tracks.count;
+//    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -159,5 +162,13 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+
+
+#pragma mark - UISearchDisplayDelegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    return NO;
+}
+
 
 @end
