@@ -43,7 +43,7 @@
     ];
 
 
-    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients];
+    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:[RACSignal return:nil]];
 
     RACSignal *searchSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
                                                                     fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {

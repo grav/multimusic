@@ -29,9 +29,9 @@
                                     }];
 }
 
-+ (instancetype)tracklistingViewModelWithClients:(NSArray *)clients{
++ (instancetype)tracklistingViewModelWithClients:(NSArray *)clients loadTrigger:(RACSignal *)loadTrigger {
     return [[MUMViewModel alloc] initWithClients:clients
-                                   triggerSignal:[RACSignal return:nil]
+                                   triggerSignal:loadTrigger
                                     clientAction:^RACSignal *(id <MUMClient> client, id _) {
                                         return [client getTracks];
                                     }];
