@@ -28,7 +28,7 @@
         }];
 
         self.label = [UILabel new];
-        self.label.font = [UIFont systemFontOfSize:9];
+        self.label.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:self.label];
 
         [self.label mas_makeConstraints:^(MASConstraintMaker *make) {
