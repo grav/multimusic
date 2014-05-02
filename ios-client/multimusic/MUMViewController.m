@@ -43,8 +43,6 @@
     ];
 
 
-    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:[RACSignal return:nil]];
-
     RACSignal *searchSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
                                                                     fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
             return tuple.second;
@@ -54,6 +52,19 @@
 
     self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients
                                                        searchSignal:searchSignal];
+
+    // TODO - this would have been easier by concatenating with the signalForControlEvents directly,
+    // but that messes up the KVO for some reason ...
+    RACSubject *refreshSubject = [RACSubject subject];
+    RACSignal *trigger = [[RACSignal return:nil] concat:refreshSubject];
+    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:trigger];
+
+    @weakify(refreshSubject)
+    [[[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
+        @strongify(refreshSubject)
+        [refreshSubject sendNext:nil];
+    }];
+
 
     // Adding to vc queue
     NSArray *clientSignals = [[clients filterUsingBlock:^BOOL(NSObject *client) {
@@ -84,8 +95,14 @@
     }];
 
 
+    [self.refreshControl addTarget:self action:@selector(refresh:)
+                  forControlEvents:UIControlEventValueChanged];
+
 }
 
+- (void)refresh:(id)refresh {
+    NSLog(@"funk");
+}
 
 
 - (void)updateOnClassInjection {
@@ -110,6 +127,7 @@
 
     [[RACObserve(self.tracksViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
         @strongify(self)
+        [self.refreshControl endRefreshing];
         [self.tableView reloadData];
     } error:^(NSError *error) {
         NSLog(@"%@", error);
