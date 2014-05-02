@@ -10,7 +10,7 @@
 #import "SpotifyTrack.h"
 #import "NSError+MUMAdditions.h"
 
-static NSString *const kPlaylistName = @"My likes";
+static NSString *const kPlaylistName = @"mumu";
 
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
