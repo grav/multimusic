@@ -42,17 +42,21 @@
                    clientAction:(ClientAction)clientAction {
     if (!(self = [super init])) return nil;
 
-    RAC(self,tracks) = [triggerSignal flattenMap:^RACStream *(id trigger) {
-        return [[RACSignal combineLatest:[clients mapUsingBlock:^id(id<MUMClient>client) {
-                    return [clientAction(client,trigger) catch:^RACSignal *(NSError *error) {
-                        NSLog(@"Error while getting tracks from %@: %@",client,error);
-                        return [RACSignal return:@[]];
-                    }];
-                }]] map:^id(RACTuple *tuple) {
-               return [tuple.allObjects reduceUsingBlock:^id(id aggregation, id obj) {
-                   return [aggregation arrayByAddingObjectsFromArray:obj];
-               } initialAggregation:@[]];
+    RAC(self,tracks) = [[triggerSignal flattenMap:^RACStream *(id trigger) {
+        return [[RACSignal combineLatest:[clients mapUsingBlock:^id(id <MUMClient> client) {
+            return [clientAction(client, trigger) catch:^RACSignal *(NSError *error) {
+                NSLog(@"Error while getting tracks from %@: %@", client, error);
+                return [RACSignal return:@[]];
             }];
+        }]] map:^id(RACTuple *tuple) {
+            return [tuple.allObjects reduceUsingBlock:^id(id aggregation, id obj) {
+                return [aggregation arrayByAddingObjectsFromArray:obj];
+            }                      initialAggregation:@[]];
+        }];
+    }] map:^id(NSArray *array) {
+        return [array sortedArrayUsingComparator:^NSComparisonResult(id<MUMTrack> obj1, id<MUMTrack> obj2) {
+            return [[obj1.trackDescription lowercaseString] compare:[obj2.trackDescription lowercaseString]];
+        }];
     }];
 
     RAC(self,playing) = [RACSignal merge:[clients mapUsingBlock:^id(id<MUMClient> client) {
