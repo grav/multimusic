@@ -9,6 +9,7 @@
 @interface MUMTrackCell ()
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIImageView *icon;
+@property (nonatomic, strong) UILabel *addView;
 @end
 
 @implementation MUMTrackCell {
@@ -27,6 +28,18 @@
             make.height.equalTo(self.icon.mas_width);
         }];
 
+
+        self.addView = [UILabel new];
+        [self.contentView addSubview:self.addView];
+        [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.addView.superview);
+            make.right.equalTo(self.addView.superview).offset(-5);
+
+        }];
+        self.addView.font = [UIFont systemFontOfSize:16];
+        [self.addView setContentHuggingPriority:UILayoutPriorityDefaultHigh
+                                        forAxis:UILayoutConstraintAxisHorizontal];
+
         self.label = [UILabel new];
         self.label.font = [UIFont systemFontOfSize:11];
         [self.contentView addSubview:self.label];
@@ -34,6 +47,7 @@
         [self.label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.label.superview);
             make.left.equalTo(self.icon.mas_right).offset(10);
+            make.right.equalTo(self.addView.mas_left).offset(-10);
         }];
 
 
@@ -46,6 +60,7 @@
 - (void)configure:(id <MUMTrack>)track {
     self.icon.image = [[track class] sourceImage];
     self.label.text = track.trackDescription;
+    self.addView.text = @"+";
 
 }
 
