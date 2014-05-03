@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "MUMAppDelegate.h"
 #import "MUMTableViewController.h"
 #import "DCIntrospect.h"
@@ -17,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self setupAudio];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -33,6 +35,14 @@
     [[DCIntrospect sharedIntrospector] start];
 #endif
     return YES;
+}
+
+- (void)setupAudio{
+    NSError *setCategoryErr = nil;
+    NSError *activationErr  = nil;
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:&setCategoryErr];
+    [[AVAudioSession sharedInstance] setActive:YES error:&activationErr];
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

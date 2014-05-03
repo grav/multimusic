@@ -279,6 +279,15 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = Betafunk;
+				TargetAttributes = {
+					308A6AC16CE91C4C58097A8C = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 308A63374EE5A4CED1B5F507 /* Build configuration list for PBXProject "multimusic" */;
 			compatibilityVersion = "Xcode 3.2";
