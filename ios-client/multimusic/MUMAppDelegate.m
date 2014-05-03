@@ -9,7 +9,6 @@
 #import "MUMAppDelegate.h"
 #import "MUMTableViewController.h"
 #import "DCIntrospect.h"
-#import "SCSoundCloud.h"
 #import "MMDrawerController.h"
 #import "MUMMenuViewController.h"
 #import "MMDrawerVisualState.h"
@@ -18,10 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-    [SCSoundCloud  setClientID:@"7cc559f59cdc1b30f4b2eca5f17513dc"
-                        secret:@"4c37a785c05debd2caf185559f0d22ce"
-                   redirectURL:[NSURL URLWithString:@"multimusic://soundcloud/callback"]];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

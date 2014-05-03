@@ -34,6 +34,11 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 - (instancetype)init {
     if (!(self = [super init])) return nil;
+    [SCSoundCloud  setClientID:@"7cc559f59cdc1b30f4b2eca5f17513dc"
+                        secret:@"4c37a785c05debd2caf185559f0d22ce"
+                   redirectURL:[NSURL URLWithString:@"multimusic://soundcloud/callback"]];
+
+
     RAC(self,playing) = [[[[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVAudioPlayer *player) {
         return [RACObserve(player, rate) map:^id(NSNumber *rate) {
             return @(rate.floatValue > 0);
