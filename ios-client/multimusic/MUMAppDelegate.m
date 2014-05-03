@@ -42,6 +42,7 @@
     NSError *activationErr  = nil;
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:&setCategoryErr];
     [[AVAudioSession sharedInstance] setActive:YES error:&activationErr];
+    NSCAssert(!setCategoryErr && !activationErr,@"");
 
 }
 
