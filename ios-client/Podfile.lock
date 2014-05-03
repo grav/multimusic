@@ -56,6 +56,18 @@ PODS:
     - Mantle/extobjc
   - Mantle/extobjc (1.4.1)
   - Masonry (0.4.0)
+  - MMDrawerController (0.5.5):
+    - MMDrawerController/Core
+    - MMDrawerController/MMDrawerBarButtonItem
+    - MMDrawerController/MMDrawerVisualStates
+    - MMDrawerController/Subclass
+  - MMDrawerController/Core (0.5.5)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.5):
+    - MMDrawerController/Core
+  - MMDrawerController/MMDrawerVisualStates (0.5.5):
+    - MMDrawerController/Core
+  - MMDrawerController/Subclass (0.5.5):
+    - MMDrawerController/Core
   - NSArray+Functional (1.0.0)
   - NXOAuth2Client (1.2.5)
   - OHAttributedLabel (3.5.4)
@@ -77,6 +89,7 @@ DEPENDENCIES:
   - libextobjc (~> 0.4)
   - Mantle
   - Masonry
+  - MMDrawerController
   - NSArray+Functional
   - NXOAuth2Client (from `/Users/grav/repositories/OAuth2Client`)
   - ReactiveCocoa
@@ -101,6 +114,7 @@ SPEC CHECKSUMS:
   libspotify: 83337b28ad17bd27a7e7d4ac353e89f72f87bd29
   Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
   Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
+  MMDrawerController: fb6a17a3e2d1cb4f5f4a411915703b3569cdb227
   NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
   NXOAuth2Client: 2ad31d48b28e00663ce4fe21345ccee0cab35e01
   OHAttributedLabel: 8fec862b9ba3e7e9a8ff624e21c9f00c56eb195a

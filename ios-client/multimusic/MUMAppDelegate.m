@@ -7,9 +7,11 @@
 //
 
 #import "MUMAppDelegate.h"
-#import "MUMViewController.h"
+#import "MUMTableViewController.h"
 #import "DCIntrospect.h"
 #import "SCSoundCloud.h"
+#import "MMDrawerController.h"
+#import "MUMMenuViewController.h"
 
 @implementation MUMAppDelegate
 
@@ -23,7 +25,12 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [MUMViewController new];
+
+    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:[MUMTableViewController new]
+                                                                     leftDrawerViewController:[MUMMenuViewController new]];
+    drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView;
+    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeTapCenterView;
+    self.window.rootViewController = drawerController;
     [self.window makeKeyAndVisible];
 #if TARGET_IPHONE_SIMULATOR
     [[DCIntrospect sharedIntrospector] start];

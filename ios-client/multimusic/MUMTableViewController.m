@@ -4,7 +4,7 @@
 //
 
 #import <NSArray+Functional/NSArray+Functional.h>
-#import "MUMViewController.h"
+#import "MUMTableViewController.h"
 #import "MUMViewModel.h"
 #import "UITableView+MUMAdditions.h"
 #import "MUMTrackCell.h"
@@ -14,7 +14,7 @@
 #import "MUMLocalClient.h"
 #import "NSArray+MUMAdditions.h"
 
-@interface MUMViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface MUMTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
 @property (nonatomic, strong) MUMViewModel *tracksViewModel, *searchViewModel;
 @property (nonatomic, strong) id<MUMTrack> currentTrack;
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSArray *clientsWantingViewController;
 @end
 
-@implementation MUMViewController {
+@implementation MUMTableViewController {
 
 }
 
