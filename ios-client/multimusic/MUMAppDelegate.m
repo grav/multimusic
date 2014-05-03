@@ -12,6 +12,7 @@
 #import "SCSoundCloud.h"
 #import "MMDrawerController.h"
 #import "MUMMenuViewController.h"
+#import "MMDrawerVisualState.h"
 
 @implementation MUMAppDelegate
 
@@ -30,6 +31,7 @@
                                                                      leftDrawerViewController:[MUMMenuViewController new]];
     drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeBezelPanningCenterView;
     drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeTapCenterView;
+    [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2]];
     self.window.rootViewController = drawerController;
     [self.window makeKeyAndVisible];
 #if TARGET_IPHONE_SIMULATOR
