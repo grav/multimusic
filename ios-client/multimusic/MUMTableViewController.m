@@ -75,9 +75,15 @@
                                              reduce:^id(NSNumber *running, RACTuple *tuple) {
                                                  RACTupleUnpack(id next, NSArray *tracks) = tuple;
                                                  if ([next isKindOfClass:[RelativeInteger class]]) {
+                                                     NSInteger lastTrack = tracks.count - 1;
                                                      NSInteger relNext = [(RelativeInteger *) next value];
-                                                     return @((running.integerValue + relNext) % tracks.count);
+                                                     NSInteger absNext = running.integerValue + relNext;
+                                                     absNext = absNext > lastTrack ? 0 : absNext;
+                                                     absNext = absNext < 0 ? lastTrack : absNext;
+                                                     return @(absNext);
                                                  } else {
+
+                                                     NSCAssert([next isKindOfClass:[NSNumber class]], @"");
                                                      return next;
                                                  }
                                              }];
