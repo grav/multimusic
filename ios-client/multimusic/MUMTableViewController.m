@@ -66,27 +66,24 @@
     }];
 
 
-    RACSignal *trackIdxS = [[RACSignal merge:@[relativeS, absoluteS]] scanWithStart:@0
-                                                         reduce:^id(NSNumber *running, id next) {
-        if([next isKindOfClass:[RelativeInteger class]]){
-            return @(running.integerValue + [(RelativeInteger *)next value]);
-        } else {
-            return next;
-        }
-    }];
+    RACSignal *racSignal = [RACSignal combineLatest:@[
+            [RACSignal merge:@[relativeS, absoluteS]],
+            RACObserve(self.tracksViewModel,tracks)
+    ]];
+
+    RACSignal *trackIdxS = [racSignal scanWithStart:@0
+                                             reduce:^id(NSNumber *running, RACTuple *tuple) {
+                                                 RACTupleUnpack(id next, NSArray *tracks) = tuple;
+                                                 if ([next isKindOfClass:[RelativeInteger class]]) {
+                                                     NSInteger relNext = [(RelativeInteger *) next value];
+                                                     return @((running.integerValue + relNext) % tracks.count);
+                                                 } else {
+                                                     return next;
+                                                 }
+                                             }];
 
     [trackIdxS subscribeNext:^(id x) {
         NSLog(@"%@",x);
-    }];
-
-    RACSignal *trackIdxModulo = [[RACSignal combineLatest:@[
-            trackIdxS,
-            [RACObserve(self.tracksViewModel, tracks) map:^id(NSArray *tracks) {
-                return @(tracks.count);
-            }]
-    ]] map:^id(RACTuple *tuple) {
-        RACTupleUnpack(NSNumber *trackIdx, NSNumber *nTracks) = tuple;
-        return @(trackIdx.integerValue % nTracks.integerValue);
     }];
 
     @weakify(self)
@@ -96,6 +93,9 @@
         id<MUMTrack> track = tracks[trackIndex.unsignedIntegerValue];
         [self.currentTrack stop];
         self.currentTrack = track;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:trackIndex.integerValue inSection:0];
+        [self.tableView selectRowAtIndexPath:indexPath animated:YES
+                              scrollPosition:UITableViewScrollPositionMiddle];
         [track play];
     }];
 
