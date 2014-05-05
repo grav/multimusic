@@ -14,12 +14,20 @@
 #import "MUMLocalClient.h"
 #import "NSArray+MUMAdditions.h"
 
+@interface RelativeInteger : NSObject
+@property (nonatomic) NSInteger value;
+@end
+
+@implementation RelativeInteger
+@end
+
 @interface MUMTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
 @property (nonatomic, strong) MUMViewModel *tracksViewModel, *searchViewModel;
 @property (nonatomic, strong) id<MUMTrack> currentTrack;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) NSArray *clientsWantingViewController;
+@property (nonatomic) NSInteger playingTrackIndex;
 @end
 
 @implementation MUMTableViewController {
@@ -32,6 +40,65 @@
     [RACObserve(self.tracksViewModel, playing) subscribeNext:^(id x) {
         NSLog(@"playing: %@",x);
     }];
+
+    RACSignal *remoteControlSignal = [[self rac_signalForSelector:@selector(remoteControlReceivedWithEvent:)] map:^id(RACTuple *tuple) {
+        return tuple.first;
+    }];
+
+    RACSignal *prevS = [[remoteControlSignal filter:^BOOL(UIEvent *event) {
+        return event.subtype == UIEventSubtypeRemoteControlPreviousTrack;
+    }] mapReplace:@-1];
+
+    RACSignal *nextS = [[remoteControlSignal filter:^BOOL(UIEvent *event) {
+        return event.subtype == UIEventSubtypeRemoteControlNextTrack;
+    }] mapReplace:@1];
+
+    RACSignal *relativeS = [[RACSignal merge:@[prevS, nextS]] map:^id(NSNumber *n) {
+        RelativeInteger *relativeInteger = [RelativeInteger new];
+        relativeInteger.value = n.integerValue;
+        return relativeInteger;
+    }];
+
+    RACSignal *absoluteS = [[self rac_signalForSelector:@selector(tableView:didSelectRowAtIndexPath:)
+                    fromProtocol:@protocol(UITableViewDelegate)] map:^id(RACTuple *tuple) {
+        NSIndexPath *indexPath = tuple.second;
+        return @(indexPath.row);
+    }];
+
+
+    RACSignal *trackIdxS = [[RACSignal merge:@[relativeS, absoluteS]] scanWithStart:@0
+                                                         reduce:^id(NSNumber *running, id next) {
+        if([next isKindOfClass:[RelativeInteger class]]){
+            return @(running.integerValue + [(RelativeInteger *)next value]);
+        } else {
+            return next;
+        }
+    }];
+
+    [trackIdxS subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+
+    RACSignal *trackIdxModulo = [[RACSignal combineLatest:@[
+            trackIdxS,
+            [RACObserve(self.tracksViewModel, tracks) map:^id(NSArray *tracks) {
+                return @(tracks.count);
+            }]
+    ]] map:^id(RACTuple *tuple) {
+        RACTupleUnpack(NSNumber *trackIdx, NSNumber *nTracks) = tuple;
+        return @(trackIdx.integerValue % nTracks.integerValue);
+    }];
+
+    @weakify(self)
+    [[RACSignal merge:@[trackIdxS]] subscribeNext:^(NSNumber *trackIndex) {
+        @strongify(self)
+        NSArray *tracks = [[self viewModelForTableView:self.tableView] tracks];
+        id<MUMTrack> track = tracks[trackIndex.unsignedIntegerValue];
+        [self.currentTrack stop];
+        self.currentTrack = track;
+        [track play];
+    }];
+
     return self;
 }
 
@@ -180,15 +247,14 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+
+    [self becomeFirstResponder];
+
     NSLog(@"didappear");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *tracks = [[self viewModelForTableView:tableView] tracks];
-    id<MUMTrack> track = tracks[(NSUInteger) indexPath.row];
-    [self.currentTrack stop];
-    self.currentTrack = track;
-    [track play];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -202,5 +268,13 @@
     return NO;
 }
 
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
 
 @end

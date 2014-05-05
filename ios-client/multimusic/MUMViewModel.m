@@ -59,9 +59,9 @@
         }];
     }];
 
-    RAC(self,playing) = [RACSignal merge:[clients mapUsingBlock:^id(id<MUMClient> client) {
-        return RACObserve(client,playing);
-    }]];
+    RAC(self,playing) = [[RACSignal merge:[clients mapUsingBlock:^id(id <MUMClient> client) {
+        return RACObserve(client, playing);
+    }]] distinctUntilChanged];
 
     return self;
 }
