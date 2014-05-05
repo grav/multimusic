@@ -138,6 +138,7 @@ static NSString *const kPlaylistName = @"mumu";
 
 
 - (void)playTrack:(SpotifyTrack *)track{
+    // TODO - leak
     [[self load:track.spTrack] subscribeNext:^(SPTrack *loadedTrack) {
         [self.playbackManager playTrack:loadedTrack callback:^(NSError *error) {
             if(error){
