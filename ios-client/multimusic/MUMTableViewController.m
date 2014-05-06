@@ -14,12 +14,7 @@
 #import "MUMLocalClient.h"
 #import "NSArray+MUMAdditions.h"
 
-@interface RelativeInteger : NSObject
-@property (nonatomic) NSInteger value;
-@end
-
-@implementation RelativeInteger
-@end
+typedef NSInteger(^NextFn)(NSInteger);
 
 @interface MUMTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
 @property (nonatomic, strong) MUMViewModel *tracksViewModel, *searchViewModel;
@@ -32,6 +27,11 @@
 
 @implementation MUMTableViewController {
 
+}
+
+int mod(int a, int b)
+{
+    return ((a % b) + b) % b;
 }
 
 - (instancetype)init {
@@ -47,45 +47,35 @@
 
     RACSignal *prevS = [[remoteControlSignal filter:^BOOL(UIEvent *event) {
         return event.subtype == UIEventSubtypeRemoteControlPreviousTrack;
-    }] mapReplace:@-1];
+
+    }] mapReplace:^NSInteger(NSInteger a) {
+        return a - 1;
+    }];
 
     RACSignal *nextS = [[remoteControlSignal filter:^BOOL(UIEvent *event) {
         return event.subtype == UIEventSubtypeRemoteControlNextTrack;
-    }] mapReplace:@1];
-
-    RACSignal *relativeS = [[RACSignal merge:@[prevS, nextS]] map:^id(NSNumber *n) {
-        RelativeInteger *relativeInteger = [RelativeInteger new];
-        relativeInteger.value = n.integerValue;
-        return relativeInteger;
+    }] mapReplace:^NSInteger(NSInteger a) {
+        return a + 1;
     }];
 
     RACSignal *absoluteS = [[self rac_signalForSelector:@selector(tableView:didSelectRowAtIndexPath:)
                     fromProtocol:@protocol(UITableViewDelegate)] map:^id(RACTuple *tuple) {
         NSIndexPath *indexPath = tuple.second;
-        return @(indexPath.row);
+        return ^NSInteger (NSInteger _){return indexPath.row;};
     }];
 
 
     RACSignal *racSignal = [RACSignal combineLatest:@[
-            [RACSignal merge:@[relativeS, absoluteS]],
+            [RACSignal merge:@[prevS, nextS, absoluteS]],
             RACObserve(self.tracksViewModel,tracks)
     ]];
 
     RACSignal *trackIdxS = [racSignal scanWithStart:@0
                                              reduce:^id(NSNumber *running, RACTuple *tuple) {
-                                                 RACTupleUnpack(id next, NSArray *tracks) = tuple;
-                                                 if ([next isKindOfClass:[RelativeInteger class]]) {
-                                                     NSInteger lastTrack = tracks.count - 1;
-                                                     NSInteger relNext = [(RelativeInteger *) next value];
-                                                     NSInteger absNext = running.integerValue + relNext;
-                                                     absNext = absNext > lastTrack ? 0 : absNext;
-                                                     absNext = absNext < 0 ? lastTrack : absNext;
-                                                     return @(absNext);
-                                                 } else {
-
-                                                     NSCAssert([next isKindOfClass:[NSNumber class]], @"");
-                                                     return next;
-                                                 }
+                                                 RACTupleUnpack(NextFn next, NSArray *tracks) = tuple;
+                                                 NSInteger trackCount = tracks.count;
+                                                 NSInteger i = next(running.integerValue);
+                                                 return @(mod(i,trackCount));
                                              }];
 
     [trackIdxS subscribeNext:^(id x) {
