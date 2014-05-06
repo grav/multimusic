@@ -17,12 +17,11 @@
 typedef NSInteger(^NextFn)(NSInteger);
 
 @interface MUMTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
-@property (nonatomic, strong) MUMViewModel *tracksViewModel, *searchViewModel;
+@property (nonatomic, strong) MUMViewModel *tracksViewModel;
 @property (nonatomic, strong) id<MUMTrack> currentTrack;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (nonatomic, strong) NSArray *clientsWantingViewController;
-@property (nonatomic) NSInteger playingTrackIndex;
 @end
 
 @implementation MUMTableViewController {
@@ -85,7 +84,7 @@ int mod(int a, int b)
     @weakify(self)
     [[RACSignal merge:@[trackIdxS]] subscribeNext:^(NSNumber *trackIndex) {
         @strongify(self)
-        NSArray *tracks = [[self viewModelForTableView:self.tableView] tracks];
+        NSArray *tracks = self.tracksViewModel.tracks;
         id<MUMTrack> track = tracks[trackIndex.unsignedIntegerValue];
         [self.currentTrack stop];
         self.currentTrack = track;
@@ -106,21 +105,21 @@ int mod(int a, int b)
     ];
 
 
-    RACSignal *searchSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
-                                                                    fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
-            return tuple.second;
-        }] filter:^BOOL(NSString *searchString) {
-            return searchString.length>2;
-        }] throttle:0.5];
-
-    self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients
-                                                       searchSignal:searchSignal];
-
     // TODO - this would have been easier by concatenating with the signalForControlEvents directly,
     // but that messes up the KVO for some reason ...
     RACSubject *refreshSubject = [RACSubject subject];
     RACSignal *trigger = [[RACSignal return:nil] concat:refreshSubject];
+
     self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:trigger];
+
+    RACSignal *filterSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
+                                                fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
+            return tuple.second;
+        }] map:^id(NSString *searchString) {
+            return searchString.length>0 ? searchString : nil;
+        }] throttle:0.1];
+
+    RAC(self.tracksViewModel,filter) = filterSignal;
 
     @weakify(refreshSubject)
     [[[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
@@ -198,7 +197,7 @@ int mod(int a, int b)
         NSLog(@"completed");
     }];
 
-    [[RACObserve(self.searchViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
+    [[RACObserve(self.tracksViewModel,filter) ignore:nil] subscribeNext:^(id x) {
         @strongify(self)
         [self.searchController.searchResultsTableView reloadData];
     } error:^(NSError *error) {
@@ -222,18 +221,18 @@ int mod(int a, int b)
 
 #pragma tableview
 
-- (MUMViewModel *)viewModelForTableView:(UITableView *)tableView
+- (NSArray *)tracksForTableView:(UITableView *)tableView
 {
-    return tableView==self.searchController.searchResultsTableView ? self.searchViewModel : self.tracksViewModel;
+    return tableView==self.searchController.searchResultsTableView ? self.tracksViewModel.filteredTracks : self.tracksViewModel.tracks;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        NSArray *tracks = [[self viewModelForTableView:tableView] tracks];
+        NSArray *tracks = [self tracksForTableView:tableView];
         return tracks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *tracks = [[self viewModelForTableView:tableView] tracks];
+    NSArray *tracks = [self tracksForTableView:tableView];
     id<MUMTrack> track = tracks[(NSUInteger) indexPath.row];
     MUMTrackCell *cell = [tableView dequeueReusableCellWithClass:[MUMTrackCell class]];
     [cell configure:track];

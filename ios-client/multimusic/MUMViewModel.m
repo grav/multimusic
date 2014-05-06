@@ -66,7 +66,12 @@
     return self;
 }
 
-
+- (NSArray *)filteredTracks {
+    NSString *filter = self.filter;
+    return [self.tracks filterUsingBlock:^BOOL(id<MUMTrack> track) {
+        return filter?[track.trackDescription rangeOfString:filter options:NSCaseInsensitiveSearch].location != NSNotFound : NO;
+    }];
+}
 
 
 @end
