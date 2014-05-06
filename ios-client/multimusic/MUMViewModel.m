@@ -12,7 +12,7 @@
 #import "NSArray+MUMAdditions.h"
 
 @interface MUMViewModel ()
-@property(nonatomic, strong, readwrite) NSArray *tracks;
+@property(nonatomic, strong, readwrite) NSArray *tracks, *filteredTracks;
 @property (nonatomic, readwrite) BOOL playing;
 @end
 
@@ -40,9 +40,7 @@
 - (instancetype)initWithClients:(NSArray *)clients
                   triggerSignal:(RACSignal *)triggerSignal
                    clientAction:(ClientAction)clientAction {
-    if (!(self = [super init])) return nil;
-
-    RAC(self,tracks) = [[triggerSignal flattenMap:^RACStream *(id trigger) {
+    RACSignal *tracksSignal = [[[triggerSignal flattenMap:^RACStream *(id trigger) {
         return [[RACSignal combineLatest:[clients mapUsingBlock:^id(id <MUMClient> client) {
             return [clientAction(client, trigger) catch:^RACSignal *(NSError *error) {
                 NSLog(@"Error while getting tracks from %@: %@", client, error);
@@ -54,23 +52,30 @@
             }                      initialAggregation:@[]];
         }];
     }] map:^id(NSArray *array) {
-        return [array sortedArrayUsingComparator:^NSComparisonResult(id<MUMTrack> obj1, id<MUMTrack> obj2) {
+        return [array sortedArrayUsingComparator:^NSComparisonResult(id <MUMTrack> obj1, id <MUMTrack> obj2) {
             return [[obj1.trackDescription lowercaseString] compare:[obj2.trackDescription lowercaseString]];
         }];
-    }];
+    }] replayLazily];
+
+    if (!(self = [super init])) return nil;
+
+    RAC(self,tracks) = tracksSignal;
 
     RAC(self,playing) = [[RACSignal merge:[clients mapUsingBlock:^id(id <MUMClient> client) {
         return RACObserve(client, playing);
     }]] distinctUntilChanged];
 
-    return self;
-}
 
-- (NSArray *)filteredTracks {
-    NSString *filter = self.filter;
-    return [self.tracks filterUsingBlock:^BOOL(id<MUMTrack> track) {
-        return filter?[track.trackDescription rangeOfString:filter options:NSCaseInsensitiveSearch].location != NSNotFound : NO;
+
+    RAC(self,filteredTracks) = [[RACSignal combineLatest:@[tracksSignal, RACObserve(self, filter)]] map:^id(RACTuple *tuple) {
+        RACTupleUnpack(NSArray *tracks, NSString *filter) = tuple;
+        NSArray *filteredTracks = [tracks filterUsingBlock:^BOOL(id<MUMTrack> track) {
+                return filter?[track.trackDescription rangeOfString:filter options:NSCaseInsensitiveSearch].location != NSNotFound : NO;
+        }];
+        return filteredTracks;
     }];
+
+    return self;
 }
 
 

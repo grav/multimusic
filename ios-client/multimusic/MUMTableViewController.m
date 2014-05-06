@@ -63,10 +63,18 @@ int mod(int a, int b)
         return ^NSInteger (NSInteger _){return indexPath.row;};
     }];
 
+    RACSignal *tracksSignal = RACObserve(self.tracksViewModel, tracks);
+    RACSignal *filteredTracksSignal = RACObserve(self.tracksViewModel, filteredTracks);
+
+    RACSignal *activeTracksSignal = [[RACObserve(self, searchController) flattenMap:^RACStream *(UISearchDisplayController *c) {
+        return RACObserve(c, active);
+    }] flattenMap:^RACStream *(NSNumber *active) {
+        return active.boolValue ? filteredTracksSignal : tracksSignal;
+    }];
 
     RACSignal *racSignal = [RACSignal combineLatest:@[
             [RACSignal merge:@[prevS, nextS, absoluteS]],
-            RACObserve(self.tracksViewModel,tracks)
+            activeTracksSignal
     ]];
 
     RACSignal *trackIdxS = [racSignal scanWithStart:@0
@@ -84,12 +92,13 @@ int mod(int a, int b)
     @weakify(self)
     [[RACSignal merge:@[trackIdxS]] subscribeNext:^(NSNumber *trackIndex) {
         @strongify(self)
-        NSArray *tracks = self.tracksViewModel.tracks;
+        NSArray *tracks = self.searchController.active ? self.tracksViewModel.filteredTracks : self.tracksViewModel.tracks;
         id<MUMTrack> track = tracks[trackIndex.unsignedIntegerValue];
         [self.currentTrack stop];
         self.currentTrack = track;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:trackIndex.integerValue inSection:0];
-        [self.tableView selectRowAtIndexPath:indexPath animated:YES
+        UITableView *tableView = self.searchController.active ? self.searchController.searchResultsTableView : self.tableView;
+        [tableView selectRowAtIndexPath:indexPath animated:YES
                               scrollPosition:UITableViewScrollPositionMiddle];
         [track play];
     }];
@@ -112,12 +121,12 @@ int mod(int a, int b)
 
     self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:trigger];
 
-    RACSignal *filterSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
+    RACSignal *filterSignal = [[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
                                                 fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
             return tuple.second;
         }] map:^id(NSString *searchString) {
             return searchString.length>0 ? searchString : nil;
-        }] throttle:0.1];
+        }];
 
     RAC(self.tracksViewModel,filter) = filterSignal;
 
@@ -197,7 +206,7 @@ int mod(int a, int b)
         NSLog(@"completed");
     }];
 
-    [[RACObserve(self.tracksViewModel,filter) ignore:nil] subscribeNext:^(id x) {
+    [[[RACObserve(self.tracksViewModel,filter) ignore:nil] throttle:0.1] subscribeNext:^(id x) {
         @strongify(self)
         [self.searchController.searchResultsTableView reloadData];
     } error:^(NSError *error) {
@@ -212,6 +221,7 @@ int mod(int a, int b)
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
     self.searchController.delegate = self;
+
     [self.searchController.searchResultsTableView registerClass:[MUMTrackCell class]];
 
     self.tableView.tableHeaderView = self.searchBar;
