@@ -4,13 +4,14 @@
 //
 
 #import "MUMLocalClient.h"
-#import "MUMConstants.h"
 #import "NSArray+Functional.h"
 #import "Mantle.h"
 #import "LocalTrack.h"
-#import "NSError+MUMAdditions.h"
 #import "NSURLConnection+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
+
+static NSString *kBaseUrl = @"http://localhost:8000/";
+static NSString *kLibrary = @"library.json";
 
 @interface MUMLocalClient ()
 @property(nonatomic, strong) AVPlayer* player;
@@ -72,8 +73,14 @@
 }
 
 
+
 - (void)stop {
     [self.player pause];
 
 }
+
++ (NSString *)server {
+    return kBaseUrl;
+}
+
 @end

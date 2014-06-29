@@ -5,7 +5,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Mantle.h"
-#import "MUMConstants.h"
 #import "MUM.h"
 
 @class MUMLocalClient;

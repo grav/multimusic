@@ -16,4 +16,7 @@
 - (RACSignal *)getTracks;
 
 - (void)stop;
+
++ (NSString *)server;
+
 @end
