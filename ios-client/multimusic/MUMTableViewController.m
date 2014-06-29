@@ -110,19 +110,10 @@ int mod(int a, int b)
 
 //    self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients];
 
-    // TODO - this would have been easier by concatenating with the signalForControlEvents directly,
-    // but that messes up the KVO for some reason ...
-    RACSubject *refreshSubject = [RACSubject subject];
-    RACSignal *trigger = [[RACSignal return:nil] concat:refreshSubject];
+    RACSignal *refreshSignal = [[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged];
+    RACSignal *trigger = [[RACSignal return:nil] concat:refreshSignal];
 
     [self.tracksViewModel rac_liftSelector:@selector(reload:) withSignalsFromArray:@[trigger]];
-
-    @weakify(refreshSubject)
-    [[[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
-        @strongify(refreshSubject)
-        [refreshSubject sendNext:nil];
-    }];
-
 
     // Adding to vc queue
     NSArray *clientSignals = [[self.tracksViewModel.clients filterUsingBlock:^BOOL(NSObject *client) {
@@ -186,7 +177,7 @@ int mod(int a, int b)
     [[RACObserve(self.tracksViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
         @strongify(self)
         [self.refreshControl endRefreshing];
-        [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.1];
+        [self.tableView reloadData];
     } error:^(NSError *error) {
         NSLog(@"%@", error);
     } completed:^{
