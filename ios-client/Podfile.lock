@@ -52,9 +52,9 @@ PODS:
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
   - libspotify (12.1.64)
-  - Mantle (1.5):
+  - Mantle (1.4.1):
     - Mantle/extobjc
-  - Mantle/extobjc (1.5)
+  - Mantle/extobjc (1.4.1)
   - Masonry (0.5.2)
   - MMDrawerController (0.5.6):
     - MMDrawerController/Core
@@ -88,7 +88,7 @@ DEPENDENCIES:
   - DCIntrospect-ARC
   - dyci (from `https://github.com/DyCI/dyci-main.git`)
   - libextobjc (~> 0.4)
-  - Mantle
+  - Mantle (= 1.4.1)
   - Masonry
   - MMDrawerController
   - NSArray+Functional
@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   dyci: a547f35263983aad987afa301ba0a10d2d160c51
   libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
   libspotify: 1f095010889816da1f68742bbe6e02fd5d09adb1
-  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
+  Mantle: 1ca9c0fa84d3d3fc98524e7229f30489b6dd44e5
   Masonry: ec0189e1a07af00913e4a1a335ea76887adc86e1
   MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
   NSArray+Functional: 2c9ad6ab9b0dc7abe73416d265d569c8b20b9f3c
