@@ -63,9 +63,9 @@ static NSString *const kPlaylistName = @"mumu";
             } else {
                 // TODO - handle case where user cancels - we'll never complete then!
                 self.wantsPresentingViewController = YES;
-                [[[[self rac_signalForSelector:@selector(setPresentingViewController:)] map:^id(RACTuple *tuple) {
+                [[[[[self rac_signalForSelector:@selector(setPresentingViewController:)] map:^id(RACTuple *tuple) {
                     return tuple.first;
-                }] ignore:nil] subscribeNext:^(UIViewController *presentingVC) {
+                }] ignore:nil] delay:1 ] subscribeNext:^(UIViewController *presentingVC) {
                     UIViewController *loginVC = [SPLoginViewController loginControllerForSession:session];
                     [presentingVC presentViewController:loginVC animated:YES completion:nil];
                 }];
@@ -83,7 +83,7 @@ static NSString *const kPlaylistName = @"mumu";
 }
 
 - (void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error {
-
+    NSLog(@"session failed login: %@",error);
 }
 
 

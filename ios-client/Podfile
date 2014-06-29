@@ -1,7 +1,7 @@
 platform :ios, "7.0"
 
 pod 'NSArray+Functional'
-pod 'Mantle'
+pod 'Mantle', '1.4.1'
 pod 'Masonry'
 pod 'ReactiveCocoa'
 pod 'uicontrol-blocks'
