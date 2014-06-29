@@ -30,6 +30,7 @@
 		308A6A9EA74554FEAB2E1BDB /* SpotifyTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A62891C9D570ABE3E3440 /* SpotifyTrack.m */; };
 		308A6ADE3045DCE962ED4E7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 308A6814D25CD3E57C2BD18F /* InfoPlist.strings */; };
 		308A6B9D8B70DFDCF1CE65A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6531580858448E4BEF44 /* main.m */; };
+		308A6BAB24A904F23106D8DD /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6C0B35E65EDEB566BF2C /* MediaPlayer.framework */; };
 		308A6C8877BC5812AA21D129 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 308A6AAEF284556A03A6133D /* InfoPlist.strings */; };
 		308A6CA0BF38989321FAB735 /* MUMMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A699E8D13842E537A08E7 /* MUMMenuViewController.m */; };
 		308A6CA0D369645F51E8A615 /* UITableView+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6B5AB5609753EC010B68 /* UITableView+MUMAdditions.m */; };
@@ -90,6 +91,7 @@
 		308A6B1844713BBDB996D7C6 /* MUMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUMAppDelegate.h; sourceTree = "<group>"; };
 		308A6B5AB5609753EC010B68 /* UITableView+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A6BE75F436F9283D90878 /* MUMTrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMTrackCell.h; sourceTree = "<group>"; };
+		308A6C0B35E65EDEB566BF2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTrackCell.m; sourceTree = "<group>"; };
 		308A6CE2726C9401D22875EB /* MUM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUM.h; sourceTree = "<group>"; };
 		308A6D1851181E4C29091F41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */,
 				308A69E503529AD288B0CE5B /* UIKit.framework in Frameworks */,
 				E60F0B73B1DC4B0EB0F280D1 /* libPods.a in Frameworks */,
+				308A6BAB24A904F23106D8DD /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +206,7 @@
 				308A6AF1C93C992122A0F7F0 /* UIKit.framework */,
 				308A656E1D61175B76597EDF /* XCTest.framework */,
 				D7E2FBFD306D40BD8821F4EE /* libPods.a */,
+				308A6C0B35E65EDEB566BF2C /* MediaPlayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

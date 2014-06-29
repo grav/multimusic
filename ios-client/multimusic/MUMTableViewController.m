@@ -13,6 +13,7 @@
 #import "MUMSoundCloudClient.h"
 #import "MUMLocalClient.h"
 #import "NSArray+MUMAdditions.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 typedef NSInteger(^NextFn)(NSInteger);
 
@@ -95,6 +96,12 @@ int mod(int a, int b)
         [self.tableView selectRowAtIndexPath:indexPath animated:YES
                               scrollPosition:UITableViewScrollPositionMiddle];
         [track play];
+
+       [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:@{
+                MPMediaItemPropertyTitle : [track trackDescription],
+               MPMediaItemPropertyArtwork : [[MPMediaItemArtwork alloc] initWithImage:[[track class] sourceImage]]
+       }];
+
     }];
 
     return self;
