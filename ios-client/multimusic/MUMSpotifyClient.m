@@ -83,7 +83,7 @@ static NSString *const kPlaylistName = @"mumu";
 }
 
 - (void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error {
-
+    NSLog(@"session failed login: %@",error);
 }
 
 
