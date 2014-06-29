@@ -14,6 +14,9 @@
 @interface MUMSpotifyClient : MUMAbstractClient<MUMClient>
 @property (nonatomic, weak) UIViewController *presentingViewController;
 
+- (instancetype)initWithStarredPlaylist;
+- (instancetype)initWithPlaylistName:(NSString*)playlistName;
+
 - (RACSignal *)playlistWithName:(NSString *)name;
 
 - (void)playTrack:(SpotifyTrack *)track;

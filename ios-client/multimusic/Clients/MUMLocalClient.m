@@ -10,12 +10,12 @@
 #import "NSURLConnection+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString *kBaseUrl = @"http://localhost:8000/";
 static NSString *kLibrary = @"library.json";
 
 @interface MUMLocalClient ()
 @property(nonatomic, strong) AVPlayer* player;
 @property (nonatomic, readwrite) BOOL playing;
+@property(nonatomic, copy) NSString *hostName;
 @end
 
 @implementation MUMLocalClient {
@@ -26,8 +26,9 @@ static NSString *kLibrary = @"library.json";
     return @"Local files";
 }
 
-- (instancetype)init {
+- (instancetype)initWithHostName:(NSString *)hostName {
     if (!(self = [super init])) return nil;
+    self.hostName = hostName;
     RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVPlayer *player) {
         return [RACObserve(player,rate) map:^id(NSNumber *rate) {
                 return @(rate.floatValue>0);
@@ -44,13 +45,13 @@ static NSString *kLibrary = @"library.json";
 }
 
 
-+ (NSURL *)libraryUrl
+- (NSURL *)libraryUrl
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kBaseUrl, kLibrary]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", self.hostName, kLibrary]];
 }
 
 - (RACSignal *)getTracks {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[MUMLocalClient libraryUrl]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[self libraryUrl]];
     RACSignal *tracksSignal = [[NSURLConnection rac_sendAsynchronousJSONRequest:request]  map:^id(NSDictionary *library) {
         NSArray *tracks = library[@"tracks"];
         return [tracks mapUsingBlock:^id(NSDictionary *jsonDictionary) {
@@ -81,10 +82,6 @@ static NSString *kLibrary = @"library.json";
 - (void)stop {
     [self.player pause];
 
-}
-
-+ (NSString *)server {
-    return kBaseUrl;
 }
 
 @end

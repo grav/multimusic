@@ -12,12 +12,12 @@
 
 
 @interface MUMLocalClient : MUMAbstractClient<MUMClient>
+@property(nonatomic, copy,readonly) NSString *hostName;
+- (instancetype)initWithHostName:(NSString *)hostName;
 - (void)playTrack:(LocalTrack *)track;
 
 - (RACSignal *)getTracks;
 
 - (void)stop;
-
-+ (NSString *)server;
 
 @end

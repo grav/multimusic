@@ -10,18 +10,28 @@
 #import "SpotifyTrack.h"
 #import "NSError+MUMAdditions.h"
 
-static NSString *const kPlaylistName = @"mumu";
-
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
 @property (nonatomic, readonly) RACSignal *session;
 @property (nonatomic,readwrite) BOOL wantsPresentingViewController;
 @property (nonatomic, readwrite) BOOL playing;
+@property(nonatomic, copy) NSString *playlistName;
 @end
 
 @implementation MUMSpotifyClient {
 
 }
+
+- (instancetype)initWithStarredPlaylist{
+    return [self initWithPlaylistName:nil];
+}
+
+- (instancetype)initWithPlaylistName:(NSString*)playlistName {
+    if (!(self = [super init])) return nil;
+    self.playlistName = playlistName;
+    return self;
+}
+
 
 - (NSString *)name {
     return @"Spotify";
@@ -93,7 +103,8 @@ static NSString *const kPlaylistName = @"mumu";
 
 
 - (RACSignal *)getTracks {
-    return [[[self playlistWithName:kPlaylistName] map:^id(SPPlaylist *playlist) {
+    RACSignal *playlistSignal = self.playlistName ? [self playlistWithName:self.playlistName] : [self starredPlaylist];
+    return [[playlistSignal map:^id(SPPlaylist *playlist) {
         return playlist.items;
     }] map:^id(NSArray *items) {
         return [[items mapUsingBlock:^id(SPPlaylistItem *playlistItem) {
@@ -108,6 +119,13 @@ static NSString *const kPlaylistName = @"mumu";
 
 - (void)sessionDidLoginSuccessfully:(SPSession *)aSession {
     NSLog(@"Spotify logged in");
+}
+
+- (RACSignal *)starredPlaylist
+{
+    return [self.session flattenMap:^RACStream *(SPSession *session) {
+        return [self load:session.starredPlaylist];
+    }];
 }
 
 - (RACSignal *)playlistWithName:(NSString *)name{

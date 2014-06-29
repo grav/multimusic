@@ -29,9 +29,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     MUMViewModel *viewModel = [MUMViewModel tracklistingViewModelWithClients:@[
-            [MUMLocalClient new],
-//            [MUMSoundCloudClient new],
-            [MUMSpotifyClient new]
+            [[MUMLocalClient alloc] initWithHostName:@"http://localhost:8000"],
+            [MUMSoundCloudClient new],
+            [[MUMSpotifyClient alloc] initWithStarredPlaylist]
     ]];
 
     MUMTableViewController *mainVC = [[MUMTableViewController alloc] initWithViewModel:viewModel];
