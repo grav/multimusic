@@ -15,6 +15,7 @@ typedef RACSignal * (^ClientAction)(id<MUMClient>, id);
 @interface MUMViewModel : NSObject
 @property(nonatomic, readonly) NSArray *tracks;
 @property (nonatomic, readonly) BOOL playing;
+@property (nonatomic, readonly) NSArray *clients;
 
 + (instancetype)searchViewModelWithClients:(NSArray *)clients searchSignal:(RACSignal *)searchSignal;
 

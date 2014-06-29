@@ -4,13 +4,13 @@
 //
 
 #import "MUMSpotifyClient.h"
-#include "appkey.c"
+#include "../appkey.c"
 #import "CocoaLibSpotify.h"
 #import "NSArray+Functional.h"
 #import "SpotifyTrack.h"
 #import "NSError+MUMAdditions.h"
 
-static NSString *const kPlaylistName = @"mumu";
+static NSString *const kPlaylistName = @"My Top Rated";
 
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
@@ -91,8 +91,10 @@ static NSString *const kPlaylistName = @"mumu";
     return [[[self playlistWithName:kPlaylistName] map:^id(SPPlaylist *playlist) {
         return playlist.items;
     }] map:^id(NSArray *items) {
-        return [items mapUsingBlock:^id(SPPlaylistItem *playlistItem) {
+        return [[items mapUsingBlock:^id(SPPlaylistItem *playlistItem) {
             return [SpotifyTrack trackWithSPTrack:(SPTrack *) playlistItem.item client:self];
+        }] filterUsingBlock:^BOOL(SpotifyTrack *track) {
+            return track.spTrack.availability == SP_TRACK_AVAILABILITY_AVAILABLE;
         }];
     }];
 }
