@@ -52,32 +52,33 @@ PODS:
   - libextobjc/RuntimeExtensions (0.4)
   - libextobjc/UmbrellaHeader (0.4)
   - libspotify (12.1.64)
-  - Mantle (1.4.1):
+  - Mantle (1.5):
     - Mantle/extobjc
-  - Mantle/extobjc (1.4.1)
-  - Masonry (0.4.0)
-  - MMDrawerController (0.5.5):
+  - Mantle/extobjc (1.5)
+  - Masonry (0.5.2)
+  - MMDrawerController (0.5.6):
     - MMDrawerController/Core
     - MMDrawerController/MMDrawerBarButtonItem
     - MMDrawerController/MMDrawerVisualStates
     - MMDrawerController/Subclass
-  - MMDrawerController/Core (0.5.5)
-  - MMDrawerController/MMDrawerBarButtonItem (0.5.5):
+  - MMDrawerController/Core (0.5.6)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.6):
     - MMDrawerController/Core
-  - MMDrawerController/MMDrawerVisualStates (0.5.5):
+  - MMDrawerController/MMDrawerVisualStates (0.5.6):
     - MMDrawerController/Core
-  - MMDrawerController/Subclass (0.5.5):
+  - MMDrawerController/Subclass (0.5.6):
     - MMDrawerController/Core
   - NSArray+Functional (1.0.0)
   - NXOAuth2Client (1.2.5)
   - OHAttributedLabel (3.5.4)
-  - ReactiveCocoa (2.3):
+  - ReactiveCocoa (2.3.1):
+    - ReactiveCocoa/UI
+  - ReactiveCocoa/Core (2.3.1):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.3.1)
+  - ReactiveCocoa/UI (2.3.1):
     - ReactiveCocoa/Core
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/Core (2.3):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.3)
-  - Reveal-iOS-SDK (1.0.3)
+  - Reveal-iOS-SDK (1.0.4)
   - uicontrol-blocks (1.1.0)
 
 DEPENDENCIES:
@@ -105,21 +106,21 @@ EXTERNAL SOURCES:
     :path: /Users/grav/repositories/OAuth2Client
 
 SPEC CHECKSUMS:
-  CocoaLibSpotify: 1719f45abb505d14ef84cfe64500b7e4924714b9
+  CocoaLibSpotify: d5c2cc8eac1a27618c6f3ff9f656cabb5982f52a
   CocoaSoundCloudAPI: 03e90323571fc4fe09f221a596e73ef37e45618e
-  CocoaSoundCloudUI: 0ba59a3bf331b7de5eca73bb5698cc046dc7d2e4
-  DCIntrospect-ARC: bfaf751aa78387777e366364bc85a6c8ec78fbee
+  CocoaSoundCloudUI: 4a5ae1d08c4e9b66ec0db6c786f113a59a0bde4a
+  DCIntrospect-ARC: a40fbc1106efe321a10bb05ea179b49db6bb0e40
   dyci: a547f35263983aad987afa301ba0a10d2d160c51
-  libextobjc: 2c9fc8226f0f38e562587f65172f93f0c9b4a47a
-  libspotify: 83337b28ad17bd27a7e7d4ac353e89f72f87bd29
-  Mantle: 0714cdb2b8559d9e6c2410d6a8529e3307bff189
-  Masonry: d673617c9cbc24aaea90fba20b10e47fd9970a39
-  MMDrawerController: fb6a17a3e2d1cb4f5f4a411915703b3569cdb227
-  NSArray+Functional: 2fb24f1533c1380a595ed1da347bd4ec705f5495
+  libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
+  libspotify: 1f095010889816da1f68742bbe6e02fd5d09adb1
+  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
+  Masonry: ec0189e1a07af00913e4a1a335ea76887adc86e1
+  MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
+  NSArray+Functional: 2c9ad6ab9b0dc7abe73416d265d569c8b20b9f3c
   NXOAuth2Client: 2ad31d48b28e00663ce4fe21345ccee0cab35e01
-  OHAttributedLabel: 8fec862b9ba3e7e9a8ff624e21c9f00c56eb195a
-  ReactiveCocoa: 1f6265f9d521923d3efcc37b00722cefc16df269
-  Reveal-iOS-SDK: 8e6a6f22a9520437e4a180fe1d4e99f43b75430e
-  uicontrol-blocks: b0b8484c05319edda2d07b84c13eb8b66977e2ed
+  OHAttributedLabel: fcf1d1245b4c8d2df94da91369b1474901d7fb14
+  ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
+  Reveal-iOS-SDK: d3c8e109d42219daaa7a6e1ad2de34f0bdbb7a88
+  uicontrol-blocks: 5a8a15c2343401d42522cd4e37df52f4632ceb34
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
