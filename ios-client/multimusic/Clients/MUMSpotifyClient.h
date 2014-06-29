@@ -5,12 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import "MUM.h"
+#import "MUMAbstractClient.h"
 
 @class SPPlaybackManager;
 @class SpotifyTrack;
 
 
-@interface MUMSpotifyClient : NSObject<MUMClient>
+@interface MUMSpotifyClient : MUMAbstractClient<MUMClient>
 @property (nonatomic, weak) UIViewController *presentingViewController;
 
 - (RACSignal *)playlistWithName:(NSString *)name;

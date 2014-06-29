@@ -17,9 +17,11 @@ typedef RACSignal * (^ClientAction)(id<MUMClient>, id);
 @property (nonatomic, readonly) BOOL playing;
 @property (nonatomic, readonly) NSArray *clients;
 
-+ (instancetype)searchViewModelWithClients:(NSArray *)clients searchSignal:(RACSignal *)searchSignal;
++ (instancetype)searchViewModelWithClients:(NSArray *)clients;
 
-+ (instancetype)tracklistingViewModelWithClients:(NSArray *)clients loadTrigger:(RACSignal *)loadTrigger;
++ (instancetype)tracklistingViewModelWithClients:(NSArray *)clients;
 
-- (instancetype)initWithClients:(NSArray *)clients triggerSignal:(RACSignal *)triggerSignal clientAction:(ClientAction)clientAction;
+- (instancetype)initWithClients:(NSArray *)clients clientAction:(ClientAction)clientAction;
+
+- (void)reload:(id)_;
 @end

@@ -5,12 +5,13 @@
 
 #import <Foundation/Foundation.h>
 #import "MUM.h"
+#import "MUMAbstractClient.h"
 
 @class RACSignal;
 @class LocalTrack;
 
 
-@interface MUMLocalClient : NSObject<MUMClient>
+@interface MUMLocalClient : MUMAbstractClient<MUMClient>
 - (void)playTrack:(LocalTrack *)track;
 
 - (RACSignal *)getTracks;

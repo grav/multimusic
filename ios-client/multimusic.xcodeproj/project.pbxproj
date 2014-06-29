@@ -10,9 +10,11 @@
 		308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
 		308A63FEB7D1E4ADD5F5ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
+		308A64698CB25FE28FC873EC /* MUMClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */; };
 		308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A61028EF3CAC69E48D875 /* CoreGraphics.framework */; };
 		308A6498D25F07217A63CBF2 /* MUMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A65C12B5B89DBC21C0413 /* MUMTableViewController.m */; };
 		308A654E352C0DEB6836AB0D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A656E1D61175B76597EDF /* XCTest.framework */; };
+		308A661AC91D79AA89B1628A /* MUMAbstractClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A621903450850FC7BBD17 /* MUMAbstractClient.m */; };
 		308A664E3A1D6568EDDE3A98 /* NSArray+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABF6858E85D2C9A6AE2 /* NSArray+MUMAdditions.m */; };
 		308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */; };
 		308A6775F7061E6FD7AD19FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
@@ -51,6 +53,7 @@
 		308A6080D5D912D1E90D6E58 /* UITableView+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A61028EF3CAC69E48D875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		308A61133161960CCBD63081 /* MUMSoundCloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSoundCloudClient.h; sourceTree = "<group>"; };
+		308A621903450850FC7BBD17 /* MUMAbstractClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMAbstractClient.m; sourceTree = "<group>"; };
 		308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A62515EC4C8E4E3FE49FE /* multimusic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "multimusic-Prefix.pch"; sourceTree = "<group>"; };
 		308A6278E7B63863F5E4BC17 /* multimusic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusic-Info.plist"; sourceTree = "<group>"; };
@@ -63,10 +66,12 @@
 		308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundCloudTrack.m; sourceTree = "<group>"; };
 		308A6531580858448E4BEF44 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMClientCell.m; sourceTree = "<group>"; };
 		308A654E8792FB72652974F6 /* multimusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = multimusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A6564A75ED6EAD1875804 /* LocalTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTrack.m; sourceTree = "<group>"; };
 		308A656E1D61175B76597EDF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		308A65772B0C3522D54F704B /* MUMSpotifyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSpotifyClient.h; sourceTree = "<group>"; };
+		308A657A4AB018912CAF0204 /* MUMClientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMClientCell.h; sourceTree = "<group>"; };
 		308A659B3642D0033039AF36 /* MUMViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMViewModel.h; sourceTree = "<group>"; };
 		308A65C12B5B89DBC21C0413 /* MUMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTableViewController.m; sourceTree = "<group>"; };
 		308A66E3427FB6192632CAA5 /* MUMSoundCloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSoundCloudClient.m; sourceTree = "<group>"; };
@@ -88,6 +93,7 @@
 		308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTrackCell.m; sourceTree = "<group>"; };
 		308A6CE2726C9401D22875EB /* MUM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUM.h; sourceTree = "<group>"; };
 		308A6D1851181E4C29091F41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		308A6D5F57225CBD8A5EBB8F /* MUMAbstractClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMAbstractClient.h; sourceTree = "<group>"; };
 		308A6D64766DCE1A77B983C5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		308A6E348917920E14B1A9AB /* NSArray+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A6F38412041354378C6C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -130,6 +136,8 @@
 				308A65772B0C3522D54F704B /* MUMSpotifyClient.h */,
 				308A61133161960CCBD63081 /* MUMSoundCloudClient.h */,
 				308A66E3427FB6192632CAA5 /* MUMSoundCloudClient.m */,
+				308A621903450850FC7BBD17 /* MUMAbstractClient.m */,
+				308A6D5F57225CBD8A5EBB8F /* MUMAbstractClient.h */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -234,6 +242,8 @@
 				308A699E8D13842E537A08E7 /* MUMMenuViewController.m */,
 				308A62F94CCCCCA039D82DBA /* MUMMenuViewController.h */,
 				308A602FFF70D1462A1CF29A /* Clients */,
+				308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */,
+				308A657A4AB018912CAF0204 /* MUMClientCell.h */,
 			);
 			path = multimusic;
 			sourceTree = "<group>";
@@ -387,6 +397,8 @@
 				308A68363156EC7DC270C333 /* MUMLocalClient.m in Sources */,
 				308A6989B877F6C8BDBDB8C7 /* MUMSpotifyClient.m in Sources */,
 				308A6CD2E740767FD6F91DCC /* MUMSoundCloudClient.m in Sources */,
+				308A661AC91D79AA89B1628A /* MUMAbstractClient.m in Sources */,
+				308A64698CB25FE28FC873EC /* MUMClientCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

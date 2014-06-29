@@ -5,10 +5,11 @@
 
 #import <Foundation/Foundation.h>
 #import "MUM.h"
+#import "MUMAbstractClient.h"
 
 @class SoundCloudTrack;
 
-@interface MUMSoundCloudClient : NSObject<MUMClient>
+@interface MUMSoundCloudClient : MUMAbstractClient<MUMClient>
 @property (nonatomic, weak) UIViewController *presentingViewController;
 
 - (void)playTrack:(SoundCloudTrack *)track;

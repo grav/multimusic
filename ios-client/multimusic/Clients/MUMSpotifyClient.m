@@ -10,7 +10,7 @@
 #import "SpotifyTrack.h"
 #import "NSError+MUMAdditions.h"
 
-static NSString *const kPlaylistName = @"My Top Rated";
+static NSString *const kPlaylistName = @"mumu";
 
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
@@ -22,6 +22,11 @@ static NSString *const kPlaylistName = @"My Top Rated";
 @implementation MUMSpotifyClient {
 
 }
+
+- (NSString *)name {
+    return @"Spotify";
+}
+
 
 - (SPPlaybackManager *)playbackManager {
     if(!_playbackManager){

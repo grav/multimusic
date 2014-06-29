@@ -22,6 +22,10 @@ static NSString *kLibrary = @"library.json";
 
 }
 
+- (NSString *)name {
+    return @"Local files";
+}
+
 - (instancetype)init {
     if (!(self = [super init])) return nil;
     RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVPlayer *player) {

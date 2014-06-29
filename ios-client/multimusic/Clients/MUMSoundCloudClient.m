@@ -32,6 +32,10 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 
 }
 
+- (NSString *)name {
+    return @"SoundCloud";
+}
+
 - (instancetype)init {
     if (!(self = [super init])) return nil;
     [SCSoundCloud  setClientID:@"7cc559f59cdc1b30f4b2eca5f17513dc"

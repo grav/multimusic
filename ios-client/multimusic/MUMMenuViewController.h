@@ -5,7 +5,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class MUMViewModel;
+
 
 @interface MUMMenuViewController : UIViewController
+- (instancetype)initWithViewModel:(MUMViewModel *)viewModel;
 
 @end

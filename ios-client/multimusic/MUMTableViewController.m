@@ -34,9 +34,11 @@ int mod(int a, int b)
     return ((a % b) + b) % b;
 }
 
-- (instancetype)init {
+- (instancetype)initWithViewModel:(MUMViewModel *)viewModel {
     if (!(self = [super init])) return nil;
+    self.tracksViewModel = viewModel;
     [self setup];
+
     [RACObserve(self.tracksViewModel, playing) subscribeNext:^(id x) {
         NSLog(@"playing: %@",x);
     }];
@@ -99,13 +101,6 @@ int mod(int a, int b)
 }
 
 - (void)setup {
-    NSArray *clients = @[
-            [MUMLocalClient new],
-            [MUMSoundCloudClient new],
-            [MUMSpotifyClient new]
-    ];
-
-
     RACSignal *searchSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
                                                                     fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
             return tuple.second;
@@ -113,14 +108,14 @@ int mod(int a, int b)
             return searchString.length>2;
         }] throttle:0.5];
 
-    self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients
-                                                       searchSignal:searchSignal];
+//    self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients];
 
     // TODO - this would have been easier by concatenating with the signalForControlEvents directly,
     // but that messes up the KVO for some reason ...
     RACSubject *refreshSubject = [RACSubject subject];
     RACSignal *trigger = [[RACSignal return:nil] concat:refreshSubject];
-    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:trigger];
+
+    [self.tracksViewModel rac_liftSelector:@selector(reload:) withSignalsFromArray:@[trigger]];
 
     @weakify(refreshSubject)
     [[[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
@@ -130,7 +125,7 @@ int mod(int a, int b)
 
 
     // Adding to vc queue
-    NSArray *clientSignals = [[clients filterUsingBlock:^BOOL(NSObject *client) {
+    NSArray *clientSignals = [[self.tracksViewModel.clients filterUsingBlock:^BOOL(NSObject *client) {
         return [client respondsToSelector:@selector(wantsPresentingViewController)];
     }] mapUsingBlock:^id(id<MUMClient> client) {
         return [[RACObserve(client, wantsPresentingViewController) ignore:@NO] mapReplace:client];
@@ -191,7 +186,7 @@ int mod(int a, int b)
     [[RACObserve(self.tracksViewModel, tracks) ignore:nil] subscribeNext:^(id x) {
         @strongify(self)
         [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
+        [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.1];
     } error:^(NSError *error) {
         NSLog(@"%@", error);
     } completed:^{

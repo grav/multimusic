@@ -9,6 +9,7 @@
 
 
 @interface MUMTableViewController : UITableViewController
+- (instancetype)initWithViewModel:(MUMViewModel *)viewModel;
 
 
 @end
