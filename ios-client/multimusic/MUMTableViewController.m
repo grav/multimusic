@@ -164,7 +164,7 @@ int mod(int a, int b)
 }
 
 - (void)refresh:(id)refresh {
-    NSLog(@"funk");
+    NSLog(@"refresh");
 }
 
 
