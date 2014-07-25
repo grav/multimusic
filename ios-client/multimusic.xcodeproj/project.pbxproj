@@ -10,6 +10,7 @@
 		308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
 		308A63FEB7D1E4ADD5F5ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
+		308A64666694FFDDF8730C61 /* BTFSpotify.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A624914860B81E5858C17 /* BTFSpotify.m */; };
 		308A64698CB25FE28FC873EC /* MUMClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */; };
 		308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A61028EF3CAC69E48D875 /* CoreGraphics.framework */; };
 		308A6498D25F07217A63CBF2 /* MUMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A65C12B5B89DBC21C0413 /* MUMTableViewController.m */; };
@@ -55,6 +56,7 @@
 		308A61028EF3CAC69E48D875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		308A61133161960CCBD63081 /* MUMSoundCloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSoundCloudClient.h; sourceTree = "<group>"; };
 		308A621903450850FC7BBD17 /* MUMAbstractClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMAbstractClient.m; sourceTree = "<group>"; };
+		308A624914860B81E5858C17 /* BTFSpotify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTFSpotify.m; sourceTree = "<group>"; };
 		308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A62515EC4C8E4E3FE49FE /* multimusic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "multimusic-Prefix.pch"; sourceTree = "<group>"; };
 		308A6278E7B63863F5E4BC17 /* multimusic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusic-Info.plist"; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		308A657A4AB018912CAF0204 /* MUMClientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMClientCell.h; sourceTree = "<group>"; };
 		308A659B3642D0033039AF36 /* MUMViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMViewModel.h; sourceTree = "<group>"; };
 		308A65C12B5B89DBC21C0413 /* MUMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTableViewController.m; sourceTree = "<group>"; };
+		308A66E33444EADC634678FF /* BTFSpotify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTFSpotify.h; sourceTree = "<group>"; };
 		308A66E3427FB6192632CAA5 /* MUMSoundCloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSoundCloudClient.m; sourceTree = "<group>"; };
 		308A66E3CD94B1863C279137 /* multimusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = multimusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A66E61C6A93C96AFED82E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -248,6 +251,8 @@
 				308A602FFF70D1462A1CF29A /* Clients */,
 				308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */,
 				308A657A4AB018912CAF0204 /* MUMClientCell.h */,
+				308A624914860B81E5858C17 /* BTFSpotify.m */,
+				308A66E33444EADC634678FF /* BTFSpotify.h */,
 			);
 			path = multimusic;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				308A6CD2E740767FD6F91DCC /* MUMSoundCloudClient.m in Sources */,
 				308A661AC91D79AA89B1628A /* MUMAbstractClient.m in Sources */,
 				308A64698CB25FE28FC873EC /* MUMClientCell.m in Sources */,
+				308A64666694FFDDF8730C61 /* BTFSpotify.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

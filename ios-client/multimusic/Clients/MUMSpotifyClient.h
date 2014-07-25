@@ -9,15 +9,14 @@
 
 @class SPPlaybackManager;
 @class SpotifyTrack;
+@class BTFSpotify;
 
 
 @interface MUMSpotifyClient : MUMAbstractClient<MUMClient>
-@property (nonatomic, weak) UIViewController *presentingViewController;
 
 - (instancetype)initWithStarredPlaylist;
 - (instancetype)initWithPlaylistName:(NSString*)playlistName;
-
-- (RACSignal *)playlistWithName:(NSString *)name;
+@property (nonatomic, weak) UIViewController *presentingViewController;
 
 - (void)playTrack:(SpotifyTrack *)track;
 
