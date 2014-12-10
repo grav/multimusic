@@ -2,7 +2,7 @@
 
 import SimpleHTTPServer
 import SocketServer
-import kaa.metadata
+import mutagen
 import json
 import os
 
@@ -22,7 +22,7 @@ def serve():
 def metadata(path):
     filenames = [path+'/'+filename for filename in os.listdir(path)]
     filenames = filter(lambda x: x.endswith('mp3'),filenames)
-    metas = [kaa.metadata.parse(filename) for filename in filenames]
+    metas = [mutagen.File(filename,easy=True) for filename in filenames]
     metas_filtered = [{k : meta[k] for k in ['artist', 'title','album'] if meta[k]} for meta in metas]
     filenames_dict = [{"filename" : filename} for filename in filenames]
     return [dict(a.items()+b.items()) for a,b in zip(filenames_dict,metas_filtered)]
