@@ -8,7 +8,7 @@ Components
 
 Mumu consists of the following components:
 
-- iOS mobile app that supports the various audio sources (currently Spotify, Soundcloud and locally hosted files) 
+- iOS mobile app that supports the various audio sources (currently Spotify, Soundcloud and files hosted via the mumu server) 
 - mumu server, a simple python script that reads metadata from all media files in a directory and exposes the metadata and the media files via HTTP. 
 
 Roadmap
