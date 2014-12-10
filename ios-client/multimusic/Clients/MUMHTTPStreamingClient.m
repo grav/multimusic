@@ -42,18 +42,18 @@ static NSString *kLibrary = @"library.json";
     self.player = [[AVPlayer alloc] initWithURL:[track playbackUrl]];
     [self.player play];
 
-    [[RACSignal interval:3 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
-        NSArray *keyPaths = @[@"rate",@"currentTime",@"status",@"error",@"currentItem"];
-        [keyPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSLog(@"%@: %@",obj, [self.player valueForKeyPath:obj]);
-        }];
-        NSLog(@"time in secs: %f",CMTimeGetSeconds(self.player.currentTime));
-
-
-        [@[@"playbackLikelyToKeepUp", @"playbackBufferEmpty", @"playbackBufferFull", @"accessLog", @"errorLog"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSLog(@"%@: %@",obj,[self.player.currentItem valueForKeyPath:obj]);
-        }];
-    }];
+//    [[RACSignal interval:3 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+//        NSArray *keyPaths = @[@"rate",@"currentTime",@"status",@"error",@"currentItem"];
+//        [keyPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//            NSLog(@"%@: %@",obj, [self.player valueForKeyPath:obj]);
+//        }];
+//        NSLog(@"time in secs: %f",CMTimeGetSeconds(self.player.currentTime));
+//
+//
+//        [@[@"playbackLikelyToKeepUp", @"playbackBufferEmpty", @"playbackBufferFull", @"accessLog", @"errorLog"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//            NSLog(@"%@: %@",obj,[self.player.currentItem valueForKeyPath:obj]);
+//        }];
+//    }];
 
 
 
