@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import SimpleHTTPServer
-import SocketServer
+from twisted.web import server, resource, static
+from twisted.internet import reactor
 import mutagen
 import json
 import os
@@ -14,10 +14,10 @@ LIBRARY = 'library.json'
 PORT = 8000
 
 def serve():
-    Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-    httpd = SocketServer.TCPServer(("", PORT), Handler)
-    print "serving at port", PORT
-    httpd.serve_forever()
+    root = static.File(media)
+    reactor.listenTCP(port, server.Site(root))
+    print "serving at port", port
+    reactor.run()
 
 def metadata(path):
     filenames = [path+'/'+filename for filename in os.listdir(path)]
