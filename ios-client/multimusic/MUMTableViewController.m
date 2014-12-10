@@ -171,8 +171,8 @@ int mod(int a, int b)
     }
 }
 
-- (void)loadView {
-    [super loadView];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     self.refreshControl = [UIRefreshControl new];
 
     [self.tableView registerClass:[MUMTrackCell class]];
