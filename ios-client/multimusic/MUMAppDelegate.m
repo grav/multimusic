@@ -9,7 +9,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "MUMAppDelegate.h"
 #import "MUMTableViewController.h"
-#import "DCIntrospect.h"
 #import "MMDrawerController.h"
 #import "MUMMenuViewController.h"
 #import "MMDrawerVisualState.h"
@@ -43,9 +42,7 @@
     [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2]];
     self.window.rootViewController = drawerController;
     [self.window makeKeyAndVisible];
-#if TARGET_IPHONE_SIMULATOR
-    [[DCIntrospect sharedIntrospector] start];
-#endif
+
     return YES;
 }
 

@@ -9,9 +9,9 @@
 #import "SpotifyTrack.h"
 #import "NSError+MUMAdditions.h"
 #import "BTFSpotify.h"
+#include "../appkey.c"
 
 @interface MUMSpotifyClient () <SPSessionDelegate>
-@property (nonatomic, readonly) RACSignal *session;
 @property (nonatomic,readwrite) BOOL wantsPresentingViewController;
 @property (nonatomic, readwrite) BOOL playing;
 @property(nonatomic, copy) NSString *playlistName;
@@ -29,7 +29,7 @@
 - (instancetype)initWithPlaylistName:(NSString*)playlistName {
     if (!(self = [super init])) return nil;
     self.playlistName = playlistName;
-    self.btfSpotify = [BTFSpotify new];
+    self.btfSpotify = [[BTFSpotify alloc] initWithAppKey:g_appkey size:g_appkey_size];
     RAC(self,wantsPresentingViewController) = [RACObserve(self.btfSpotify, wantsPresentingViewController) logNext];
     RAC(self.btfSpotify,presentingViewController) = [RACObserve(self, presentingViewController) logNext];
 
@@ -98,10 +98,7 @@
 
 - (RACSignal *)search:(NSString *)query {
 
-    return [[self.session flattenMap:^RACStream *(SPSession *session) {
-        SPSearch *search = [SPSearch searchWithSearchQuery:query inSession:session];
-        return [self.btfSpotify load:search];
-    }] map:^id(SPSearch *search) {
+    return [[self.btfSpotify search:query] map:^id(SPSearch *search) {
         return [search.tracks mapUsingBlock:^id(id track) {
             return [SpotifyTrack trackWithSPTrack:track client:self];
         }];

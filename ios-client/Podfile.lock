@@ -1,4 +1,7 @@
 PODS:
+  - BTFSpotify (0.2.0):
+    - CocoaLibSpotify (~> 2.4.5)
+    - ReactiveCocoa (~> 2.3.0)
   - CocoaLibSpotify (2.4.5):
     - libspotify (= 12.1.64)
   - CocoaSoundCloudAPI (1.0.2):
@@ -6,89 +9,82 @@ PODS:
   - CocoaSoundCloudUI (1.0.9):
     - CocoaSoundCloudAPI (~> 1.0.2)
     - OHAttributedLabel
-  - DCIntrospect-ARC (0.0.7)
-  - dyci (0.1.5.20140124):
-    - dyci/Core
-    - dyci/Helpers
-    - dyci/Injections
-    - dyci/UIKit Support
-  - dyci/Core (0.1.5.20140124)
-  - dyci/Helpers (0.1.5.20140124)
-  - dyci/Injections (0.1.5.20140124)
-  - dyci/UIKit Support (0.1.5.20140124)
-  - libextobjc (0.4):
-    - libextobjc/EXTADT
-    - libextobjc/EXTConcreteProtocol
-    - libextobjc/EXTKeyPathCoding
-    - libextobjc/EXTNil
-    - libextobjc/EXTSafeCategory
-    - libextobjc/EXTScope
-    - libextobjc/EXTSelectorChecking
-    - libextobjc/EXTSynthesize
-    - libextobjc/NSInvocation+EXT
-    - libextobjc/NSMethodSignature+EXT
+  - dyci (0.1.5.6):
+    - dyci/Injections (= 0.1.5.6)
+  - dyci/Injections (0.1.5.6)
+  - libextobjc (0.4.1):
+    - libextobjc/EXTADT (= 0.4.1)
+    - libextobjc/EXTConcreteProtocol (= 0.4.1)
+    - libextobjc/EXTKeyPathCoding (= 0.4.1)
+    - libextobjc/EXTNil (= 0.4.1)
+    - libextobjc/EXTSafeCategory (= 0.4.1)
+    - libextobjc/EXTScope (= 0.4.1)
+    - libextobjc/EXTSelectorChecking (= 0.4.1)
+    - libextobjc/EXTSynthesize (= 0.4.1)
+    - libextobjc/NSInvocation+EXT (= 0.4.1)
+    - libextobjc/NSMethodSignature+EXT (= 0.4.1)
+    - libextobjc/RuntimeExtensions (= 0.4.1)
+    - libextobjc/UmbrellaHeader (= 0.4.1)
+  - libextobjc/EXTADT (0.4.1):
     - libextobjc/RuntimeExtensions
-    - libextobjc/UmbrellaHeader
-  - libextobjc/EXTADT (0.4):
+  - libextobjc/EXTConcreteProtocol (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTConcreteProtocol (0.4):
+  - libextobjc/EXTKeyPathCoding (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTKeyPathCoding (0.4):
+  - libextobjc/EXTNil (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTNil (0.4):
+  - libextobjc/EXTSafeCategory (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSafeCategory (0.4):
+  - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTScope (0.4):
+  - libextobjc/EXTSelectorChecking (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSelectorChecking (0.4):
+  - libextobjc/EXTSynthesize (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/EXTSynthesize (0.4):
+  - libextobjc/NSInvocation+EXT (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/NSInvocation+EXT (0.4):
+  - libextobjc/NSMethodSignature+EXT (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/NSMethodSignature+EXT (0.4):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.4)
-  - libextobjc/UmbrellaHeader (0.4)
+  - libextobjc/RuntimeExtensions (0.4.1)
+  - libextobjc/UmbrellaHeader (0.4.1)
   - libspotify (12.1.64)
-  - Mantle (1.4.1):
-    - Mantle/extobjc
-  - Mantle/extobjc (1.4.1)
-  - Masonry (0.5.2)
-  - MMDrawerController (0.5.6):
+  - Mantle (1.5.1):
+    - Mantle/extobjc (= 1.5.1)
+  - Mantle/extobjc (1.5.1)
+  - Masonry (0.5.3)
+  - MMDrawerController (0.5.7):
+    - MMDrawerController/Core (= 0.5.7)
+    - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
+    - MMDrawerController/MMDrawerVisualStates (= 0.5.7)
+    - MMDrawerController/Subclass (= 0.5.7)
+  - MMDrawerController/Core (0.5.7)
+  - MMDrawerController/MMDrawerBarButtonItem (0.5.7):
     - MMDrawerController/Core
-    - MMDrawerController/MMDrawerBarButtonItem
-    - MMDrawerController/MMDrawerVisualStates
-    - MMDrawerController/Subclass
-  - MMDrawerController/Core (0.5.6)
-  - MMDrawerController/MMDrawerBarButtonItem (0.5.6):
+  - MMDrawerController/MMDrawerVisualStates (0.5.7):
     - MMDrawerController/Core
-  - MMDrawerController/MMDrawerVisualStates (0.5.6):
-    - MMDrawerController/Core
-  - MMDrawerController/Subclass (0.5.6):
+  - MMDrawerController/Subclass (0.5.7):
     - MMDrawerController/Core
   - NSArray+Functional (1.0.0)
   - NXOAuth2Client (1.2.5)
   - OHAttributedLabel (3.5.4)
   - ReactiveCocoa (2.3.1):
-    - ReactiveCocoa/UI
+    - ReactiveCocoa/UI (= 2.3.1)
   - ReactiveCocoa/Core (2.3.1):
     - ReactiveCocoa/no-arc
   - ReactiveCocoa/no-arc (2.3.1)
   - ReactiveCocoa/UI (2.3.1):
     - ReactiveCocoa/Core
-  - Reveal-iOS-SDK (1.0.4)
+  - Reveal-iOS-SDK (1.0.6)
   - uicontrol-blocks (1.1.0)
 
 DEPENDENCIES:
+  - BTFSpotify (from `/Users/grav/gravrepo/BTFSpotify`)
   - CocoaLibSpotify
   - CocoaSoundCloudAPI (from `/Users/grav/repositories/CocoaSoundCloudAPI`)
   - CocoaSoundCloudUI
-  - DCIntrospect-ARC
   - dyci (from `https://github.com/DyCI/dyci-main.git`)
-  - libextobjc (~> 0.4)
-  - Mantle (= 1.4.1)
+  - libextobjc
+  - Mantle
   - Masonry
   - MMDrawerController
   - NSArray+Functional
@@ -98,6 +94,8 @@ DEPENDENCIES:
   - uicontrol-blocks
 
 EXTERNAL SOURCES:
+  BTFSpotify:
+    :path: /Users/grav/gravrepo/BTFSpotify
   CocoaSoundCloudAPI:
     :path: /Users/grav/repositories/CocoaSoundCloudAPI
   dyci:
@@ -106,21 +104,21 @@ EXTERNAL SOURCES:
     :path: /Users/grav/repositories/OAuth2Client
 
 SPEC CHECKSUMS:
+  BTFSpotify: 7ea275d69e7e1af5fb1de1d470a53861415c6ca2
   CocoaLibSpotify: d5c2cc8eac1a27618c6f3ff9f656cabb5982f52a
   CocoaSoundCloudAPI: 03e90323571fc4fe09f221a596e73ef37e45618e
   CocoaSoundCloudUI: 4a5ae1d08c4e9b66ec0db6c786f113a59a0bde4a
-  DCIntrospect-ARC: a40fbc1106efe321a10bb05ea179b49db6bb0e40
-  dyci: a547f35263983aad987afa301ba0a10d2d160c51
-  libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
-  libspotify: 1f095010889816da1f68742bbe6e02fd5d09adb1
-  Mantle: 1ca9c0fa84d3d3fc98524e7229f30489b6dd44e5
-  Masonry: ec0189e1a07af00913e4a1a335ea76887adc86e1
-  MMDrawerController: 4bae84535ca7a5f4cb55a66a001e6035c3571677
+  dyci: 63f19224ff515c438e26387546c9301af917953c
+  libextobjc: d6146fce3ebea986b7f75fcb4c967639200b88b0
+  libspotify: a64e21dc94594d988213fb5795641d0253132d46
+  Mantle: d7c5ac734579ec751c58fecbf56189853056c58c
+  Masonry: 35368c2ca9577ca87722c12fc52c4bad9b1c1516
+  MMDrawerController: c3ab7a318ddc7e2bcd133139c3161af08c6e1197
   NSArray+Functional: 2c9ad6ab9b0dc7abe73416d265d569c8b20b9f3c
   NXOAuth2Client: 2ad31d48b28e00663ce4fe21345ccee0cab35e01
   OHAttributedLabel: fcf1d1245b4c8d2df94da91369b1474901d7fb14
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
-  Reveal-iOS-SDK: d3c8e109d42219daaa7a6e1ad2de34f0bdbb7a88
+  Reveal-iOS-SDK: 74a39b426dbc915962704ed24f43ee32ae7797f9
   uicontrol-blocks: 5a8a15c2343401d42522cd4e37df52f4632ceb34
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.35.0
