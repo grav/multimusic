@@ -25,12 +25,12 @@ def metadata(path):
     filenames = [path+'/'+filename for filename in os.listdir(path)]
     filenames = filter(lambda x: x.endswith('mp3'),filenames)
     metas = [mutagen.File(filename,easy=True) for filename in filenames]
-    metas_filtered = [{k : meta[k] for k in ['artist', 'title','album'] if meta[k]} for meta in metas]
+    metas_filtered = [{k : meta[k][0] for k in ['artist', 'title','album'] if meta[k]} for meta in metas]
     filenames_dict = [{"filename" : filename} for filename in filenames]
     return [dict(a.items()+b.items()) for a,b in zip(filenames_dict,metas_filtered)]
         
 media = sys.argv[1] if len(sys.argv) >= 2 else MEDIA
-port = int(sys.argv[2]) if len(sys.argv) == 3 else PORT
+port = int(sys.argv[2]) if len(sys.argv) >= 3 else PORT
 
 d = {"tracks":metadata(media)}
 
@@ -42,7 +42,3 @@ with open(LIBRARY, "w") as f:
 print "Loaded %d files into library." % len(d["tracks"])
 
 serve(media,port)
-
-
-
-

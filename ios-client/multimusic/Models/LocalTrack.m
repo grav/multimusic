@@ -15,12 +15,7 @@
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [LocalTrack directMappings];
-}
-
-+ (NSDictionary *)directMappings{
-    NSArray *keyvals = @[@"filename", @"artist", @"album", @"title"];
-    return [NSDictionary dictionaryWithObject:keyvals forKey:keyvals];
+    return @{};
 }
 
 - (NSURL *)playbackUrl
