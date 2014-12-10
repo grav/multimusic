@@ -25,6 +25,7 @@
             make.top.equalTo(self.icon.superview).offset(5);
             make.bottom.equalTo(self.icon.superview).offset(-5);
             make.height.equalTo(self.icon.mas_width);
+            make.width.mas_equalTo(30);
         }];
 
         self.label = [UILabel new];
