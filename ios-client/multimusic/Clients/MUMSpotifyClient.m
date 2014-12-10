@@ -55,13 +55,16 @@
 
 - (RACSignal *)getTracks {
     RACSignal *playlistSignal = self.playlistName ? [self.btfSpotify playlistWithName:self.playlistName] : [self.btfSpotify starredPlaylist];
-    return [[playlistSignal map:^id(SPPlaylist *playlist) {
-        return playlist.items;
+    return [[playlistSignal flattenMap:^RACStream *(SPPlaylist *playlist) {
+        NSArray *tracks = [playlist.items mapUsingBlock:^id(SPPlaylistItem *item) {
+            return item.item;
+        }];
+        return [self.btfSpotify load:tracks];
     }] map:^id(NSArray *items) {
-        return [[items mapUsingBlock:^id(SPPlaylistItem *playlistItem) {
-            return [SpotifyTrack trackWithSPTrack:(SPTrack *) playlistItem.item client:self];
-        }] filterUsingBlock:^BOOL(SpotifyTrack *track) {
-            return track.spTrack.availability == SP_TRACK_AVAILABILITY_AVAILABLE;
+        return [[items filterUsingBlock:^BOOL(SPTrack *track) {
+            return track.availability == SP_TRACK_AVAILABILITY_AVAILABLE;
+        }] mapUsingBlock:^id(SPTrack *t) {
+            return [SpotifyTrack trackWithSPTrack:t client:self];
         }];
     }];
 }
