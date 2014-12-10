@@ -5,15 +5,17 @@ from twisted.internet import reactor
 import mutagen
 import json
 import os
+import sys
 
-# folder for media files
+# default folder for media files
 MEDIA = 'media'
+
 LIBRARY = 'library.json'
 
-# server port
+# default server port
 PORT = 8000
 
-def serve():
+def serve(media,port):
     root = static.File(media)
     reactor.listenTCP(port, server.Site(root))
     print "serving at port", port
@@ -27,7 +29,10 @@ def metadata(path):
     filenames_dict = [{"filename" : filename} for filename in filenames]
     return [dict(a.items()+b.items()) for a,b in zip(filenames_dict,metas_filtered)]
         
-d = {"tracks":metadata(MEDIA)}
+media = sys.argv[1] if len(sys.argv) >= 2 else MEDIA
+port = int(sys.argv[2]) if len(sys.argv) == 3 else PORT
+
+d = {"tracks":metadata(media)}
 
 jsn = json.dumps(d)
 
@@ -36,7 +41,7 @@ with open(LIBRARY, "w") as f:
 
 print "Loaded %d files into library." % len(d["tracks"])
 
-serve()
+serve(media,port)
 
 
 
