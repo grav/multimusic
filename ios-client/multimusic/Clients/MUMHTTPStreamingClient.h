@@ -8,13 +8,13 @@
 #import "MUMAbstractClient.h"
 
 @class RACSignal;
-@class LocalTrack;
+@class HTTPStreamingTrack;
 
 
-@interface MUMLocalClient : MUMAbstractClient<MUMClient>
+@interface MUMHTTPStreamingClient : MUMAbstractClient<MUMClient>
 @property(nonatomic, copy,readonly) NSString *hostName;
 - (instancetype)initWithHostName:(NSString *)hostName;
-- (void)playTrack:(LocalTrack *)track;
+- (void)playTrack:(HTTPStreamingTrack *)track;
 
 - (RACSignal *)getTracks;
 

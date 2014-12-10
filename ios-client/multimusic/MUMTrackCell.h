@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class LocalTrack;
+@class HTTPStreamingTrack;
 @protocol MUMTrack;
 
 

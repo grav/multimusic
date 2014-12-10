@@ -8,10 +8,10 @@
 #import "MUMViewModel.h"
 #import "UITableView+MUMAdditions.h"
 #import "MUMTrackCell.h"
-#import "LocalTrack.h"
+#import "HTTPStreamingTrack.h"
 #import "MUMSpotifyClient.h"
 #import "MUMSoundCloudClient.h"
-#import "MUMLocalClient.h"
+#import "MUMHTTPStreamingClient.h"
 #import "NSArray+MUMAdditions.h"
 #import <MediaPlayer/MediaPlayer.h>
 
