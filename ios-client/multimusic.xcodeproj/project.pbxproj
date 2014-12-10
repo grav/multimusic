@@ -8,19 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */; };
-		308A6298FA29AD2FD8E550F2 /* MUMSoundCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */; };
 		308A62CEDE696291ED2BE65B /* MUMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABFD3716E7107AA96BC /* MUMAppDelegate.m */; };
 		308A63FEB7D1E4ADD5F5ECAB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
+		308A64698CB25FE28FC873EC /* MUMClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */; };
 		308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A61028EF3CAC69E48D875 /* CoreGraphics.framework */; };
 		308A6498D25F07217A63CBF2 /* MUMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A65C12B5B89DBC21C0413 /* MUMTableViewController.m */; };
-		308A652104682A75FD91D5C6 /* MUMLocalClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6FA4A329509AA5241706 /* MUMLocalClient.m */; };
 		308A654E352C0DEB6836AB0D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A656E1D61175B76597EDF /* XCTest.framework */; };
+		308A661AC91D79AA89B1628A /* MUMAbstractClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A621903450850FC7BBD17 /* MUMAbstractClient.m */; };
 		308A664E3A1D6568EDDE3A98 /* NSArray+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6ABF6858E85D2C9A6AE2 /* NSArray+MUMAdditions.m */; };
 		308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */; };
 		308A6775F7061E6FD7AD19FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6F38412041354378C6C8 /* Foundation.framework */; };
 		308A67B047B56843BBFB3F4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6AF1C93C992122A0F7F0 /* UIKit.framework */; };
+		308A68363156EC7DC270C333 /* MUMLocalClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A67373D07399E41F0A14B /* MUMLocalClient.m */; };
 		308A68CE51797EBA8F8F1546 /* SoundCloudTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */; };
 		308A693280D226FCD1A6EF1F /* MUMViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A69CB887B3924E74CAD24 /* MUMViewModel.m */; };
+		308A6989B877F6C8BDBDB8C7 /* MUMSpotifyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6961F9AA0CE5377A1F7E /* MUMSpotifyClient.m */; };
 		308A699D3D62E21B6EB50231 /* MUMTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */; };
 		308A69E503529AD288B0CE5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6AF1C93C992122A0F7F0 /* UIKit.framework */; };
 		308A6A11DEC472299E8A060C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 308A6D64766DCE1A77B983C5 /* Images.xcassets */; };
@@ -28,11 +30,12 @@
 		308A6A9EA74554FEAB2E1BDB /* SpotifyTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A62891C9D570ABE3E3440 /* SpotifyTrack.m */; };
 		308A6ADE3045DCE962ED4E7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 308A6814D25CD3E57C2BD18F /* InfoPlist.strings */; };
 		308A6B9D8B70DFDCF1CE65A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6531580858448E4BEF44 /* main.m */; };
-		308A6C62AA88019F5DFE8975 /* MUMSpotifyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A688EB68AF2DBC1F1E9AF /* MUMSpotifyClient.m */; };
+		308A6BAB24A904F23106D8DD /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A6C0B35E65EDEB566BF2C /* MediaPlayer.framework */; };
 		308A6C8877BC5812AA21D129 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 308A6AAEF284556A03A6133D /* InfoPlist.strings */; };
 		308A6CA0BF38989321FAB735 /* MUMMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A699E8D13842E537A08E7 /* MUMMenuViewController.m */; };
 		308A6CA0D369645F51E8A615 /* UITableView+MUMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6B5AB5609753EC010B68 /* UITableView+MUMAdditions.m */; };
 		308A6CCB1A2ADFFD50ACE38A /* LocalTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A6564A75ED6EAD1875804 /* LocalTrack.m */; };
+		308A6CD2E740767FD6F91DCC /* MUMSoundCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A66E3427FB6192632CAA5 /* MUMSoundCloudClient.m */; };
 		E60F0B73B1DC4B0EB0F280D1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E2FBFD306D40BD8821F4EE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +53,8 @@
 		308A605A668428A112F1C2DE /* NSURLConnection+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A6080D5D912D1E90D6E58 /* UITableView+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A61028EF3CAC69E48D875 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		308A61133161960CCBD63081 /* MUMSoundCloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSoundCloudClient.h; sourceTree = "<group>"; };
+		308A621903450850FC7BBD17 /* MUMAbstractClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMAbstractClient.m; sourceTree = "<group>"; };
 		308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A62515EC4C8E4E3FE49FE /* multimusic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "multimusic-Prefix.pch"; sourceTree = "<group>"; };
 		308A6278E7B63863F5E4BC17 /* multimusic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusic-Info.plist"; sourceTree = "<group>"; };
@@ -57,24 +62,26 @@
 		308A62891C9D570ABE3E3440 /* SpotifyTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyTrack.m; sourceTree = "<group>"; };
 		308A629E7FDBEFDE5185996F /* SpotifyTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifyTrack.h; sourceTree = "<group>"; };
 		308A62F94CCCCCA039D82DBA /* MUMMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMMenuViewController.h; sourceTree = "<group>"; };
-		308A6370E59E3A10C5046EAE /* MUMSpotifyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSpotifyClient.h; sourceTree = "<group>"; };
 		308A63ED69910E2A194C846E /* MUMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMTableViewController.h; sourceTree = "<group>"; };
 		308A64002E9393CB6F3274C1 /* multimusicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "multimusicTests-Info.plist"; sourceTree = "<group>"; };
-		308A644E81ADA1A4720B086E /* MUMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMConstants.h; sourceTree = "<group>"; };
 		308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLConnection+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A64C53A3CACF210CF4F96 /* SoundCloudTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundCloudTrack.m; sourceTree = "<group>"; };
 		308A6531580858448E4BEF44 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMClientCell.m; sourceTree = "<group>"; };
 		308A654E8792FB72652974F6 /* multimusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = multimusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A6564A75ED6EAD1875804 /* LocalTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalTrack.m; sourceTree = "<group>"; };
 		308A656E1D61175B76597EDF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		308A65772B0C3522D54F704B /* MUMSpotifyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSpotifyClient.h; sourceTree = "<group>"; };
+		308A657A4AB018912CAF0204 /* MUMClientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMClientCell.h; sourceTree = "<group>"; };
 		308A659B3642D0033039AF36 /* MUMViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMViewModel.h; sourceTree = "<group>"; };
 		308A65C12B5B89DBC21C0413 /* MUMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTableViewController.m; sourceTree = "<group>"; };
+		308A66E3427FB6192632CAA5 /* MUMSoundCloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSoundCloudClient.m; sourceTree = "<group>"; };
 		308A66E3CD94B1863C279137 /* multimusicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = multimusicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		308A66E61C6A93C96AFED82E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		308A67373D07399E41F0A14B /* MUMLocalClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMLocalClient.m; sourceTree = "<group>"; };
 		308A68590BEA5F92E4A068B0 /* SoundCloudTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCloudTrack.h; sourceTree = "<group>"; };
-		308A688EB68AF2DBC1F1E9AF /* MUMSpotifyClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSpotifyClient.m; sourceTree = "<group>"; };
 		308A68A4355D044638A0B55E /* LocalTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalTrack.h; sourceTree = "<group>"; };
-		308A6948291471F4448FAFE8 /* MUMSoundCloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMSoundCloudClient.h; sourceTree = "<group>"; };
+		308A6961F9AA0CE5377A1F7E /* MUMSpotifyClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSpotifyClient.m; sourceTree = "<group>"; };
 		308A699E8D13842E537A08E7 /* MUMMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMMenuViewController.m; sourceTree = "<group>"; };
 		308A69CB887B3924E74CAD24 /* MUMViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMViewModel.m; sourceTree = "<group>"; };
 		308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MUMAdditions.h"; sourceTree = "<group>"; };
@@ -84,16 +91,17 @@
 		308A6B1844713BBDB996D7C6 /* MUMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUMAppDelegate.h; sourceTree = "<group>"; };
 		308A6B5AB5609753EC010B68 /* UITableView+MUMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+MUMAdditions.m"; sourceTree = "<group>"; };
 		308A6BE75F436F9283D90878 /* MUMTrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMTrackCell.h; sourceTree = "<group>"; };
-		308A6BF38BBDE764F6B5E567 /* MUMLocalClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMLocalClient.h; sourceTree = "<group>"; };
+		308A6C0B35E65EDEB566BF2C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		308A6C9CBEEE077C6748E970 /* MUMTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMTrackCell.m; sourceTree = "<group>"; };
 		308A6CE2726C9401D22875EB /* MUM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUM.h; sourceTree = "<group>"; };
 		308A6D1851181E4C29091F41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMSoundCloudClient.m; sourceTree = "<group>"; };
+		308A6D5F57225CBD8A5EBB8F /* MUMAbstractClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMAbstractClient.h; sourceTree = "<group>"; };
 		308A6D64766DCE1A77B983C5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		308A6E348917920E14B1A9AB /* NSArray+MUMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MUMAdditions.h"; sourceTree = "<group>"; };
 		308A6F38412041354378C6C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		308A6FA4A329509AA5241706 /* MUMLocalClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMLocalClient.m; sourceTree = "<group>"; };
-		C83ED5020758489BA5EBB1D3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		308A6F989F427EB69523A958 /* MUMLocalClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMLocalClient.h; sourceTree = "<group>"; };
+		A13AF01011A16F0E91D6A5E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AFD331BCB58F6F4D64A4095A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D7E2FBFD306D40BD8821F4EE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -116,12 +124,37 @@
 				308A647A9F63EF8CF4680E18 /* CoreGraphics.framework in Frameworks */,
 				308A69E503529AD288B0CE5B /* UIKit.framework in Frameworks */,
 				E60F0B73B1DC4B0EB0F280D1 /* libPods.a in Frameworks */,
+				308A6BAB24A904F23106D8DD /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C8E36000C08A6BBB9B02895 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A13AF01011A16F0E91D6A5E6 /* Pods.release.xcconfig */,
+				AFD331BCB58F6F4D64A4095A /* Pods.debug.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		308A602FFF70D1462A1CF29A /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				308A67373D07399E41F0A14B /* MUMLocalClient.m */,
+				308A6F989F427EB69523A958 /* MUMLocalClient.h */,
+				308A6961F9AA0CE5377A1F7E /* MUMSpotifyClient.m */,
+				308A65772B0C3522D54F704B /* MUMSpotifyClient.h */,
+				308A61133161960CCBD63081 /* MUMSoundCloudClient.h */,
+				308A66E3427FB6192632CAA5 /* MUMSoundCloudClient.m */,
+				308A621903450850FC7BBD17 /* MUMAbstractClient.m */,
+				308A6D5F57225CBD8A5EBB8F /* MUMAbstractClient.h */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
 		308A63786226B23D554AFF99 = {
 			isa = PBXGroup;
 			children = (
@@ -129,7 +162,7 @@
 				308A6921145CD8F6A01531C1 /* Frameworks */,
 				308A6BCC44C3B07E9792A9E1 /* multimusic */,
 				308A65BF2BDC40B22F6390D7 /* multimusicTests */,
-				C83ED5020758489BA5EBB1D3 /* Pods.xcconfig */,
+				0C8E36000C08A6BBB9B02895 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,6 +216,7 @@
 				308A6AF1C93C992122A0F7F0 /* UIKit.framework */,
 				308A656E1D61175B76597EDF /* XCTest.framework */,
 				D7E2FBFD306D40BD8821F4EE /* libPods.a */,
+				308A6C0B35E65EDEB566BF2C /* MediaPlayer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,14 +246,7 @@
 				308A6BE75F436F9283D90878 /* MUMTrackCell.h */,
 				308A6B5AB5609753EC010B68 /* UITableView+MUMAdditions.m */,
 				308A6080D5D912D1E90D6E58 /* UITableView+MUMAdditions.h */,
-				308A644E81ADA1A4720B086E /* MUMConstants.h */,
-				308A6FA4A329509AA5241706 /* MUMLocalClient.m */,
-				308A6BF38BBDE764F6B5E567 /* MUMLocalClient.h */,
-				308A6D624EDE0A8DFD647818 /* MUMSoundCloudClient.m */,
-				308A6948291471F4448FAFE8 /* MUMSoundCloudClient.h */,
 				308A6CE2726C9401D22875EB /* MUM.h */,
-				308A688EB68AF2DBC1F1E9AF /* MUMSpotifyClient.m */,
-				308A6370E59E3A10C5046EAE /* MUMSpotifyClient.h */,
 				308A624EEB8BE4C30C715A01 /* NSError+MUMAdditions.m */,
 				308A6A3E8FFD9D200D8FD6F9 /* NSError+MUMAdditions.h */,
 				308A649219B8904920B05589 /* NSURLConnection+MUMAdditions.m */,
@@ -228,6 +255,9 @@
 				308A6E348917920E14B1A9AB /* NSArray+MUMAdditions.h */,
 				308A699E8D13842E537A08E7 /* MUMMenuViewController.m */,
 				308A62F94CCCCCA039D82DBA /* MUMMenuViewController.h */,
+				308A602FFF70D1462A1CF29A /* Clients */,
+				308A6540F1B50D6D4C2B3E92 /* MUMClientCell.m */,
+				308A657A4AB018912CAF0204 /* MUMClientCell.h */,
 			);
 			path = multimusic;
 			sourceTree = "<group>";
@@ -299,6 +329,8 @@
 			mainGroup = 308A63786226B23D554AFF99;
 			productRefGroup = 308A65F5CEED200C68F07AB2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				308A6AC16CE91C4C58097A8C /* multimusic */,
@@ -355,7 +387,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -372,15 +404,17 @@
 				308A693280D226FCD1A6EF1F /* MUMViewModel.m in Sources */,
 				308A699D3D62E21B6EB50231 /* MUMTrackCell.m in Sources */,
 				308A6CA0D369645F51E8A615 /* UITableView+MUMAdditions.m in Sources */,
-				308A652104682A75FD91D5C6 /* MUMLocalClient.m in Sources */,
-				308A6298FA29AD2FD8E550F2 /* MUMSoundCloudClient.m in Sources */,
 				308A68CE51797EBA8F8F1546 /* SoundCloudTrack.m in Sources */,
-				308A6C62AA88019F5DFE8975 /* MUMSpotifyClient.m in Sources */,
 				308A6A9EA74554FEAB2E1BDB /* SpotifyTrack.m in Sources */,
 				308A667AC1898B1762E623F7 /* NSError+MUMAdditions.m in Sources */,
 				308A601FB79884B4CCC1103F /* NSURLConnection+MUMAdditions.m in Sources */,
 				308A664E3A1D6568EDDE3A98 /* NSArray+MUMAdditions.m in Sources */,
 				308A6CA0BF38989321FAB735 /* MUMMenuViewController.m in Sources */,
+				308A68363156EC7DC270C333 /* MUMLocalClient.m in Sources */,
+				308A6989B877F6C8BDBDB8C7 /* MUMSpotifyClient.m in Sources */,
+				308A6CD2E740767FD6F91DCC /* MUMSoundCloudClient.m in Sources */,
+				308A661AC91D79AA89B1628A /* MUMAbstractClient.m in Sources */,
+				308A64698CB25FE28FC873EC /* MUMClientCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,8 +492,9 @@
 		};
 		308A68704F802C4FE43927AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C83ED5020758489BA5EBB1D3 /* Pods.xcconfig */;
+			baseConfigurationReference = AFD331BCB58F6F4D64A4095A /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -467,14 +502,16 @@
 				INFOPLIST_FILE = "multimusic/multimusic-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		308A6BD87015A2521F059E40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C83ED5020758489BA5EBB1D3 /* Pods.xcconfig */;
+			baseConfigurationReference = A13AF01011A16F0E91D6A5E6 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -482,6 +519,7 @@
 				INFOPLIST_FILE = "multimusic/multimusic-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

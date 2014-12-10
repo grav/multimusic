@@ -25,7 +25,7 @@
 
 - (NSURL *)playbackUrl
 {
-    NSString *urlString = [NSString stringWithFormat:@"%@/%@",kBaseUrl,self.filename];
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@", self.client.hostName, self.filename];
 
     return [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding : NSUTF8StringEncoding]];
 }

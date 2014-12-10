@@ -116,8 +116,20 @@ int mod(int a, int b)
 }
 
 - (void)setup {
+<<<<<<< HEAD
+    NSArray *clients = @[
+            [MUMLocalClient new],
+            [MUMSoundCloudClient new],
+            [MUMSpotifyClient new]
+    ];
+
+
     // TODO - this would have been easier by concatenating with the signalForControlEvents directly,
     // but that messes up the KVO for some reason ...
+    RACSubject *refreshSubject = [RACSubject subject];
+    RACSignal *trigger = [[RACSignal return:nil] concat:refreshSubject];
+
+    self.tracksViewModel = [MUMViewModel tracklistingViewModelWithClients:clients loadTrigger:trigger];
 
     RACSignal *filterSignal = [[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
                                                 fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
@@ -128,12 +140,26 @@ int mod(int a, int b)
 
     RAC(self.tracksViewModel,filter) = filterSignal;
 
+    @weakify(refreshSubject)
+    [[[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
+        @strongify(refreshSubject)
+        [refreshSubject sendNext:nil];
+    }];
+=======
+    RACSignal *searchSignal = [[[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
+                                                                    fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
+            return tuple.second;
+        }] filter:^BOOL(NSString *searchString) {
+            return searchString.length>2;
+        }] throttle:0.5];
+
+//    self.searchViewModel = [MUMViewModel searchViewModelWithClients:clients];
 
     RACSignal *refreshSignal = [[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged];
     RACSignal *trigger = [[RACSignal return:nil] concat:refreshSignal];
+>>>>>>> spotify-lib
 
     [self.tracksViewModel rac_liftSelector:@selector(reload:) withSignalsFromArray:@[trigger]];
-
 
     // Adding to vc queue
     NSArray *clientSignals = [[self.tracksViewModel.clients filterUsingBlock:^BOOL(NSObject *client) {

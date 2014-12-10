@@ -4,25 +4,31 @@
 //
 
 #import "MUMLocalClient.h"
-#import "MUMConstants.h"
 #import "NSArray+Functional.h"
 #import "Mantle.h"
 #import "LocalTrack.h"
-#import "NSError+MUMAdditions.h"
 #import "NSURLConnection+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
+
+static NSString *kLibrary = @"library.json";
 
 @interface MUMLocalClient ()
 @property(nonatomic, strong) AVPlayer* player;
 @property (nonatomic, readwrite) BOOL playing;
+@property(nonatomic, copy) NSString *hostName;
 @end
 
 @implementation MUMLocalClient {
 
 }
 
-- (instancetype)init {
+- (NSString *)name {
+    return @"Local files";
+}
+
+- (instancetype)initWithHostName:(NSString *)hostName {
     if (!(self = [super init])) return nil;
+    self.hostName = hostName;
     RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVPlayer *player) {
         return [RACObserve(player,rate) map:^id(NSNumber *rate) {
                 return @(rate.floatValue>0);
@@ -36,16 +42,31 @@
     self.player = [[AVPlayer alloc] initWithURL:[track playbackUrl]];
     [self.player play];
 
+    [[RACSignal interval:3 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+        NSArray *keyPaths = @[@"rate",@"currentTime",@"status",@"error",@"currentItem"];
+        [keyPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSLog(@"%@: %@",obj, [self.player valueForKeyPath:obj]);
+        }];
+        NSLog(@"time in secs: %f",CMTimeGetSeconds(self.player.currentTime));
+
+
+        [@[@"playbackLikelyToKeepUp", @"playbackBufferEmpty", @"playbackBufferFull", @"accessLog", @"errorLog"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSLog(@"%@: %@",obj,[self.player.currentItem valueForKeyPath:obj]);
+        }];
+    }];
+
+
+
 }
 
 
-+ (NSURL *)libraryUrl
+- (NSURL *)libraryUrl
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kBaseUrl, kLibrary]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", self.hostName, kLibrary]];
 }
 
 - (RACSignal *)getTracks {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[MUMLocalClient libraryUrl]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[self libraryUrl]];
     RACSignal *tracksSignal = [[NSURLConnection rac_sendAsynchronousJSONRequest:request]  map:^id(NSDictionary *library) {
         NSArray *tracks = library[@"tracks"];
         return [tracks mapUsingBlock:^id(NSDictionary *jsonDictionary) {
@@ -72,8 +93,10 @@
 }
 
 
+
 - (void)stop {
     [self.player pause];
 
 }
+
 @end

@@ -15,14 +15,22 @@ typedef RACSignal * (^ClientAction)(id<MUMClient>, id);
 @interface MUMViewModel : NSObject
 @property(nonatomic, readonly) NSArray *tracks, *filteredTracks;
 @property (nonatomic, readonly) BOOL playing;
+<<<<<<< HEAD
 @property (nonatomic, copy) NSString *filter;
+=======
 @property (nonatomic, readonly) NSArray *clients;
+>>>>>>> spotify-lib
 
 + (instancetype)searchViewModelWithClients:(NSArray *)clients;
 
 + (instancetype)tracklistingViewModelWithClients:(NSArray *)clients;
 
+<<<<<<< HEAD
+- (instancetype)initWithClients:(NSArray *)clients triggerSignal:(RACSignal *)triggerSignal clientAction:(ClientAction)clientAction;
+
+=======
 - (instancetype)initWithClients:(NSArray *)clients clientAction:(ClientAction)clientAction;
 
 - (void)reload:(id)_;
+>>>>>>> spotify-lib
 @end

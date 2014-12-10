@@ -34,7 +34,7 @@ jsn = json.dumps(d)
 with open(LIBRARY, "w") as f:
     f.write(jsn)
 
-print "Loaded %d files into library." % len(d)
+print "Loaded %d files into library." % len(d["tracks"])
 
 serve()
 

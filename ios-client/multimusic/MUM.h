@@ -11,9 +11,12 @@
 - (RACSignal *)getTracks;
 - (RACSignal *)search:(NSString *)query;
 @property(nonatomic, readonly) BOOL playing;
+@property(nonatomic) BOOL enabled;
+@property(nonatomic, readonly) NSString *name;
 @optional
 @property(nonatomic, weak) UIViewController *presentingViewController;
 @property(nonatomic, readonly) BOOL wantsPresentingViewController;
+@property(nonatomic, readonly) UIImage *logo;
 @end
 
 @protocol MUMTrack <NSObject>

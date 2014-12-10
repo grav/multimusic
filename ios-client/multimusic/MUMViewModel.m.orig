@@ -31,6 +31,13 @@
     }];
 }
 
+<<<<<<< HEAD
+- (instancetype)initWithClients:(NSArray *)clients
+                  triggerSignal:(RACSignal *)triggerSignal
+                   clientAction:(ClientAction)clientAction {
+    RACSignal *tracksSignal = [[[triggerSignal flattenMap:^RACStream *(id trigger) {
+        return [[RACSignal combineLatest:[clients mapUsingBlock:^id(id <MUMClient> client) {
+=======
 - (instancetype)initWithClients:(NSArray *)clients clientAction:(ClientAction)clientAction {
     if (!(self = [super init])) return nil;
     self.clients = clients;
@@ -44,6 +51,7 @@
         if(enabledClients.count==0) return [RACSignal return:@[]];
 
         return [[RACSignal combineLatest:[enabledClients mapUsingBlock:^id(id <MUMClient> client) {
+>>>>>>> spotify-lib
             return [clientAction(client, trigger) catch:^RACSignal *(NSError *error) {
                 NSLog(@"Error while getting tracks from %@: %@", client, error);
                 return [RACSignal return:@[]];
@@ -57,13 +65,22 @@
         return [array sortedArrayUsingComparator:^NSComparisonResult(id <MUMTrack> obj1, id <MUMTrack> obj2) {
             return [[obj1.trackDescription lowercaseString] compare:[obj2.trackDescription lowercaseString]];
         }];
+<<<<<<< HEAD
+    }] replayLazily];
+
+    if (!(self = [super init])) return nil;
+
+    RAC(self,tracks) = tracksSignal;
+=======
     }] deliverOn:[RACScheduler mainThreadScheduler]];
+>>>>>>> spotify-lib
 
     RAC(self,playing) = [[RACSignal merge:[clients mapUsingBlock:^id(id <MUMClient> client) {
         return RACObserve(client, playing);
     }]] distinctUntilChanged];
 
-    RACSignal *tracksSignal = RACObserve(self,tracks);
+
+<<<<<<< HEAD
 
     RAC(self,filteredTracks) = [[RACSignal combineLatest:@[tracksSignal, RACObserve(self, filter)]] map:^id(RACTuple *tuple) {
         RACTupleUnpack(NSArray *tracks, NSString *filter) = tuple;
@@ -74,8 +91,10 @@
     }];
 
     return self;
+=======
+- (void)reload:(id)_ {
+>>>>>>> spotify-lib
 }
 
-- (void)reload:(id)_ {
-}
+
 @end

@@ -1,17 +1,17 @@
 platform :ios, "7.0"
 
 pod 'NSArray+Functional'
-pod 'Mantle', '1.4.1'
+pod 'Mantle'
 pod 'Masonry'
 pod 'ReactiveCocoa'
 pod 'uicontrol-blocks'
-pod 'DCIntrospect-ARC'
 pod 'Reveal-iOS-SDK'
 pod 'NXOAuth2Client', :path => '/Users/grav/repositories/OAuth2Client'
 pod 'CocoaSoundCloudAPI', :path => '/Users/grav/repositories/CocoaSoundCloudAPI'
 pod 'CocoaSoundCloudUI'
 pod 'dyci', :git => 'https://github.com/DyCI/dyci-main.git'
-pod 'libextobjc', '~>0.4'
+pod 'libextobjc'
 pod 'CocoaLibSpotify'
+pod 'BTFSpotify', :path => '/Users/grav/gravrepo/BTFSpotify'
 
 pod 'MMDrawerController'
