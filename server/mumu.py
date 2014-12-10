@@ -29,7 +29,7 @@ def metadata(path):
     filenames_dict = [{"filename" : filename} for filename in filenames]
     return [dict(a.items()+b.items()) for a,b in zip(filenames_dict,metas_filtered)]
         
-port = int(sys.argv[2]) if len(sys.argv) >= 3 else PORT
+port = int(sys.argv[1]) if len(sys.argv) > 1 else PORT
 
 d = {"tracks":metadata(MEDIA)}
 
