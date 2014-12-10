@@ -22,8 +22,7 @@ def serve(media,port):
     reactor.run()
 
 def metadata(path):
-    filenames = [path+'/'+filename for filename in os.listdir(path)]
-    filenames = filter(lambda x: x.endswith('mp3'),filenames)
+    filenames = filter(lambda x: x.endswith('mp3'),os.listdir(path))
     metas = [mutagen.File(filename,easy=True) for filename in filenames]
     metas_filtered = [{k : meta[k][0] for k in ['artist', 'title','album'] if meta[k]} for meta in metas]
     filenames_dict = [{"filename" : filename} for filename in filenames]
