@@ -4,7 +4,7 @@
 //
 
 #import "MUMViewModel.h"
-#import "MUMLocalClient.h"
+#import "MUMHTTPStreamingClient.h"
 #import "NSArray+Functional.h"
 
 @interface MUMViewModel ()

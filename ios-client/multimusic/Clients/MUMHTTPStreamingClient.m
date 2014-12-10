@@ -3,27 +3,27 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "MUMLocalClient.h"
+#import "MUMHTTPStreamingClient.h"
 #import "NSArray+Functional.h"
 #import "Mantle.h"
-#import "LocalTrack.h"
+#import "HTTPStreamingTrack.h"
 #import "NSURLConnection+MUMAdditions.h"
 #import <AVFoundation/AVFoundation.h>
 
 static NSString *kLibrary = @"library.json";
 
-@interface MUMLocalClient ()
+@interface MUMHTTPStreamingClient ()
 @property(nonatomic, strong) AVPlayer* player;
 @property (nonatomic, readwrite) BOOL playing;
 @property(nonatomic, copy) NSString *hostName;
 @end
 
-@implementation MUMLocalClient {
+@implementation MUMHTTPStreamingClient {
 
 }
 
 - (NSString *)name {
-    return @"Local files";
+    return @"Web files";
 }
 
 - (instancetype)initWithHostName:(NSString *)hostName {
@@ -38,7 +38,7 @@ static NSString *kLibrary = @"library.json";
 }
 
 
-- (void)playTrack:(LocalTrack *)track {
+- (void)playTrack:(HTTPStreamingTrack *)track {
     self.player = [[AVPlayer alloc] initWithURL:[track playbackUrl]];
     [self.player play];
 
@@ -56,7 +56,7 @@ static NSString *kLibrary = @"library.json";
         NSArray *tracks = library[@"tracks"];
         return [tracks mapUsingBlock:^id(NSDictionary *jsonDictionary) {
             NSError *error;
-            LocalTrack * track = [MTLJSONAdapter modelOfClass:[LocalTrack class]
+            HTTPStreamingTrack * track = [MTLJSONAdapter modelOfClass:[HTTPStreamingTrack class]
                                            fromJSONDictionary:jsonDictionary
                                                         error:&error];
             track.client = self;
@@ -69,7 +69,7 @@ static NSString *kLibrary = @"library.json";
 
 - (RACSignal *)search:(NSString *)query {
     return [[self getTracks] map:^id(NSArray *tracks) {
-        return [tracks filterUsingBlock:^BOOL(LocalTrack *track) {
+        return [tracks filterUsingBlock:^BOOL(HTTPStreamingTrack *track) {
             NSString *lCaseQuery = [query lowercaseString];
             NSString *searchField = [[track trackDescription] lowercaseString];
             return [searchField rangeOfString:lCaseQuery].location != NSNotFound;

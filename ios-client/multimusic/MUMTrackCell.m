@@ -4,7 +4,7 @@
 //
 
 #import "MUMTrackCell.h"
-#import "LocalTrack.h"
+#import "HTTPStreamingTrack.h"
 #import "MUM.h"
 @interface MUMTrackCell ()
 @property (nonatomic, strong) UILabel *label;

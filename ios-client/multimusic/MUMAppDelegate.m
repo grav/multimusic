@@ -16,7 +16,7 @@
 #import "MUMViewModel.h"
 #import "MUMSpotifyClient.h"
 #import "MUMSoundCloudClient.h"
-#import "MUMLocalClient.h"
+#import "MUMHTTPStreamingClient.h"
 
 @implementation MUMAppDelegate
 
@@ -29,7 +29,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     MUMViewModel *viewModel = [MUMViewModel tracklistingViewModelWithClients:@[
-            [[MUMLocalClient alloc] initWithHostName:@"http://localhost:8000"],
+            [[MUMHTTPStreamingClient alloc] initWithHostName:@"http://localhost:8000"],
             [MUMSoundCloudClient new],
             [[MUMSpotifyClient alloc] initWithStarredPlaylist]
     ]];

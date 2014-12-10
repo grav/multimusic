@@ -3,19 +3,19 @@
 // Copyright (c) 2014 Betafunk. All rights reserved.
 //
 
-#import "LocalTrack.h"
-#import "MUMLocalClient.h"
+#import "HTTPStreamingTrack.h"
+#import "MUMHTTPStreamingClient.h"
 
-@interface LocalTrack ()
+@interface HTTPStreamingTrack ()
 @property (nonatomic, copy, readwrite) NSString *artist, *title, *filename;
 @end
 
-@implementation LocalTrack {
+@implementation HTTPStreamingTrack {
 
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return [LocalTrack directMappings];
+    return [HTTPStreamingTrack directMappings];
 }
 
 + (NSDictionary *)directMappings{
@@ -51,9 +51,9 @@
 
 @end
 
-@implementation LocalTrack (Stub)
+@implementation HTTPStreamingTrack (Stub)
 + (instancetype)trackWithArtist:(NSString *)artist title:(NSString *)title {
-    LocalTrack *track = [LocalTrack new];
+    HTTPStreamingTrack *track = [HTTPStreamingTrack new];
     track.artist = artist;
     track.title = title;
     track.filename = @"media/sunshine-riff.mp3";

@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @class MUMSoundCloudClient;
-@class MUMLocalClient;
+@class MUMHTTPStreamingClient;
 @protocol MUMClient;
 
 typedef RACSignal * (^ClientAction)(id<MUMClient>, id);
