@@ -13,7 +13,6 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-            @"title":@"title",
             @"artist":@"user.username",
             @"streamUrl":@"stream_url"
     };

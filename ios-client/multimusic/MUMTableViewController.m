@@ -116,9 +116,8 @@ int mod(int a, int b)
 }
 
 - (void)setup {
-    // TODO - this would have been easier by concatenating with the signalForControlEvents directly,
-    // but that messes up the KVO for some reason ...
 
+    // Filtering
     RACSignal *filterSignal = [[[self rac_signalForSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)
                                                 fromProtocol:@protocol(UISearchDisplayDelegate)] map:^id(RACTuple *tuple) {
             return tuple.second;
@@ -128,9 +127,9 @@ int mod(int a, int b)
 
     RAC(self.tracksViewModel,filter) = filterSignal;
 
-
-    RACSignal *refreshSignal = [[self refreshControl] rac_signalForControlEvents:UIControlEventValueChanged];
-    RACSignal *trigger = [[RACSignal return:nil] concat:refreshSignal];
+    // Refreshing
+    RACSignal *refreshSignal = [self.refreshControl rac_signalForControlEvents:UIControlEventValueChanged];
+    RACSignal *trigger = [refreshSignal startWith:nil];
 
     [self.tracksViewModel rac_liftSelector:@selector(reload:) withSignalsFromArray:@[trigger]];
 
@@ -164,15 +163,7 @@ int mod(int a, int b)
     }];
 
 
-    [self.refreshControl addTarget:self action:@selector(refresh:)
-                  forControlEvents:UIControlEventValueChanged];
-
 }
-
-- (void)refresh:(id)refresh {
-    NSLog(@"refresh");
-}
-
 
 - (void)updateOnClassInjection {
     @try{
