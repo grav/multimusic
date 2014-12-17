@@ -109,5 +109,14 @@
 
 }
 
+- (NSNumber *)currentTrackDuration {
+    SPTrack *currentTrack = self.btfSpotify.playbackManager.currentTrack;
+    NSCAssert(currentTrack, @"");
+    return @(currentTrack.duration);
+}
+
+- (NSNumber *)elapsed {
+    return @(self.btfSpotify.playbackManager.trackPosition);
+}
 
 @end

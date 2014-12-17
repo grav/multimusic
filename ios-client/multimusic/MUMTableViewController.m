@@ -105,10 +105,14 @@ int mod(int a, int b)
                               scrollPosition:UITableViewScrollPositionMiddle];
         [track play];
 
-       [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:@{
+        [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:@{
                 MPMediaItemPropertyTitle : [track trackDescription],
-               MPMediaItemPropertyArtwork : [[MPMediaItemArtwork alloc] initWithImage:[[track class] sourceImage]]
-       }];
+                MPMediaItemPropertyArtwork : [[MPMediaItemArtwork alloc] initWithImage:[[track class] sourceImage]],
+                MPMediaItemPropertyPlaybackDuration : track.client.currentTrackDuration,
+                // This isn't strictly necessary, as elapsed time is always zero at this point,
+                // and the current time is extrapolated
+                MPNowPlayingInfoPropertyElapsedPlaybackTime : track.client.elapsed
+        }];
 
     }];
 

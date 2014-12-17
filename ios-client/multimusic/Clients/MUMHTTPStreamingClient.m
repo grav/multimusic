@@ -99,4 +99,17 @@ static NSString *kLibrary = @"library.json";
 
 }
 
+- (NSNumber *)currentTrackDuration {
+    AVPlayerItem *currentItem = self.player.currentItem;
+    NSCAssert(currentItem, @"");
+    return @(currentItem ? CMTimeGetSeconds(currentItem.duration) : 0);
+}
+
+- (NSNumber *)elapsed {
+    AVPlayerItem *currentItem = self.player.currentItem;
+    NSCAssert(currentItem, @"");
+    return @(currentItem ? CMTimeGetSeconds(currentItem.currentTime) : 0);
+}
+
+
 @end

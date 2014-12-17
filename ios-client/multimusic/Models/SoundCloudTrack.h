@@ -12,7 +12,7 @@
 
 
 @interface SoundCloudTrack : MTLModel<MUMTrack,MTLJSONSerializing>
-@property (nonatomic, copy, readonly) NSString *streamUrl, *artist, *title;
+@property (nonatomic, copy, readonly) NSString *streamUrl, *artist, *title, *duration;
 @property (nonatomic, weak) MUMSoundCloudClient *client;
 
 @end

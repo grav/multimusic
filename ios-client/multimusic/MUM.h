@@ -13,6 +13,7 @@
 @property(nonatomic, readonly) BOOL playing;
 @property(nonatomic) BOOL enabled;
 @property(nonatomic, readonly) NSString *name;
+@property(nonatomic, readonly) NSNumber *currentTrackDuration, *elapsed;
 @optional
 @property(nonatomic, weak) UIViewController *presentingViewController;
 @property(nonatomic, readonly) BOOL wantsPresentingViewController;
@@ -21,6 +22,8 @@
 
 @protocol MUMTrack <NSObject>
 @property(nonatomic, copy, readonly) NSString *trackDescription;
+// TODO - This is a bit annoying, can we remove it from interface somehow?
+@property(nonatomic, weak, readonly) id<MUMClient> client;
 - (void)play;
 - (void)stop;
 + (UIImage*)sourceImage;
