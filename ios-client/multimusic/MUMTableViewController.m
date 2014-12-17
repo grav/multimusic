@@ -105,6 +105,7 @@ int mod(int a, int b)
                               scrollPosition:UITableViewScrollPositionMiddle];
         [track play];
 
+        // TODO - don't update duration/elapsed before track is ready ...
         [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:@{
                 MPMediaItemPropertyTitle : [track trackDescription],
                 MPMediaItemPropertyArtwork : [[MPMediaItemArtwork alloc] initWithImage:[[track class] sourceImage]],

@@ -112,7 +112,7 @@
 
 - (NSNumber *)currentTrackDuration {
     SPTrack *currentTrack = self.btfSpotify.playbackManager.currentTrack;
-    NSCAssert(currentTrack, @"");
+//    NSCAssert(currentTrack, @"");
     return @(currentTrack.duration);
 }
 
