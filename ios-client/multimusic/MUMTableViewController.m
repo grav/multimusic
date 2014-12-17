@@ -117,6 +117,19 @@ int mod(int a, int b)
 
     }];
 
+    RACSignal *playPause = [remoteControlSignal filter:^BOOL(UIEvent *event) {
+        return event.subtype == UIEventSubtypeRemoteControlTogglePlayPause;
+
+    }];
+
+    [playPause subscribeNext:^(id x) {
+        @strongify(self)
+        if(self.currentTrack.client.playing){
+            [self.currentTrack stop];
+        } else {
+            [self.currentTrack play];
+        }
+    }];
     return self;
 }
 

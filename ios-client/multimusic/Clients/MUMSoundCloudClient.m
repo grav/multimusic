@@ -25,7 +25,6 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
 @property(nonatomic, strong) AVPlayer* player;
 @property (nonatomic, readonly) RACSignal *loginSignal;
 @property (nonatomic, readwrite) BOOL wantsPresentingViewController;
-@property (nonatomic, readwrite) BOOL playing;
 @end
 
 @implementation MUMSoundCloudClient {
@@ -43,11 +42,6 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
                    redirectURL:[NSURL URLWithString:@"multimusic://soundcloud/callback"]];
 
 
-    RAC(self,playing) = [[[[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVAudioPlayer *player) {
-        return [RACObserve(player, rate) map:^id(NSNumber *rate) {
-            return @(rate.floatValue > 0);
-        }];
-    }] distinctUntilChanged] throttle:0.1];
     return self;
 }
 
@@ -280,5 +274,8 @@ static const NSString *kSCBaseUrl = @"https://api.soundcloud.com";
     return @(currentItem ? CMTimeGetSeconds(currentItem.currentTime) : 0);
 }
 
+- (BOOL)playing {
+    return self.player.rate > 0;
+}
 
 @end

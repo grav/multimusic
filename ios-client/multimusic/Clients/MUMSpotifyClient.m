@@ -13,7 +13,6 @@
 
 @interface MUMSpotifyClient () <SPSessionDelegate>
 @property (nonatomic,readwrite) BOOL wantsPresentingViewController;
-@property (nonatomic, readwrite) BOOL playing;
 @property(nonatomic, copy) NSString *playlistName;
 @property(nonatomic, strong) BTFSpotify *btfSpotify;
 @end
@@ -118,6 +117,10 @@
 
 - (NSNumber *)elapsed {
     return @(self.btfSpotify.playbackManager.trackPosition);
+}
+
+- (BOOL)playing {
+    return self.btfSpotify.playbackManager.isPlaying;
 }
 
 @end

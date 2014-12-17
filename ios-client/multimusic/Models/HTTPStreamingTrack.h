@@ -7,11 +7,11 @@
 #import "Mantle.h"
 #import "MUM.h"
 
-@class MUMHTTPStreamingClient;
+#import "MUMHTTPStreamingClient.h"
 
 @interface HTTPStreamingTrack : MTLModel  <MTLJSONSerializing,MUMTrack>
 @property (nonatomic, copy, readonly) NSString *filename, *artist, *album, *title;
-@property (nonatomic, weak) MUMHTTPStreamingClient *client;
+@property (nonatomic, weak, readwrite) MUMHTTPStreamingClient *client;
 
 + (UIImage *)sourceImage;
 

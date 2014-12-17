@@ -14,7 +14,6 @@ static NSString *kLibrary = @"library.json";
 
 @interface MUMHTTPStreamingClient ()
 @property(nonatomic, strong) AVPlayer* player;
-@property (nonatomic, readwrite) BOOL playing;
 @property(nonatomic, copy) NSString *hostName;
 @end
 
@@ -29,11 +28,6 @@ static NSString *kLibrary = @"library.json";
 - (instancetype)initWithHostName:(NSString *)hostName {
     if (!(self = [super init])) return nil;
     self.hostName = hostName;
-    RAC(self,playing) = [[RACObserve(self, player) ignore:nil] flattenMap:^RACStream *(AVPlayer *player) {
-        return [RACObserve(player,rate) map:^id(NSNumber *rate) {
-                return @(rate.floatValue>0);
-            }];
-    }];
     return self;
 }
 
@@ -109,6 +103,10 @@ static NSString *kLibrary = @"library.json";
     AVPlayerItem *currentItem = self.player.currentItem;
     NSCAssert(currentItem, @"");
     return @(currentItem ? CMTimeGetSeconds(currentItem.currentTime) : 0);
+}
+
+- (BOOL)playing {
+    return self.player.rate > 0;
 }
 
 

@@ -10,6 +10,7 @@
 @protocol MUMClient
 - (RACSignal *)getTracks;
 - (RACSignal *)search:(NSString *)query;
+// Non-KVO
 @property(nonatomic, readonly) BOOL playing;
 @property(nonatomic) BOOL enabled;
 @property(nonatomic, readonly) NSString *name;
