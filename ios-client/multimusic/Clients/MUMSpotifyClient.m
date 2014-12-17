@@ -72,8 +72,9 @@
 
 
 - (void)playTrack:(SpotifyTrack *)track{
-    // TODO - leak
+    @weakify(self)
     [[self.btfSpotify load:track.spTrack] subscribeNext:^(SPTrack *loadedTrack) {
+        @strongify(self)
         [self.btfSpotify.playbackManager playTrack:loadedTrack callback:^(NSError *error) {
             if(error){
                 NSLog(@"error playing back %@: %@",track,error);
