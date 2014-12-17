@@ -75,18 +75,18 @@ int mod(int a, int b)
         return active.boolValue ? filteredTracksSignal : tracksSignal;
     }];
 
-    RACSignal *racSignal = [RACSignal combineLatest:@[
+    RACSignal *mergedS = [RACSignal combineLatest:@[
             [RACSignal merge:@[prevS, nextS, absoluteS]],
             activeTracksSignal
     ]];
 
-    RACSignal *trackIdxS = [racSignal scanWithStart:@0
-                                             reduce:^id(NSNumber *running, RACTuple *tuple) {
-                                                 RACTupleUnpack(NextFn next, NSArray *tracks) = tuple;
-                                                 NSInteger trackCount = tracks.count;
-                                                 NSInteger i = next(running.integerValue);
-                                                 return @(mod(i,trackCount));
-                                             }];
+    RACSignal *trackIdxS = [mergedS scanWithStart:@0
+                                           reduce:^id(NSNumber *running, RACTuple *tuple) {
+                                               RACTupleUnpack(NextFn next, NSArray *tracks) = tuple;
+                                               NSInteger trackCount = tracks.count;
+                                               NSInteger i = next(running.integerValue);
+                                               return @(mod(i, trackCount));
+                                           }];
 
     [trackIdxS subscribeNext:^(id x) {
         NSLog(@"%@",x);
