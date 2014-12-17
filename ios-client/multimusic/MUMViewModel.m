@@ -44,7 +44,8 @@
         if(enabledClients.count==0) return [RACSignal return:@[]];
 
         return [[RACSignal combineLatest:[enabledClients mapUsingBlock:^id(id <MUMClient> client) {
-            return [clientAction(client, trigger) catch:^RACSignal *(NSError *error) {
+            RACSignal *tracksFromClient = [clientAction(client, trigger) startWith:@[]];
+            return [tracksFromClient catch:^RACSignal *(NSError *error) {
                 NSLog(@"Error while getting tracks from %@: %@", client, error);
                 return [RACSignal return:@[]];
             }];
