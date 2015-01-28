@@ -7,6 +7,7 @@ import json
 import os
 import sys
 import time
+import thread
 
 # default folder for media files
 MEDIA = 'media'
@@ -32,6 +33,10 @@ def listen_changed(path_to_watch):
         if added: print "Added: ", ", ".join (added)
         if removed: print "Removed: ", ", ".join (removed)
         before = after
+	changed = added or removed
+        if changed:
+            # TODO - somehow make sure file is fully uploaded and then rescan
+            pass
 
 def is_valid_audio(filename):
     valid_exts = ["mp3","mp4","m4a"];
@@ -56,6 +61,6 @@ with open(LIBRARY, "w") as f:
 
 print "Loaded %d files into library." % len(d["tracks"])
 
-#serve(port)
+thread.start_new_thread(listen_changed, (MEDIA,))
 
-listen_changed(MEDIA)
+serve(port)
