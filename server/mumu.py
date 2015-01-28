@@ -6,6 +6,7 @@ import mutagen
 import json
 import os
 import sys
+import time
 
 # default folder for media files
 MEDIA = 'media'
@@ -20,6 +21,17 @@ def serve(port):
     reactor.listenTCP(port, server.Site(root))
     print "serving at port", port
     reactor.run()
+
+def listen_changed(path_to_watch):
+    before = dict ([(f, None) for f in os.listdir (path_to_watch)])
+    while 1:
+        time.sleep (10)
+        after = dict ([(f, None) for f in os.listdir (path_to_watch)])
+        added = [f for f in after if not f in before]
+        removed = [f for f in before if not f in after]
+        if added: print "Added: ", ", ".join (added)
+        if removed: print "Removed: ", ", ".join (removed)
+        before = after
 
 def is_valid_audio(filename):
     valid_exts = ["mp3","mp4","m4a"];
@@ -44,4 +56,6 @@ with open(LIBRARY, "w") as f:
 
 print "Loaded %d files into library." % len(d["tracks"])
 
-serve(port)
+#serve(port)
+
+listen_changed(MEDIA)
